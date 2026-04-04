@@ -1,0 +1,33 @@
+{
+    "name": "occjs-fluidcad",
+    "version": "1.0.0",
+    "author": "Marwan Aouida <contact@marwan.dev>",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "browser": "./dist/index.js",
+            "node": "./dist/node.js",
+            "default": "./dist/index.js"
+        },
+        "./node": {
+            "types": "./dist/node.d.ts",
+            "default": "./dist/node.js"
+        }
+    },
+    "scripts": {
+        "build:dev": "NODE_OPTIONS=--max-old-space-size=8000 tsx src/main.ts",
+        "build": "NODE_OPTIONS=--max-old-space-size=8000 tsx src/main.ts && npm run minify",
+        "minify": "npx terser dist/occjs.js --module --mangle --compress -o dist/occjs.js"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.7",
+        "ts-morph": "^26.0.0",
+        "tsx": "^4.20.3",
+        "typescript": "~5.8.3",
+        "terser": "^5.43.1"
+    },
+    "dependencies": {}
+}
