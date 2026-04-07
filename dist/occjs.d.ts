@@ -1,5 +1,107 @@
-export type { BRepOffset_Mode, ChFi3d_FilletShape, Extrema_ExtAlgo, Extrema_ExtFlag, GccEnt_Position, GeomAbs_CurveType, GeomAbs_JoinType, GeomAbs_SurfaceType, IFSelect_ReturnStatus, Quantity_TypeOfColor, STEPControl_StepModelType, TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State, XCAFDoc_ColorType } from "opencascade.js/dist/opencascade.full.js";
-export declare class BOPAlgo_CellsBuilder {
+export type { BRepBuilderAPI_TransitionMode, BRepFill_TypeOfContact, BRepOffset_Mode, ChFi3d_FilletShape, Extrema_ExtAlgo, Extrema_ExtFlag, GccEnt_Position, GeomAbs_CurveType, GeomAbs_JoinType, GeomAbs_SurfaceType, IFSelect_ReturnStatus, Quantity_TypeOfColor, STEPControl_StepModelType, TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State, XCAFDoc_ColorType } from "opencascade.js/dist/opencascade.full.js";
+export declare class Handle_Adaptor2d_Curve2d {
+    constructor();
+    constructor(thePtr: Adaptor2d_Curve2d);
+    constructor(theHandle: Handle_Adaptor2d_Curve2d);
+    constructor(theHandle: Handle_Adaptor2d_Curve2d);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Adaptor2d_Curve2d): void;
+    get(): Adaptor2d_Curve2d;
+    delete(): void;
+}
+export declare class Handle_Adaptor3d_Curve {
+    constructor();
+    constructor(thePtr: Adaptor3d_Curve);
+    constructor(theHandle: Handle_Adaptor3d_Curve);
+    constructor(theHandle: Handle_Adaptor3d_Curve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Adaptor3d_Curve): void;
+    get(): Adaptor3d_Curve;
+    delete(): void;
+}
+export declare class Handle_Adaptor3d_Surface {
+    constructor();
+    constructor(thePtr: Adaptor3d_Surface);
+    constructor(theHandle: Handle_Adaptor3d_Surface);
+    constructor(theHandle: Handle_Adaptor3d_Surface);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Adaptor3d_Surface): void;
+    get(): Adaptor3d_Surface;
+    delete(): void;
+}
+export declare class BOPAlgo_Options {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    Allocator(): Handle_NCollection_BaseAllocator;
+    Clear(): void;
+    AddError(theAlert: Handle_Message_Alert): void;
+    AddWarning(theAlert: Handle_Message_Alert): void;
+    HasErrors(): Standard_Boolean;
+    HasError(theType: Handle_Standard_Type): Standard_Boolean;
+    HasWarnings(): Standard_Boolean;
+    HasWarning(theType: Handle_Standard_Type): Standard_Boolean;
+    GetReport(): Handle_Message_Report;
+    DumpErrors(theOS: Standard_OStream): void;
+    DumpWarnings(theOS: Standard_OStream): void;
+    ClearWarnings(): void;
+    static GetParallelMode(): Standard_Boolean;
+    static SetParallelMode(theNewMode: Standard_Boolean): void;
+    SetRunParallel(theFlag: Standard_Boolean): void;
+    RunParallel(): Standard_Boolean;
+    SetFuzzyValue(theFuzz: Standard_Real): void;
+    FuzzyValue(): Standard_Real;
+    SetUseOBB(theUseOBB: Standard_Boolean): void;
+    UseOBB(): Standard_Boolean;
+    delete(): void;
+}
+export declare class BOPAlgo_Algo extends BOPAlgo_Options {
+    constructor();
+    Perform(theRange: Message_ProgressRange): void;
+    delete(): void;
+}
+export declare class BOPAlgo_BuilderShape extends BOPAlgo_Algo {
+    constructor();
+    Shape(): TopoDS_Shape;
+    Modified(theS: TopoDS_Shape): TopTools_ListOfShape;
+    Generated(theS: TopoDS_Shape): TopTools_ListOfShape;
+    IsDeleted(theS: TopoDS_Shape): Standard_Boolean;
+    HasModified(): Standard_Boolean;
+    HasGenerated(): Standard_Boolean;
+    HasDeleted(): Standard_Boolean;
+    History(): Handle_BRepTools_History;
+    SetToFillHistory(theHistFlag: Standard_Boolean): void;
+    HasHistory(): Standard_Boolean;
+    delete(): void;
+}
+export declare class BOPAlgo_Builder extends BOPAlgo_BuilderShape {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    Clear(): void;
+    PPaveFiller(): BOPAlgo_PPaveFiller;
+    PDS(): BOPDS_PDS;
+    Context(): Handle_IntTools_Context;
+    AddArgument(theShape: TopoDS_Shape): void;
+    SetArguments(theLS: TopTools_ListOfShape): void;
+    Arguments(): TopTools_ListOfShape;
+    SetNonDestructive(theFlag: Standard_Boolean): void;
+    NonDestructive(): Standard_Boolean;
+    SetGlue(theGlue: BOPAlgo_GlueEnum): void;
+    Glue(): BOPAlgo_GlueEnum;
+    SetCheckInverted(theCheck: Standard_Boolean): void;
+    CheckInverted(): Standard_Boolean;
+    Perform(theRange: Message_ProgressRange): void;
+    PerformWithFiller(theFiller: BOPAlgo_PaveFiller, theRange: Message_ProgressRange): void;
+    Images(): TopTools_DataMapOfShapeListOfShape;
+    Origins(): TopTools_DataMapOfShapeListOfShape;
+    ShapesSD(): TopTools_DataMapOfShapeShape;
+    delete(): void;
+    BuildBOP(theObjects: TopTools_ListOfShape, theObjState: TopAbs_State, theTools: TopTools_ListOfShape, theToolsState: TopAbs_State, theRange: Message_ProgressRange, theReport: Handle_Message_Report): void;
+    BuildBOP(theObjects: TopTools_ListOfShape, theTools: TopTools_ListOfShape, theOperation: BOPAlgo_Operation, theRange: Message_ProgressRange, theReport: Handle_Message_Report): void;
+}
+export declare class BOPAlgo_CellsBuilder extends BOPAlgo_Builder {
     constructor();
     constructor(theAllocator: Handle_NCollection_BaseAllocator);
     Clear(): void;
@@ -12,67 +114,20 @@ export declare class BOPAlgo_CellsBuilder {
     MakeContainers(): void;
     delete(): void;
 }
-export declare class BOPAlgo_Splitter {
+export declare class BOPAlgo_ToolsProvider extends BOPAlgo_Builder {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    Clear(): void;
+    AddTool(theShape: TopoDS_Shape): void;
+    SetTools(theShapes: TopTools_ListOfShape): void;
+    Tools(): TopTools_ListOfShape;
+    delete(): void;
+}
+export declare class BOPAlgo_Splitter extends BOPAlgo_ToolsProvider {
     constructor();
     constructor(theAllocator: Handle_NCollection_BaseAllocator);
     Perform(theRange: Message_ProgressRange): void;
     delete(): void;
-}
-export declare class BRep_Builder {
-    constructor();
-    NaturalRestriction(F: TopoDS_Face, N: Standard_Boolean): void;
-    SameParameter(E: TopoDS_Edge, S: Standard_Boolean): void;
-    SameRange(E: TopoDS_Edge, S: Standard_Boolean): void;
-    Degenerated(E: TopoDS_Edge, D: Standard_Boolean): void;
-    delete(): void;
-    MakeFace(F: TopoDS_Face): void;
-    MakeFace(F: TopoDS_Face, S: Handle_Geom_Surface, Tol: Standard_Real): void;
-    MakeFace(F: TopoDS_Face, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
-    MakeFace(theFace: TopoDS_Face, theTriangulation: Handle_Poly_Triangulation): void;
-    MakeFace(theFace: TopoDS_Face, theTriangulations: Poly_ListOfTriangulation, theActiveTriangulation: Handle_Poly_Triangulation): void;
-    UpdateFace(F: TopoDS_Face, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
-    UpdateFace(theFace: TopoDS_Face, theTriangulation: Handle_Poly_Triangulation, theToReset: Standard_Boolean): void;
-    UpdateFace(F: TopoDS_Face, Tol: Standard_Real): void;
-    MakeEdge(E: TopoDS_Edge): void;
-    MakeEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, Tol: Standard_Real): void;
-    MakeEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, L: TopLoc_Location, Tol: Standard_Real): void;
-    MakeEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon3D): void;
-    MakeEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation): void;
-    MakeEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation, L: TopLoc_Location): void;
-    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, Tol: Standard_Real): void;
-    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, L: TopLoc_Location, Tol: Standard_Real): void;
-    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom2d_Curve, F: TopoDS_Face, Tol: Standard_Real): void;
-    UpdateEdge(E: TopoDS_Edge, C1: Handle_Geom2d_Curve, C2: Handle_Geom2d_Curve, F: TopoDS_Face, Tol: Standard_Real): void;
-    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
-    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real, Pf: gp_Pnt2d, Pl: gp_Pnt2d): void;
-    UpdateEdge(E: TopoDS_Edge, C1: Handle_Geom2d_Curve, C2: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
-    UpdateEdge(E: TopoDS_Edge, C1: Handle_Geom2d_Curve, C2: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real, Pf: gp_Pnt2d, Pl: gp_Pnt2d): void;
-    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon3D): void;
-    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon3D, L: TopLoc_Location): void;
-    UpdateEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation): void;
-    UpdateEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation, L: TopLoc_Location): void;
-    UpdateEdge(E: TopoDS_Edge, N1: Handle_Poly_PolygonOnTriangulation, N2: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation): void;
-    UpdateEdge(E: TopoDS_Edge, N1: Handle_Poly_PolygonOnTriangulation, N2: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation, L: TopLoc_Location): void;
-    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon2D, S: TopoDS_Face): void;
-    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon2D, S: Handle_Geom_Surface, T: TopLoc_Location): void;
-    UpdateEdge(E: TopoDS_Edge, P1: Handle_Poly_Polygon2D, P2: Handle_Poly_Polygon2D, S: TopoDS_Face): void;
-    UpdateEdge(E: TopoDS_Edge, P1: Handle_Poly_Polygon2D, P2: Handle_Poly_Polygon2D, S: Handle_Geom_Surface, L: TopLoc_Location): void;
-    UpdateEdge(E: TopoDS_Edge, Tol: Standard_Real): void;
-    Continuity(E: TopoDS_Edge, F1: TopoDS_Face, F2: TopoDS_Face, C: GeomAbs_Shape): void;
-    Continuity(E: TopoDS_Edge, S1: Handle_Geom_Surface, S2: Handle_Geom_Surface, L1: TopLoc_Location, L2: TopLoc_Location, C: GeomAbs_Shape): void;
-    Range(E: TopoDS_Edge, First: Standard_Real, Last: Standard_Real, Only3d: Standard_Boolean): void;
-    Range(E: TopoDS_Edge, S: Handle_Geom_Surface, L: TopLoc_Location, First: Standard_Real, Last: Standard_Real): void;
-    Range(E: TopoDS_Edge, F: TopoDS_Face, First: Standard_Real, Last: Standard_Real): void;
-    Transfert(Ein: TopoDS_Edge, Eout: TopoDS_Edge): void;
-    Transfert(Ein: TopoDS_Edge, Eout: TopoDS_Edge, Vin: TopoDS_Vertex, Vout: TopoDS_Vertex): void;
-    MakeVertex(V: TopoDS_Vertex): void;
-    MakeVertex(V: TopoDS_Vertex, P: gp_Pnt, Tol: Standard_Real): void;
-    UpdateVertex(V: TopoDS_Vertex, P: gp_Pnt, Tol: Standard_Real): void;
-    UpdateVertex(V: TopoDS_Vertex, P: Standard_Real, E: TopoDS_Edge, Tol: Standard_Real): void;
-    UpdateVertex(V: TopoDS_Vertex, P: Standard_Real, E: TopoDS_Edge, F: TopoDS_Face, Tol: Standard_Real): void;
-    UpdateVertex(V: TopoDS_Vertex, P: Standard_Real, E: TopoDS_Edge, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
-    UpdateVertex(Ve: TopoDS_Vertex, U: Standard_Real, V: Standard_Real, F: TopoDS_Face, Tol: Standard_Real): void;
-    UpdateVertex(V: TopoDS_Vertex, Tol: Standard_Real): void;
 }
 export declare class BRep_Tool {
     constructor();
@@ -130,159 +185,6 @@ export declare class BRep_Tool {
     static Parameter(V: TopoDS_Vertex, E: TopoDS_Edge, F: TopoDS_Face): Standard_Real;
     static Parameter(V: TopoDS_Vertex, E: TopoDS_Edge, S: Handle_Geom_Surface, L: TopLoc_Location): Standard_Real;
 }
-export declare class BRepAdaptor_CompCurve {
-    constructor();
-    constructor(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean);
-    constructor(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean, First: Standard_Real, Last: Standard_Real, Tol: Standard_Real);
-    static get_type_name(): Standard_Character;
-    static get_type_descriptor(): Handle_Standard_Type;
-    DynamicType(): Handle_Standard_Type;
-    ShallowCopy(): Handle_Adaptor3d_Curve;
-    Wire(): TopoDS_Wire;
-    Edge(U: Standard_Real, E: TopoDS_Edge, UonE: Standard_Real): void;
-    FirstParameter(): Standard_Real;
-    LastParameter(): Standard_Real;
-    Continuity(): GeomAbs_Shape;
-    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
-    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
-    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
-    IsClosed(): Standard_Boolean;
-    IsPeriodic(): Standard_Boolean;
-    Period(): Standard_Real;
-    Value(U: Standard_Real): gp_Pnt;
-    D0(U: Standard_Real, P: gp_Pnt): void;
-    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
-    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
-    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
-    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
-    Resolution(R3d: Standard_Real): Standard_Real;
-    GetType(): GeomAbs_CurveType;
-    Line(): gp_Lin;
-    Circle(): gp_Circ;
-    Ellipse(): gp_Elips;
-    Hyperbola(): gp_Hypr;
-    Parabola(): gp_Parab;
-    Degree(): Graphic3d_ZLayerId;
-    IsRational(): Standard_Boolean;
-    NbPoles(): Graphic3d_ZLayerId;
-    NbKnots(): Graphic3d_ZLayerId;
-    Bezier(): Handle_Geom_BezierCurve;
-    BSpline(): Handle_Geom_BSplineCurve;
-    delete(): void;
-    Initialize(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean): void;
-    Initialize(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean, First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): void;
-}
-export declare class BRepAdaptor_Curve {
-    constructor();
-    constructor(E: TopoDS_Edge);
-    constructor(E: TopoDS_Edge, F: TopoDS_Face);
-    static get_type_name(): Standard_Character;
-    static get_type_descriptor(): Handle_Standard_Type;
-    DynamicType(): Handle_Standard_Type;
-    ShallowCopy(): Handle_Adaptor3d_Curve;
-    Reset(): void;
-    Trsf(): gp_Trsf;
-    Is3DCurve(): Standard_Boolean;
-    IsCurveOnSurface(): Standard_Boolean;
-    Curve(): GeomAdaptor_Curve;
-    CurveOnSurface(): Adaptor3d_CurveOnSurface;
-    Edge(): TopoDS_Edge;
-    Tolerance(): Standard_Real;
-    FirstParameter(): Standard_Real;
-    LastParameter(): Standard_Real;
-    Continuity(): GeomAbs_Shape;
-    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
-    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
-    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
-    IsClosed(): Standard_Boolean;
-    IsPeriodic(): Standard_Boolean;
-    Period(): Standard_Real;
-    Value(U: Standard_Real): gp_Pnt;
-    D0(U: Standard_Real, P: gp_Pnt): void;
-    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
-    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
-    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
-    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
-    Resolution(R3d: Standard_Real): Standard_Real;
-    GetType(): GeomAbs_CurveType;
-    Line(): gp_Lin;
-    Circle(): gp_Circ;
-    Ellipse(): gp_Elips;
-    Hyperbola(): gp_Hypr;
-    Parabola(): gp_Parab;
-    Degree(): Graphic3d_ZLayerId;
-    IsRational(): Standard_Boolean;
-    NbPoles(): Graphic3d_ZLayerId;
-    NbKnots(): Graphic3d_ZLayerId;
-    Bezier(): Handle_Geom_BezierCurve;
-    BSpline(): Handle_Geom_BSplineCurve;
-    OffsetCurve(): Handle_Geom_OffsetCurve;
-    delete(): void;
-    Initialize(E: TopoDS_Edge): void;
-    Initialize(E: TopoDS_Edge, F: TopoDS_Face): void;
-}
-export declare class BRepAdaptor_Surface {
-    constructor();
-    constructor(F: TopoDS_Face, R: Standard_Boolean);
-    static get_type_name(): Standard_Character;
-    static get_type_descriptor(): Handle_Standard_Type;
-    DynamicType(): Handle_Standard_Type;
-    ShallowCopy(): Handle_Adaptor3d_Surface;
-    Initialize(F: TopoDS_Face, Restriction: Standard_Boolean): void;
-    Surface(): GeomAdaptor_Surface;
-    ChangeSurface(): GeomAdaptor_Surface;
-    Trsf(): gp_Trsf;
-    Face(): TopoDS_Face;
-    Tolerance(): Standard_Real;
-    FirstUParameter(): Standard_Real;
-    LastUParameter(): Standard_Real;
-    FirstVParameter(): Standard_Real;
-    LastVParameter(): Standard_Real;
-    UContinuity(): GeomAbs_Shape;
-    VContinuity(): GeomAbs_Shape;
-    NbUIntervals(theSh: GeomAbs_Shape): Graphic3d_ZLayerId;
-    NbVIntervals(theSh: GeomAbs_Shape): Graphic3d_ZLayerId;
-    UIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
-    VIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
-    UTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
-    VTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
-    IsUClosed(): Standard_Boolean;
-    IsVClosed(): Standard_Boolean;
-    IsUPeriodic(): Standard_Boolean;
-    UPeriod(): Standard_Real;
-    IsVPeriodic(): Standard_Boolean;
-    VPeriod(): Standard_Real;
-    Value(U: Standard_Real, V: Standard_Real): gp_Pnt;
-    D0(U: Standard_Real, V: Standard_Real, P: gp_Pnt): void;
-    D1(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec): void;
-    D2(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec): void;
-    D3(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec, D3U: gp_Vec, D3V: gp_Vec, D3UUV: gp_Vec, D3UVV: gp_Vec): void;
-    DN(U: Standard_Real, V: Standard_Real, Nu: Graphic3d_ZLayerId, Nv: Graphic3d_ZLayerId): gp_Vec;
-    UResolution(theR3d: Standard_Real): Standard_Real;
-    VResolution(theR3d: Standard_Real): Standard_Real;
-    GetType(): GeomAbs_SurfaceType;
-    Plane(): gp_Pln;
-    Cylinder(): gp_Cylinder;
-    Cone(): gp_Cone;
-    Sphere(): gp_Sphere;
-    Torus(): gp_Torus;
-    UDegree(): Graphic3d_ZLayerId;
-    NbUPoles(): Graphic3d_ZLayerId;
-    VDegree(): Graphic3d_ZLayerId;
-    NbVPoles(): Graphic3d_ZLayerId;
-    NbUKnots(): Graphic3d_ZLayerId;
-    NbVKnots(): Graphic3d_ZLayerId;
-    IsURational(): Standard_Boolean;
-    IsVRational(): Standard_Boolean;
-    Bezier(): Handle_Geom_BezierSurface;
-    BSpline(): Handle_Geom_BSplineSurface;
-    AxeOfRevolution(): gp_Ax1;
-    Direction(): gp_Dir;
-    BasisCurve(): Handle_Adaptor3d_Curve;
-    BasisSurface(): Handle_Adaptor3d_Surface;
-    OffsetValue(): Standard_Real;
-    delete(): void;
-}
 export declare class BRepAlgo_NormalProjection {
     constructor();
     constructor(S: TopoDS_Shape);
@@ -303,35 +205,6 @@ export declare class BRepAlgo_NormalProjection {
     BuildWire(Liste: TopTools_ListOfShape): Standard_Boolean;
     delete(): void;
 }
-export declare class BRepAlgoAPI_Common {
-    constructor();
-    constructor(PF: BOPAlgo_PaveFiller);
-    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, theRange: Message_ProgressRange);
-    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, PF: BOPAlgo_PaveFiller, theRange: Message_ProgressRange);
-    delete(): void;
-}
-export declare class BRepAlgoAPI_Cut {
-    constructor();
-    constructor(PF: BOPAlgo_PaveFiller);
-    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, theRange: Message_ProgressRange);
-    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, aDSF: BOPAlgo_PaveFiller, bFWD: Standard_Boolean, theRange: Message_ProgressRange);
-    delete(): void;
-}
-export declare class BRepAlgoAPI_Fuse {
-    constructor();
-    constructor(PF: BOPAlgo_PaveFiller);
-    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, theRange: Message_ProgressRange);
-    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, aDSF: BOPAlgo_PaveFiller, theRange: Message_ProgressRange);
-    delete(): void;
-}
-export declare class BRepAlgoAPI_Splitter {
-    constructor();
-    constructor(thePF: BOPAlgo_PaveFiller);
-    SetTools(theLS: TopTools_ListOfShape): void;
-    Tools(): TopTools_ListOfShape;
-    Build(theRange: Message_ProgressRange): void;
-    delete(): void;
-}
 export declare class BRepBndLib {
     constructor();
     static Add(S: TopoDS_Shape, B: Bnd_Box, useTriangulation: Standard_Boolean): void;
@@ -340,15 +213,109 @@ export declare class BRepBndLib {
     static AddOBB(theS: TopoDS_Shape, theOBB: Bnd_OBB, theIsTriangulationUsed: Standard_Boolean, theIsOptimal: Standard_Boolean, theIsShapeToleranceUsed: Standard_Boolean): void;
     delete(): void;
 }
-export declare class BRepBuilderAPI_FindPlane {
+export declare class BRepBuilderAPI_Command {
     constructor();
-    constructor(S: TopoDS_Shape, Tol: Standard_Real);
-    Init(S: TopoDS_Shape, Tol: Standard_Real): void;
-    Found(): Standard_Boolean;
-    Plane(): Handle_Geom_Plane;
+    IsDone(): Standard_Boolean;
+    Check(): void;
     delete(): void;
 }
-export declare class BRepBuilderAPI_MakeEdge {
+export declare class BRepBuilderAPI_MakeShape extends BRepBuilderAPI_Command {
+    constructor();
+    Build(theRange: Message_ProgressRange): void;
+    Shape(): TopoDS_Shape;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
+    IsDeleted(S: TopoDS_Shape): Standard_Boolean;
+    delete(): void;
+}
+export declare class BRepAlgoAPI_Algo extends BRepBuilderAPI_MakeShape {
+    constructor();
+    Shape(): TopoDS_Shape;
+    Clear(): void;
+    SetRunParallel(theFlag: Standard_Boolean): void;
+    RunParallel(): Standard_Boolean;
+    SetFuzzyValue(theFuzz: Standard_Real): void;
+    FuzzyValue(): Standard_Real;
+    HasErrors(): Standard_Boolean;
+    HasWarnings(): Standard_Boolean;
+    HasError(theType: Handle_Standard_Type): Standard_Boolean;
+    HasWarning(theType: Handle_Standard_Type): Standard_Boolean;
+    DumpErrors(theOS: Standard_OStream): void;
+    DumpWarnings(theOS: Standard_OStream): void;
+    ClearWarnings(): void;
+    GetReport(): Handle_Message_Report;
+    SetUseOBB(theUseOBB: Standard_Boolean): void;
+    delete(): void;
+}
+export declare class BRepAlgoAPI_BuilderAlgo extends BRepAlgoAPI_Algo {
+    constructor();
+    constructor(thePF: BOPAlgo_PaveFiller);
+    SetArguments(theLS: TopTools_ListOfShape): void;
+    Arguments(): TopTools_ListOfShape;
+    SetNonDestructive(theFlag: Standard_Boolean): void;
+    NonDestructive(): Standard_Boolean;
+    SetGlue(theGlue: BOPAlgo_GlueEnum): void;
+    Glue(): BOPAlgo_GlueEnum;
+    SetCheckInverted(theCheck: Standard_Boolean): void;
+    CheckInverted(): Standard_Boolean;
+    Build(theRange: Message_ProgressRange): void;
+    SimplifyResult(theUnifyEdges: Standard_Boolean, theUnifyFaces: Standard_Boolean, theAngularTol: Standard_Real): void;
+    Modified(theS: TopoDS_Shape): TopTools_ListOfShape;
+    Generated(theS: TopoDS_Shape): TopTools_ListOfShape;
+    IsDeleted(aS: TopoDS_Shape): Standard_Boolean;
+    HasModified(): Standard_Boolean;
+    HasGenerated(): Standard_Boolean;
+    HasDeleted(): Standard_Boolean;
+    SetToFillHistory(theHistFlag: Standard_Boolean): void;
+    HasHistory(): Standard_Boolean;
+    SectionEdges(): TopTools_ListOfShape;
+    DSFiller(): BOPAlgo_PPaveFiller;
+    Builder(): BOPAlgo_PBuilder;
+    History(): Handle_BRepTools_History;
+    delete(): void;
+}
+export declare class BRepAlgoAPI_BooleanOperation extends BRepAlgoAPI_BuilderAlgo {
+    constructor();
+    constructor(thePF: BOPAlgo_PaveFiller);
+    Shape1(): TopoDS_Shape;
+    Shape2(): TopoDS_Shape;
+    SetTools(theLS: TopTools_ListOfShape): void;
+    Tools(): TopTools_ListOfShape;
+    SetOperation(theBOP: BOPAlgo_Operation): void;
+    Operation(): BOPAlgo_Operation;
+    Build(theRange: Message_ProgressRange): void;
+    delete(): void;
+}
+export declare class BRepAlgoAPI_Common extends BRepAlgoAPI_BooleanOperation {
+    constructor();
+    constructor(PF: BOPAlgo_PaveFiller);
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, theRange: Message_ProgressRange);
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, PF: BOPAlgo_PaveFiller, theRange: Message_ProgressRange);
+    delete(): void;
+}
+export declare class BRepAlgoAPI_Cut extends BRepAlgoAPI_BooleanOperation {
+    constructor();
+    constructor(PF: BOPAlgo_PaveFiller);
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, theRange: Message_ProgressRange);
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, aDSF: BOPAlgo_PaveFiller, bFWD: Standard_Boolean, theRange: Message_ProgressRange);
+    delete(): void;
+}
+export declare class BRepAlgoAPI_Fuse extends BRepAlgoAPI_BooleanOperation {
+    constructor();
+    constructor(PF: BOPAlgo_PaveFiller);
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, theRange: Message_ProgressRange);
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, aDSF: BOPAlgo_PaveFiller, theRange: Message_ProgressRange);
+    delete(): void;
+}
+export declare class BRepAlgoAPI_Splitter extends BRepAlgoAPI_BuilderAlgo {
+    constructor();
+    constructor(thePF: BOPAlgo_PaveFiller);
+    SetTools(theLS: TopTools_ListOfShape): void;
+    Tools(): TopTools_ListOfShape;
+    Build(theRange: Message_ProgressRange): void;
+    delete(): void;
+}
+export declare class BRepBuilderAPI_MakeEdge extends BRepBuilderAPI_MakeShape {
     constructor();
     constructor(V1: TopoDS_Vertex, V2: TopoDS_Vertex);
     constructor(P1: gp_Pnt, P2: gp_Pnt);
@@ -403,7 +370,7 @@ export declare class BRepBuilderAPI_MakeEdge {
     Init(C: Handle_Geom2d_Curve, S: Handle_Geom_Surface, P1: gp_Pnt, P2: gp_Pnt, p1: Standard_Real, p2: Standard_Real): void;
     Init(C: Handle_Geom2d_Curve, S: Handle_Geom_Surface, V1: TopoDS_Vertex, V2: TopoDS_Vertex, p1: Standard_Real, p2: Standard_Real): void;
 }
-export declare class BRepBuilderAPI_MakeFace {
+export declare class BRepBuilderAPI_MakeFace extends BRepBuilderAPI_MakeShape {
     constructor();
     constructor(F: TopoDS_Face);
     constructor(P: gp_Pln);
@@ -435,12 +402,12 @@ export declare class BRepBuilderAPI_MakeFace {
     Init(S: Handle_Geom_Surface, Bound: Standard_Boolean, TolDegen: Standard_Real): void;
     Init(S: Handle_Geom_Surface, UMin: Standard_Real, UMax: Standard_Real, VMin: Standard_Real, VMax: Standard_Real, TolDegen: Standard_Real): void;
 }
-export declare class BRepBuilderAPI_MakeVertex {
+export declare class BRepBuilderAPI_MakeVertex extends BRepBuilderAPI_MakeShape {
     constructor(P: gp_Pnt);
     Vertex(): TopoDS_Vertex;
     delete(): void;
 }
-export declare class BRepBuilderAPI_MakeWire {
+export declare class BRepBuilderAPI_MakeWire extends BRepBuilderAPI_MakeShape {
     constructor();
     constructor(E: TopoDS_Edge);
     constructor(E1: TopoDS_Edge, E2: TopoDS_Edge);
@@ -458,7 +425,13 @@ export declare class BRepBuilderAPI_MakeWire {
     Add(W: TopoDS_Wire): void;
     Add(L: TopTools_ListOfShape): void;
 }
-export declare class BRepBuilderAPI_Transform {
+export declare class BRepBuilderAPI_ModifyShape extends BRepBuilderAPI_MakeShape {
+    constructor();
+    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
+    ModifiedShape(S: TopoDS_Shape): TopoDS_Shape;
+    delete(): void;
+}
+export declare class BRepBuilderAPI_Transform extends BRepBuilderAPI_ModifyShape {
     constructor(T: gp_Trsf);
     constructor(S: TopoDS_Shape, T: gp_Trsf, Copy: Standard_Boolean);
     Perform(S: TopoDS_Shape, Copy: Standard_Boolean): void;
@@ -466,63 +439,48 @@ export declare class BRepBuilderAPI_Transform {
     Modified(S: TopoDS_Shape): TopTools_ListOfShape;
     delete(): void;
 }
-export declare class BRepCheck_Analyzer {
-    constructor(S: TopoDS_Shape, GeomControls: Standard_Boolean, theIsParallel: Standard_Boolean);
-    Init(S: TopoDS_Shape, GeomControls: Standard_Boolean, theIsParallel: Standard_Boolean): void;
-    Result(theSubS: TopoDS_Shape): Handle_BRepCheck_Result;
-    delete(): void;
-    IsValid(S: TopoDS_Shape): Standard_Boolean;
-    IsValid(): Standard_Boolean;
-}
-export declare class BRepClass_FaceClassifier {
-    constructor();
-    constructor(F: BRepClass_FaceExplorer, P: gp_Pnt2d, Tol: Standard_Real);
-    constructor(theF: TopoDS_Face, theP: gp_Pnt2d, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real);
-    constructor(theF: TopoDS_Face, theP: gp_Pnt, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real);
-    delete(): void;
-    Perform(theF: TopoDS_Face, theP: gp_Pnt2d, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real): void;
-    Perform(theF: TopoDS_Face, theP: gp_Pnt, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real): void;
-}
-export declare class BRepClass3d_SolidClassifier {
+export declare class BRepOffsetAPI_DraftAngle extends BRepBuilderAPI_ModifyShape {
     constructor();
     constructor(S: TopoDS_Shape);
-    constructor(S: TopoDS_Shape, P: gp_Pnt, Tol: Standard_Real);
-    Load(S: TopoDS_Shape): void;
-    Perform(P: gp_Pnt, Tol: Standard_Real): void;
-    PerformInfinitePoint(Tol: Standard_Real): void;
-    Destroy(): void;
+    Clear(): void;
+    Init(S: TopoDS_Shape): void;
+    Add(F: TopoDS_Face, Direction: gp_Dir, Angle: Standard_Real, NeutralPlane: gp_Pln, Flag: Standard_Boolean): void;
+    AddDone(): Standard_Boolean;
+    Remove(F: TopoDS_Face): void;
+    ProblematicShape(): TopoDS_Shape;
+    Status(): Draft_ErrorStatus;
+    ConnectedFaces(F: TopoDS_Face): TopTools_ListOfShape;
+    ModifiedFaces(): TopTools_ListOfShape;
+    Build(theRange: Message_ProgressRange): void;
+    CorrectWires(): void;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
+    ModifiedShape(S: TopoDS_Shape): TopoDS_Shape;
     delete(): void;
 }
-export declare class BRepExtrema_DistShapeShape {
+export declare class BRepFilletAPI_LocalOperation extends BRepBuilderAPI_MakeShape {
     constructor();
-    constructor(Shape1: TopoDS_Shape, Shape2: TopoDS_Shape, F: Extrema_ExtFlag, A: Extrema_ExtAlgo, theRange: Message_ProgressRange);
-    constructor(Shape1: TopoDS_Shape, Shape2: TopoDS_Shape, theDeflection: Standard_Real, F: Extrema_ExtFlag, A: Extrema_ExtAlgo, theRange: Message_ProgressRange);
-    SetDeflection(theDeflection: Standard_Real): void;
-    LoadS1(Shape1: TopoDS_Shape): void;
-    LoadS2(Shape1: TopoDS_Shape): void;
-    Perform(theRange: Message_ProgressRange): Standard_Boolean;
-    IsDone(): Standard_Boolean;
-    NbSolution(): Graphic3d_ZLayerId;
-    Value(): Standard_Real;
-    InnerSolution(): Standard_Boolean;
-    PointOnShape1(N: Graphic3d_ZLayerId): gp_Pnt;
-    PointOnShape2(N: Graphic3d_ZLayerId): gp_Pnt;
-    SupportTypeShape1(N: Graphic3d_ZLayerId): BRepExtrema_SupportType;
-    SupportTypeShape2(N: Graphic3d_ZLayerId): BRepExtrema_SupportType;
-    SupportOnShape1(N: Graphic3d_ZLayerId): TopoDS_Shape;
-    SupportOnShape2(N: Graphic3d_ZLayerId): TopoDS_Shape;
-    ParOnEdgeS1(N: Graphic3d_ZLayerId, t: Standard_Real): void;
-    ParOnEdgeS2(N: Graphic3d_ZLayerId, t: Standard_Real): void;
-    ParOnFaceS1(N: Graphic3d_ZLayerId, u: Standard_Real, v: Standard_Real): void;
-    ParOnFaceS2(N: Graphic3d_ZLayerId, u: Standard_Real, v: Standard_Real): void;
-    Dump(o: Standard_OStream): void;
-    SetFlag(F: Extrema_ExtFlag): void;
-    SetAlgo(A: Extrema_ExtAlgo): void;
-    SetMultiThread(theIsMultiThread: Standard_Boolean): void;
-    IsMultiThread(): Standard_Boolean;
+    Add(E: TopoDS_Edge): void;
+    ResetContour(IC: Graphic3d_ZLayerId): void;
+    NbContours(): Graphic3d_ZLayerId;
+    Contour(E: TopoDS_Edge): Graphic3d_ZLayerId;
+    NbEdges(I: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    Edge(I: Graphic3d_ZLayerId, J: Graphic3d_ZLayerId): TopoDS_Edge;
+    Remove(E: TopoDS_Edge): void;
+    Length(IC: Graphic3d_ZLayerId): Standard_Real;
+    FirstVertex(IC: Graphic3d_ZLayerId): TopoDS_Vertex;
+    LastVertex(IC: Graphic3d_ZLayerId): TopoDS_Vertex;
+    Abscissa(IC: Graphic3d_ZLayerId, V: TopoDS_Vertex): Standard_Real;
+    RelativeAbscissa(IC: Graphic3d_ZLayerId, V: TopoDS_Vertex): Standard_Real;
+    ClosedAndTangent(IC: Graphic3d_ZLayerId): Standard_Boolean;
+    Closed(IC: Graphic3d_ZLayerId): Standard_Boolean;
+    Reset(): void;
+    Simulate(IC: Graphic3d_ZLayerId): void;
+    NbSurf(IC: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    Sect(IC: Graphic3d_ZLayerId, IS: Graphic3d_ZLayerId): Handle_ChFiDS_SecHArray1;
     delete(): void;
 }
-export declare class BRepFilletAPI_MakeChamfer {
+export declare class BRepFilletAPI_MakeChamfer extends BRepFilletAPI_LocalOperation {
     constructor(S: TopoDS_Shape);
     SetDist(Dis: Standard_Real, IC: Graphic3d_ZLayerId, F: TopoDS_Face): void;
     GetDist(IC: Graphic3d_ZLayerId, Dis: Standard_Real): void;
@@ -562,7 +520,7 @@ export declare class BRepFilletAPI_MakeChamfer {
     Add(Dis: Standard_Real, E: TopoDS_Edge): void;
     Add(Dis1: Standard_Real, Dis2: Standard_Real, E: TopoDS_Edge, F: TopoDS_Face): void;
 }
-export declare class BRepFilletAPI_MakeFillet {
+export declare class BRepFilletAPI_MakeFillet extends BRepFilletAPI_LocalOperation {
     constructor(S: TopoDS_Shape, FShape: ChFi3d_FilletShape);
     SetParams(Tang: Standard_Real, Tesp: Standard_Real, T2d: Standard_Real, TApp3d: Standard_Real, TolApp2d: Standard_Real, Fleche: Standard_Real): void;
     SetContinuity(InternalContinuity: GeomAbs_Shape, AngularTolerance: Standard_Real): void;
@@ -621,6 +579,331 @@ export declare class BRepFilletAPI_MakeFillet {
     Radius(IC: Graphic3d_ZLayerId): Standard_Real;
     Radius(IC: Graphic3d_ZLayerId, E: TopoDS_Edge): Standard_Real;
 }
+export declare class BRepOffsetAPI_MakeOffset extends BRepBuilderAPI_MakeShape {
+    constructor();
+    constructor(Spine: TopoDS_Face, Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean);
+    constructor(Spine: TopoDS_Wire, Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean);
+    AddWire(Spine: TopoDS_Wire): void;
+    Perform(Offset: Standard_Real, Alt: Standard_Real): void;
+    Build(theRange: Message_ProgressRange): void;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    delete(): void;
+    Init(Spine: TopoDS_Face, Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean): void;
+    Init(Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean): void;
+}
+export declare class BRepOffsetAPI_MakeOffsetShape extends BRepBuilderAPI_MakeShape {
+    constructor();
+    PerformBySimple(theS: TopoDS_Shape, theOffsetValue: Standard_Real): void;
+    PerformByJoin(S: TopoDS_Shape, Offset: Standard_Real, Tol: Standard_Real, Mode: BRepOffset_Mode, Intersection: Standard_Boolean, SelfInter: Standard_Boolean, Join: GeomAbs_JoinType, RemoveIntEdges: Standard_Boolean, theRange: Message_ProgressRange): void;
+    MakeOffset(): BRepOffset_MakeOffset;
+    Build(theRange: Message_ProgressRange): void;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
+    IsDeleted(S: TopoDS_Shape): Standard_Boolean;
+    GetJoinType(): GeomAbs_JoinType;
+    delete(): void;
+}
+export declare class BRepOffsetAPI_MakeThickSolid extends BRepOffsetAPI_MakeOffsetShape {
+    constructor();
+    MakeThickSolidBySimple(theS: TopoDS_Shape, theOffsetValue: Standard_Real): void;
+    MakeThickSolidByJoin(S: TopoDS_Shape, ClosingFaces: TopTools_ListOfShape, Offset: Standard_Real, Tol: Standard_Real, Mode: BRepOffset_Mode, Intersection: Standard_Boolean, SelfInter: Standard_Boolean, Join: GeomAbs_JoinType, RemoveIntEdges: Standard_Boolean, theRange: Message_ProgressRange): void;
+    Build(theRange: Message_ProgressRange): void;
+    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
+    delete(): void;
+}
+export declare class BRepOffsetAPI_ThruSections extends BRepBuilderAPI_MakeShape {
+    constructor(isSolid: Standard_Boolean, ruled: Standard_Boolean, pres3d: Standard_Real);
+    Init(isSolid: Standard_Boolean, ruled: Standard_Boolean, pres3d: Standard_Real): void;
+    AddWire(wire: TopoDS_Wire): void;
+    AddVertex(aVertex: TopoDS_Vertex): void;
+    CheckCompatibility(check: Standard_Boolean): void;
+    SetSmoothing(UseSmoothing: Standard_Boolean): void;
+    SetParType(ParType: Approx_ParametrizationType): void;
+    SetContinuity(C: GeomAbs_Shape): void;
+    SetCriteriumWeight(W1: Standard_Real, W2: Standard_Real, W3: Standard_Real): void;
+    SetMaxDegree(MaxDeg: Graphic3d_ZLayerId): void;
+    ParType(): Approx_ParametrizationType;
+    Continuity(): GeomAbs_Shape;
+    MaxDegree(): Graphic3d_ZLayerId;
+    UseSmoothing(): Standard_Boolean;
+    CriteriumWeight(W1: Standard_Real, W2: Standard_Real, W3: Standard_Real): void;
+    Build(theRange: Message_ProgressRange): void;
+    FirstShape(): TopoDS_Shape;
+    LastShape(): TopoDS_Shape;
+    GeneratedFace(Edge: TopoDS_Shape): TopoDS_Shape;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    Wires(): TopTools_ListOfShape;
+    delete(): void;
+}
+export declare class BRepPrimAPI_MakeOneAxis extends BRepBuilderAPI_MakeShape {
+    constructor();
+    OneAxis(): Standard_Address;
+    Build(theRange: Message_ProgressRange): void;
+    Face(): TopoDS_Face;
+    Shell(): TopoDS_Shell;
+    Solid(): TopoDS_Solid;
+    delete(): void;
+}
+export declare class BRepPrimAPI_MakeCylinder extends BRepPrimAPI_MakeOneAxis {
+    constructor(R: Standard_Real, H: Standard_Real);
+    constructor(R: Standard_Real, H: Standard_Real, Angle: Standard_Real);
+    constructor(Axes: gp_Ax2, R: Standard_Real, H: Standard_Real);
+    constructor(Axes: gp_Ax2, R: Standard_Real, H: Standard_Real, Angle: Standard_Real);
+    OneAxis(): Standard_Address;
+    Cylinder(): BRepPrim_Cylinder;
+    delete(): void;
+}
+export declare class BRepPrimAPI_MakeSphere extends BRepPrimAPI_MakeOneAxis {
+    constructor(R: Standard_Real);
+    constructor(R: Standard_Real, angle: Standard_Real);
+    constructor(R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real);
+    constructor(R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real, angle3: Standard_Real);
+    constructor(Center: gp_Pnt, R: Standard_Real);
+    constructor(Center: gp_Pnt, R: Standard_Real, angle: Standard_Real);
+    constructor(Center: gp_Pnt, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real);
+    constructor(Center: gp_Pnt, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real, angle3: Standard_Real);
+    constructor(Axis: gp_Ax2, R: Standard_Real);
+    constructor(Axis: gp_Ax2, R: Standard_Real, angle: Standard_Real);
+    constructor(Axis: gp_Ax2, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real);
+    constructor(Axis: gp_Ax2, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real, angle3: Standard_Real);
+    OneAxis(): Standard_Address;
+    Sphere(): BRepPrim_Sphere;
+    delete(): void;
+}
+export declare class BRepPrimAPI_MakeSweep extends BRepBuilderAPI_MakeShape {
+    constructor();
+    FirstShape(): TopoDS_Shape;
+    LastShape(): TopoDS_Shape;
+    delete(): void;
+}
+export declare class BRepOffsetAPI_MakePipeShell extends BRepPrimAPI_MakeSweep {
+    constructor(Spine: TopoDS_Wire);
+    SetDiscreteMode(): void;
+    Delete(Profile: TopoDS_Shape): void;
+    IsReady(): Standard_Boolean;
+    GetStatus(): BRepBuilderAPI_PipeError;
+    SetTolerance(Tol3d: Standard_Real, BoundTol: Standard_Real, TolAngular: Standard_Real): void;
+    SetMaxDegree(NewMaxDegree: Graphic3d_ZLayerId): void;
+    SetMaxSegments(NewMaxSegments: Graphic3d_ZLayerId): void;
+    SetForceApproxC1(ForceApproxC1: Standard_Boolean): void;
+    SetTransitionMode(Mode: BRepBuilderAPI_TransitionMode): void;
+    Simulate(NumberOfSection: Graphic3d_ZLayerId, Result: TopTools_ListOfShape): void;
+    Build(theRange: Message_ProgressRange): void;
+    MakeSolid(): Standard_Boolean;
+    FirstShape(): TopoDS_Shape;
+    LastShape(): TopoDS_Shape;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    ErrorOnSurface(): Standard_Real;
+    Profiles(theProfiles: TopTools_ListOfShape): void;
+    Spine(): TopoDS_Wire;
+    delete(): void;
+    SetMode(IsFrenet: Standard_Boolean): void;
+    SetMode(Axe: gp_Ax2): void;
+    SetMode(BiNormal: gp_Dir): void;
+    SetMode(SpineSupport: TopoDS_Shape): Standard_Boolean;
+    SetMode(AuxiliarySpine: TopoDS_Wire, CurvilinearEquivalence: Standard_Boolean, KeepContact: BRepFill_TypeOfContact): void;
+    Add(Profile: TopoDS_Shape, WithContact: Standard_Boolean, WithCorrection: Standard_Boolean): void;
+    Add(Profile: TopoDS_Shape, Location: TopoDS_Vertex, WithContact: Standard_Boolean, WithCorrection: Standard_Boolean): void;
+    SetLaw(Profile: TopoDS_Shape, L: Handle_Law_Function, WithContact: Standard_Boolean, WithCorrection: Standard_Boolean): void;
+    SetLaw(Profile: TopoDS_Shape, L: Handle_Law_Function, Location: TopoDS_Vertex, WithContact: Standard_Boolean, WithCorrection: Standard_Boolean): void;
+}
+export declare class BRepPrimAPI_MakePrism extends BRepPrimAPI_MakeSweep {
+    constructor(S: TopoDS_Shape, V: gp_Vec, Copy: Standard_Boolean, Canonize: Standard_Boolean);
+    constructor(S: TopoDS_Shape, D: gp_Dir, Inf: Standard_Boolean, Copy: Standard_Boolean, Canonize: Standard_Boolean);
+    Prism(): BRepSweep_Prism;
+    Build(theRange: Message_ProgressRange): void;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    IsDeleted(S: TopoDS_Shape): Standard_Boolean;
+    delete(): void;
+    FirstShape(): TopoDS_Shape;
+    FirstShape(theShape: TopoDS_Shape): TopoDS_Shape;
+    LastShape(): TopoDS_Shape;
+    LastShape(theShape: TopoDS_Shape): TopoDS_Shape;
+}
+export declare class BRepPrimAPI_MakeRevol extends BRepPrimAPI_MakeSweep {
+    constructor(S: TopoDS_Shape, A: gp_Ax1, D: Standard_Real, Copy: Standard_Boolean);
+    constructor(S: TopoDS_Shape, A: gp_Ax1, Copy: Standard_Boolean);
+    Revol(): BRepSweep_Revol;
+    Build(theRange: Message_ProgressRange): void;
+    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
+    IsDeleted(S: TopoDS_Shape): Standard_Boolean;
+    HasDegenerated(): Standard_Boolean;
+    Degenerated(): TopTools_ListOfShape;
+    delete(): void;
+    FirstShape(): TopoDS_Shape;
+    FirstShape(theShape: TopoDS_Shape): TopoDS_Shape;
+    LastShape(): TopoDS_Shape;
+    LastShape(theShape: TopoDS_Shape): TopoDS_Shape;
+}
+export declare class BRepBuilderAPI_FindPlane {
+    constructor();
+    constructor(S: TopoDS_Shape, Tol: Standard_Real);
+    Init(S: TopoDS_Shape, Tol: Standard_Real): void;
+    Found(): Standard_Boolean;
+    Plane(): Handle_Geom_Plane;
+    delete(): void;
+}
+export declare class BRepCheck_Analyzer {
+    constructor(S: TopoDS_Shape, GeomControls: Standard_Boolean, theIsParallel: Standard_Boolean);
+    Init(S: TopoDS_Shape, GeomControls: Standard_Boolean, theIsParallel: Standard_Boolean): void;
+    Result(theSubS: TopoDS_Shape): Handle_BRepCheck_Result;
+    delete(): void;
+    IsValid(S: TopoDS_Shape): Standard_Boolean;
+    IsValid(): Standard_Boolean;
+}
+export declare class Handle_BRepCheck_Result {
+    constructor();
+    constructor(thePtr: BRepCheck_Result);
+    constructor(theHandle: Handle_BRepCheck_Result);
+    constructor(theHandle: Handle_BRepCheck_Result);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: BRepCheck_Result): void;
+    get(): BRepCheck_Result;
+    delete(): void;
+}
+export declare class BRepClass_Edge {
+    constructor();
+    constructor(E: TopoDS_Edge, F: TopoDS_Face);
+    NextEdge(): TopoDS_Edge;
+    SetNextEdge(theMapVE: TopTools_IndexedDataMapOfShapeListOfShape): void;
+    MaxTolerance(): Standard_Real;
+    SetMaxTolerance(theValue: Standard_Real): void;
+    UseBndBox(): Standard_Boolean;
+    SetUseBndBox(theValue: Standard_Boolean): void;
+    delete(): void;
+    Edge(): TopoDS_Edge;
+    Edge(): TopoDS_Edge;
+    Face(): TopoDS_Face;
+    Face(): TopoDS_Face;
+}
+export declare class BRepClass_FClassifier {
+    constructor();
+    constructor(F: BRepClass_FaceExplorer, P: gp_Pnt2d, Tol: Standard_Real);
+    Perform(F: BRepClass_FaceExplorer, P: gp_Pnt2d, Tol: Standard_Real): void;
+    State(): TopAbs_State;
+    Rejected(): Standard_Boolean;
+    NoWires(): Standard_Boolean;
+    Edge(): BRepClass_Edge;
+    EdgeParameter(): Standard_Real;
+    Position(): IntRes2d_Position;
+    delete(): void;
+}
+export declare class BRepClass_FaceClassifier extends BRepClass_FClassifier {
+    constructor();
+    constructor(F: BRepClass_FaceExplorer, P: gp_Pnt2d, Tol: Standard_Real);
+    constructor(theF: TopoDS_Face, theP: gp_Pnt2d, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real);
+    constructor(theF: TopoDS_Face, theP: gp_Pnt, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real);
+    delete(): void;
+    Perform(theF: TopoDS_Face, theP: gp_Pnt2d, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real): void;
+    Perform(theF: TopoDS_Face, theP: gp_Pnt, theTol: Standard_Real, theUseBndBox: Standard_Boolean, theGapCheckTol: Standard_Real): void;
+}
+export declare class BRepClass_FaceExplorer {
+    constructor(F: TopoDS_Face);
+    CheckPoint(thePoint: gp_Pnt2d): Standard_Boolean;
+    Reject(P: gp_Pnt2d): Standard_Boolean;
+    Segment(P: gp_Pnt2d, L: gp_Lin2d, Par: Standard_Real): Standard_Boolean;
+    OtherSegment(P: gp_Pnt2d, L: gp_Lin2d, Par: Standard_Real): Standard_Boolean;
+    InitWires(): void;
+    MoreWires(): Standard_Boolean;
+    NextWire(): void;
+    RejectWire(L: gp_Lin2d, Par: Standard_Real): Standard_Boolean;
+    InitEdges(): void;
+    MoreEdges(): Standard_Boolean;
+    NextEdge(): void;
+    RejectEdge(L: gp_Lin2d, Par: Standard_Real): Standard_Boolean;
+    CurrentEdge(E: BRepClass_Edge, Or: TopAbs_Orientation): void;
+    MaxTolerance(): Standard_Real;
+    SetMaxTolerance(theValue: Standard_Real): void;
+    UseBndBox(): Standard_Boolean;
+    SetUseBndBox(theValue: Standard_Boolean): void;
+    delete(): void;
+}
+export declare class BRepClass3d_SClassifier {
+    constructor();
+    constructor(S: BRepClass3d_SolidExplorer, P: gp_Pnt, Tol: Standard_Real);
+    Perform(S: BRepClass3d_SolidExplorer, P: gp_Pnt, Tol: Standard_Real): void;
+    PerformInfinitePoint(S: BRepClass3d_SolidExplorer, Tol: Standard_Real): void;
+    Rejected(): Standard_Boolean;
+    State(): TopAbs_State;
+    IsOnAFace(): Standard_Boolean;
+    Face(): TopoDS_Face;
+    delete(): void;
+}
+export declare class BRepClass3d_SolidClassifier extends BRepClass3d_SClassifier {
+    constructor();
+    constructor(S: TopoDS_Shape);
+    constructor(S: TopoDS_Shape, P: gp_Pnt, Tol: Standard_Real);
+    Load(S: TopoDS_Shape): void;
+    Perform(P: gp_Pnt, Tol: Standard_Real): void;
+    PerformInfinitePoint(Tol: Standard_Real): void;
+    Destroy(): void;
+    delete(): void;
+}
+export declare class BRepClass3d_SolidExplorer {
+    constructor();
+    constructor(S: TopoDS_Shape);
+    InitShape(S: TopoDS_Shape): void;
+    Reject(P: gp_Pnt): Standard_Boolean;
+    InitShell(): void;
+    MoreShell(): Standard_Boolean;
+    NextShell(): void;
+    CurrentShell(): TopoDS_Shell;
+    RejectShell(L: gp_Lin): Standard_Boolean;
+    InitFace(): void;
+    MoreFace(): Standard_Boolean;
+    NextFace(): void;
+    CurrentFace(): TopoDS_Face;
+    RejectFace(L: gp_Lin): Standard_Boolean;
+    Segment(P: gp_Pnt, L: gp_Lin, Par: Standard_Real): Graphic3d_ZLayerId;
+    OtherSegment(P: gp_Pnt, L: gp_Lin, Par: Standard_Real): Graphic3d_ZLayerId;
+    GetFaceSegmentIndex(): Graphic3d_ZLayerId;
+    DumpSegment(P: gp_Pnt, L: gp_Lin, Par: Standard_Real, S: TopAbs_State): void;
+    Box(): Bnd_Box;
+    GetShape(): TopoDS_Shape;
+    Intersector(F: TopoDS_Face): IntCurvesFace_Intersector;
+    GetMapEV(): TopTools_IndexedMapOfShape;
+    Destroy(): void;
+    delete(): void;
+    static FindAPointInTheFace(F: TopoDS_Face, P: gp_Pnt, Param: Standard_Real): Standard_Boolean;
+    static FindAPointInTheFace(F: TopoDS_Face, P: gp_Pnt, u: Standard_Real, v: Standard_Real, Param: Standard_Real): Standard_Boolean;
+    static FindAPointInTheFace(F: TopoDS_Face, P: gp_Pnt, u: Standard_Real, v: Standard_Real, Param: Standard_Real, theVecD1U: gp_Vec, theVecD1V: gp_Vec): Standard_Boolean;
+    static FindAPointInTheFace(F: TopoDS_Face, P: gp_Pnt, u: Standard_Real, v: Standard_Real): Standard_Boolean;
+    static FindAPointInTheFace(F: TopoDS_Face, P: gp_Pnt): Standard_Boolean;
+    static FindAPointInTheFace(F: TopoDS_Face, u: Standard_Real, v: Standard_Real): Standard_Boolean;
+    PointInTheFace(F: TopoDS_Face, P: gp_Pnt, u: Standard_Real, v: Standard_Real, Param: Standard_Real, Index: Graphic3d_ZLayerId): Standard_Boolean;
+    PointInTheFace(F: TopoDS_Face, P: gp_Pnt, u: Standard_Real, v: Standard_Real, Param: Standard_Real, Index: Graphic3d_ZLayerId, surf: Handle_BRepAdaptor_Surface, u1: Standard_Real, v1: Standard_Real, u2: Standard_Real, v2: Standard_Real): Standard_Boolean;
+    PointInTheFace(F: TopoDS_Face, P: gp_Pnt, u: Standard_Real, v: Standard_Real, Param: Standard_Real, Index: Graphic3d_ZLayerId, surf: Handle_BRepAdaptor_Surface, u1: Standard_Real, v1: Standard_Real, u2: Standard_Real, v2: Standard_Real, theVecD1U: gp_Vec, theVecD1V: gp_Vec): Standard_Boolean;
+}
+export declare class BRepExtrema_DistShapeShape {
+    constructor();
+    constructor(Shape1: TopoDS_Shape, Shape2: TopoDS_Shape, F: Extrema_ExtFlag, A: Extrema_ExtAlgo, theRange: Message_ProgressRange);
+    constructor(Shape1: TopoDS_Shape, Shape2: TopoDS_Shape, theDeflection: Standard_Real, F: Extrema_ExtFlag, A: Extrema_ExtAlgo, theRange: Message_ProgressRange);
+    SetDeflection(theDeflection: Standard_Real): void;
+    LoadS1(Shape1: TopoDS_Shape): void;
+    LoadS2(Shape1: TopoDS_Shape): void;
+    Perform(theRange: Message_ProgressRange): Standard_Boolean;
+    IsDone(): Standard_Boolean;
+    NbSolution(): Graphic3d_ZLayerId;
+    Value(): Standard_Real;
+    InnerSolution(): Standard_Boolean;
+    PointOnShape1(N: Graphic3d_ZLayerId): gp_Pnt;
+    PointOnShape2(N: Graphic3d_ZLayerId): gp_Pnt;
+    SupportTypeShape1(N: Graphic3d_ZLayerId): BRepExtrema_SupportType;
+    SupportTypeShape2(N: Graphic3d_ZLayerId): BRepExtrema_SupportType;
+    SupportOnShape1(N: Graphic3d_ZLayerId): TopoDS_Shape;
+    SupportOnShape2(N: Graphic3d_ZLayerId): TopoDS_Shape;
+    ParOnEdgeS1(N: Graphic3d_ZLayerId, t: Standard_Real): void;
+    ParOnEdgeS2(N: Graphic3d_ZLayerId, t: Standard_Real): void;
+    ParOnFaceS1(N: Graphic3d_ZLayerId, u: Standard_Real, v: Standard_Real): void;
+    ParOnFaceS2(N: Graphic3d_ZLayerId, u: Standard_Real, v: Standard_Real): void;
+    Dump(o: Standard_OStream): void;
+    SetFlag(F: Extrema_ExtFlag): void;
+    SetAlgo(A: Extrema_ExtAlgo): void;
+    SetMultiThread(theIsMultiThread: Standard_Boolean): void;
+    IsMultiThread(): Standard_Boolean;
+    delete(): void;
+}
 export declare class BRepGProp {
     constructor();
     static LinearProperties(S: TopoDS_Shape, LProps: GProp_GProps, SkipShared: Standard_Boolean, UseTriangulation: Standard_Boolean): void;
@@ -632,7 +915,25 @@ export declare class BRepGProp {
     static VolumePropertiesGK(S: TopoDS_Shape, VProps: GProp_GProps, Eps: Standard_Real, OnlyClosed: Standard_Boolean, IsUseSpan: Standard_Boolean, CGFlag: Standard_Boolean, IFlag: Standard_Boolean, SkipShared: Standard_Boolean): Standard_Real;
     static VolumePropertiesGK(S: TopoDS_Shape, VProps: GProp_GProps, thePln: gp_Pln, Eps: Standard_Real, OnlyClosed: Standard_Boolean, IsUseSpan: Standard_Boolean, CGFlag: Standard_Boolean, IFlag: Standard_Boolean, SkipShared: Standard_Boolean): Standard_Real;
 }
-export declare class BRepLib_MakeFace {
+export declare class BRepLib_Command {
+    constructor();
+    IsDone(): Standard_Boolean;
+    Check(): void;
+    delete(): void;
+}
+export declare class BRepLib_MakeShape extends BRepLib_Command {
+    constructor();
+    Build(): void;
+    Shape(): TopoDS_Shape;
+    FaceStatus(F: TopoDS_Face): BRepLib_ShapeModification;
+    HasDescendants(F: TopoDS_Face): Standard_Boolean;
+    DescendantFaces(F: TopoDS_Face): TopTools_ListOfShape;
+    NbSurfaces(): Graphic3d_ZLayerId;
+    NewFaces(I: Graphic3d_ZLayerId): TopTools_ListOfShape;
+    FacesFromEdges(E: TopoDS_Edge): TopTools_ListOfShape;
+    delete(): void;
+}
+export declare class BRepLib_MakeFace extends BRepLib_MakeShape {
     constructor();
     constructor(F: TopoDS_Face);
     constructor(P: gp_Pln);
@@ -664,140 +965,50 @@ export declare class BRepLib_MakeFace {
     Init(S: Handle_Geom_Surface, Bound: Standard_Boolean, TolDegen: Standard_Real): void;
     Init(S: Handle_Geom_Surface, UMin: Standard_Real, UMax: Standard_Real, VMin: Standard_Real, VMax: Standard_Real, TolDegen: Standard_Real): void;
 }
-export declare class BRepMesh_IncrementalMesh {
-    constructor();
-    constructor(theShape: TopoDS_Shape, theLinDeflection: Standard_Real, isRelative: Standard_Boolean, theAngDeflection: Standard_Real, isInParallel: Standard_Boolean);
-    constructor(theShape: TopoDS_Shape, theParameters: IMeshTools_Parameters, theRange: Message_ProgressRange);
-    Parameters(): IMeshTools_Parameters;
-    ChangeParameters(): IMeshTools_Parameters;
-    IsModified(): Standard_Boolean;
-    GetStatusFlags(): Graphic3d_ZLayerId;
-    static Discret(theShape: TopoDS_Shape, theLinDeflection: Standard_Real, theAngDeflection: Standard_Real, theAlgo: BRepMesh_DiscretRoot): Graphic3d_ZLayerId;
-    static IsParallelDefault(): Standard_Boolean;
-    static SetParallelDefault(isInParallel: Standard_Boolean): void;
-    static get_type_name(): Standard_Character;
-    static get_type_descriptor(): Handle_Standard_Type;
-    DynamicType(): Handle_Standard_Type;
-    delete(): void;
-    Perform(theRange: Message_ProgressRange): void;
-    Perform(theContext: any, theRange: Message_ProgressRange): void;
-}
-export declare class BRepOffsetAPI_DraftAngle {
-    constructor();
-    constructor(S: TopoDS_Shape);
-    Clear(): void;
-    Init(S: TopoDS_Shape): void;
-    Add(F: TopoDS_Face, Direction: gp_Dir, Angle: Standard_Real, NeutralPlane: gp_Pln, Flag: Standard_Boolean): void;
-    AddDone(): Standard_Boolean;
-    Remove(F: TopoDS_Face): void;
-    ProblematicShape(): TopoDS_Shape;
-    Status(): Draft_ErrorStatus;
-    ConnectedFaces(F: TopoDS_Face): TopTools_ListOfShape;
-    ModifiedFaces(): TopTools_ListOfShape;
-    Build(theRange: Message_ProgressRange): void;
-    CorrectWires(): void;
-    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
-    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
-    ModifiedShape(S: TopoDS_Shape): TopoDS_Shape;
-    delete(): void;
-}
-export declare class BRepOffsetAPI_MakeOffset {
-    constructor();
-    constructor(Spine: TopoDS_Face, Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean);
-    constructor(Spine: TopoDS_Wire, Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean);
-    AddWire(Spine: TopoDS_Wire): void;
-    Perform(Offset: Standard_Real, Alt: Standard_Real): void;
-    Build(theRange: Message_ProgressRange): void;
-    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
-    delete(): void;
-    Init(Spine: TopoDS_Face, Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean): void;
-    Init(Join: GeomAbs_JoinType, IsOpenResult: Standard_Boolean): void;
-}
-export declare class BRepOffsetAPI_MakeThickSolid {
-    constructor();
-    MakeThickSolidBySimple(theS: TopoDS_Shape, theOffsetValue: Standard_Real): void;
-    MakeThickSolidByJoin(S: TopoDS_Shape, ClosingFaces: TopTools_ListOfShape, Offset: Standard_Real, Tol: Standard_Real, Mode: BRepOffset_Mode, Intersection: Standard_Boolean, SelfInter: Standard_Boolean, Join: GeomAbs_JoinType, RemoveIntEdges: Standard_Boolean, theRange: Message_ProgressRange): void;
-    Build(theRange: Message_ProgressRange): void;
-    Modified(S: TopoDS_Shape): TopTools_ListOfShape;
-    delete(): void;
-}
-export declare class BRepOffsetAPI_ThruSections {
-    constructor(isSolid: Standard_Boolean, ruled: Standard_Boolean, pres3d: Standard_Real);
-    Init(isSolid: Standard_Boolean, ruled: Standard_Boolean, pres3d: Standard_Real): void;
-    AddWire(wire: TopoDS_Wire): void;
-    AddVertex(aVertex: TopoDS_Vertex): void;
-    CheckCompatibility(check: Standard_Boolean): void;
-    SetSmoothing(UseSmoothing: Standard_Boolean): void;
-    SetParType(ParType: Approx_ParametrizationType): void;
-    SetContinuity(C: GeomAbs_Shape): void;
-    SetCriteriumWeight(W1: Standard_Real, W2: Standard_Real, W3: Standard_Real): void;
-    SetMaxDegree(MaxDeg: Graphic3d_ZLayerId): void;
-    ParType(): Approx_ParametrizationType;
-    Continuity(): GeomAbs_Shape;
-    MaxDegree(): Graphic3d_ZLayerId;
-    UseSmoothing(): Standard_Boolean;
-    CriteriumWeight(W1: Standard_Real, W2: Standard_Real, W3: Standard_Real): void;
-    Build(theRange: Message_ProgressRange): void;
-    FirstShape(): TopoDS_Shape;
-    LastShape(): TopoDS_Shape;
-    GeneratedFace(Edge: TopoDS_Shape): TopoDS_Shape;
-    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
-    Wires(): TopTools_ListOfShape;
-    delete(): void;
-}
-export declare class BRepPrimAPI_MakeCylinder {
+export declare class BRepPrim_Cylinder {
+    constructor(Position: gp_Ax2, Radius: Standard_Real, Height: Standard_Real);
+    constructor(Radius: Standard_Real);
+    constructor(Center: gp_Pnt, Radius: Standard_Real);
+    constructor(Axes: gp_Ax2, Radius: Standard_Real);
     constructor(R: Standard_Real, H: Standard_Real);
-    constructor(R: Standard_Real, H: Standard_Real, Angle: Standard_Real);
-    constructor(Axes: gp_Ax2, R: Standard_Real, H: Standard_Real);
-    constructor(Axes: gp_Ax2, R: Standard_Real, H: Standard_Real, Angle: Standard_Real);
-    OneAxis(): Standard_Address;
-    Cylinder(): BRepPrim_Cylinder;
+    constructor(Center: gp_Pnt, R: Standard_Real, H: Standard_Real);
+    MakeEmptyLateralFace(): TopoDS_Face;
     delete(): void;
 }
-export declare class BRepPrimAPI_MakePrism {
+export declare class BRepPrim_Sphere {
+    constructor(Radius: Standard_Real);
+    constructor(Center: gp_Pnt, Radius: Standard_Real);
+    constructor(Axes: gp_Ax2, Radius: Standard_Real);
+    MakeEmptyLateralFace(): TopoDS_Face;
+    delete(): void;
+}
+export declare class BRepSweep_Prism {
     constructor(S: TopoDS_Shape, V: gp_Vec, Copy: Standard_Boolean, Canonize: Standard_Boolean);
     constructor(S: TopoDS_Shape, D: gp_Dir, Inf: Standard_Boolean, Copy: Standard_Boolean, Canonize: Standard_Boolean);
-    Prism(): BRepSweep_Prism;
-    Build(theRange: Message_ProgressRange): void;
-    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
-    IsDeleted(S: TopoDS_Shape): Standard_Boolean;
+    Vec(): gp_Vec;
+    IsUsed(aGenS: TopoDS_Shape): Standard_Boolean;
+    GenIsUsed(theS: TopoDS_Shape): Standard_Boolean;
     delete(): void;
+    Shape(): TopoDS_Shape;
+    Shape(aGenS: TopoDS_Shape): TopoDS_Shape;
     FirstShape(): TopoDS_Shape;
-    FirstShape(theShape: TopoDS_Shape): TopoDS_Shape;
+    FirstShape(aGenS: TopoDS_Shape): TopoDS_Shape;
     LastShape(): TopoDS_Shape;
-    LastShape(theShape: TopoDS_Shape): TopoDS_Shape;
+    LastShape(aGenS: TopoDS_Shape): TopoDS_Shape;
 }
-export declare class BRepPrimAPI_MakeRevol {
-    constructor(S: TopoDS_Shape, A: gp_Ax1, D: Standard_Real, Copy: Standard_Boolean);
-    constructor(S: TopoDS_Shape, A: gp_Ax1, Copy: Standard_Boolean);
-    Revol(): BRepSweep_Revol;
-    Build(theRange: Message_ProgressRange): void;
-    Generated(S: TopoDS_Shape): TopTools_ListOfShape;
-    IsDeleted(S: TopoDS_Shape): Standard_Boolean;
-    HasDegenerated(): Standard_Boolean;
-    Degenerated(): TopTools_ListOfShape;
+export declare class BRepSweep_Revol {
+    constructor(S: TopoDS_Shape, A: gp_Ax1, D: Standard_Real, C: Standard_Boolean);
+    constructor(S: TopoDS_Shape, A: gp_Ax1, C: Standard_Boolean);
+    IsUsed(aGenS: TopoDS_Shape): Standard_Boolean;
     delete(): void;
+    Shape(): TopoDS_Shape;
+    Shape(aGenS: TopoDS_Shape): TopoDS_Shape;
     FirstShape(): TopoDS_Shape;
-    FirstShape(theShape: TopoDS_Shape): TopoDS_Shape;
+    FirstShape(aGenS: TopoDS_Shape): TopoDS_Shape;
     LastShape(): TopoDS_Shape;
-    LastShape(theShape: TopoDS_Shape): TopoDS_Shape;
-}
-export declare class BRepPrimAPI_MakeSphere {
-    constructor(R: Standard_Real);
-    constructor(R: Standard_Real, angle: Standard_Real);
-    constructor(R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real);
-    constructor(R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real, angle3: Standard_Real);
-    constructor(Center: gp_Pnt, R: Standard_Real);
-    constructor(Center: gp_Pnt, R: Standard_Real, angle: Standard_Real);
-    constructor(Center: gp_Pnt, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real);
-    constructor(Center: gp_Pnt, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real, angle3: Standard_Real);
-    constructor(Axis: gp_Ax2, R: Standard_Real);
-    constructor(Axis: gp_Ax2, R: Standard_Real, angle: Standard_Real);
-    constructor(Axis: gp_Ax2, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real);
-    constructor(Axis: gp_Ax2, R: Standard_Real, angle1: Standard_Real, angle2: Standard_Real, angle3: Standard_Real);
-    OneAxis(): Standard_Address;
-    Sphere(): BRepPrim_Sphere;
-    delete(): void;
+    LastShape(aGenS: TopoDS_Shape): TopoDS_Shape;
+    Axe(): gp_Ax1;
+    Angle(): Standard_Real;
 }
 export declare class BRepTools {
     constructor();
@@ -844,6 +1055,17 @@ export declare class BRepTools {
     static Write(theShape: TopoDS_Shape, theFile: Standard_CString, theWithTriangles: Standard_Boolean, theWithNormals: Standard_Boolean, theVersion: TopTools_FormatVersion, theProgress: Message_ProgressRange): Standard_Boolean;
     static Read(Sh: TopoDS_Shape, S: Standard_IStream, B: BRep_Builder, theProgress: Message_ProgressRange): void;
     static Read(Sh: TopoDS_Shape, File: Standard_CString, B: BRep_Builder, theProgress: Message_ProgressRange): Standard_Boolean;
+}
+export declare class Handle_BRepTools_History {
+    constructor();
+    constructor(thePtr: BRepTools_History);
+    constructor(theHandle: Handle_BRepTools_History);
+    constructor(theHandle: Handle_BRepTools_History);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: BRepTools_History): void;
+    get(): BRepTools_History;
+    delete(): void;
 }
 export declare class BRepTools_WireExplorer {
     constructor();
@@ -915,6 +1137,108 @@ export declare class Bnd_Box {
     IsOut(T1: gp_Trsf, Other: Bnd_Box, T2: gp_Trsf): Standard_Boolean;
     IsOut(P1: gp_Pnt, P2: gp_Pnt, D: gp_Dir): Standard_Boolean;
 }
+export declare class Bnd_Box2d {
+    constructor();
+    SetWhole(): void;
+    SetVoid(): void;
+    GetGap(): Standard_Real;
+    SetGap(Tol: Standard_Real): void;
+    Enlarge(theTol: Standard_Real): void;
+    Get(aXmin: Standard_Real, aYmin: Standard_Real, aXmax: Standard_Real, aYmax: Standard_Real): void;
+    OpenXmin(): void;
+    OpenXmax(): void;
+    OpenYmin(): void;
+    OpenYmax(): void;
+    IsOpenXmin(): Standard_Boolean;
+    IsOpenXmax(): Standard_Boolean;
+    IsOpenYmin(): Standard_Boolean;
+    IsOpenYmax(): Standard_Boolean;
+    IsWhole(): Standard_Boolean;
+    IsVoid(): Standard_Boolean;
+    Transformed(T: gp_Trsf2d): Bnd_Box2d;
+    Dump(): void;
+    SquareExtent(): Standard_Real;
+    delete(): void;
+    Set(thePnt: gp_Pnt2d): void;
+    Set(thePnt: gp_Pnt2d, theDir: gp_Dir2d): void;
+    Update(aXmin: Standard_Real, aYmin: Standard_Real, aXmax: Standard_Real, aYmax: Standard_Real): void;
+    Update(X: Standard_Real, Y: Standard_Real): void;
+    Add(Other: Bnd_Box2d): void;
+    Add(thePnt: gp_Pnt2d): void;
+    Add(thePnt: gp_Pnt2d, theDir: gp_Dir2d): void;
+    Add(D: gp_Dir2d): void;
+    IsOut(P: gp_Pnt2d): Standard_Boolean;
+    IsOut(theL: gp_Lin2d): Standard_Boolean;
+    IsOut(theP0: gp_Pnt2d, theP1: gp_Pnt2d): Standard_Boolean;
+    IsOut(Other: Bnd_Box2d): Standard_Boolean;
+    IsOut(theOther: Bnd_Box2d, theTrsf: gp_Trsf2d): Standard_Boolean;
+    IsOut(T1: gp_Trsf2d, Other: Bnd_Box2d, T2: gp_Trsf2d): Standard_Boolean;
+}
+export declare class Bnd_OBB {
+    constructor();
+    constructor(theCenter: gp_Pnt, theXDirection: gp_Dir, theYDirection: gp_Dir, theZDirection: gp_Dir, theHXSize: Standard_Real, theHYSize: Standard_Real, theHZSize: Standard_Real);
+    constructor(theBox: Bnd_Box);
+    ReBuild(theListOfPoints: TColgp_Array1OfPnt, theListOfTolerances: IntTools_CArray1OfReal, theIsOptimal: Standard_Boolean): void;
+    SetCenter(theCenter: gp_Pnt): void;
+    SetXComponent(theXDirection: gp_Dir, theHXSize: Standard_Real): void;
+    SetYComponent(theYDirection: gp_Dir, theHYSize: Standard_Real): void;
+    SetZComponent(theZDirection: gp_Dir, theHZSize: Standard_Real): void;
+    Position(): gp_Ax3;
+    Center(): gp_XYZ;
+    XDirection(): gp_XYZ;
+    YDirection(): gp_XYZ;
+    ZDirection(): gp_XYZ;
+    XHSize(): Standard_Real;
+    YHSize(): Standard_Real;
+    ZHSize(): Standard_Real;
+    IsVoid(): Standard_Boolean;
+    SetVoid(): void;
+    SetAABox(theFlag: Standard_Boolean): void;
+    IsAABox(): Standard_Boolean;
+    Enlarge(theGapAdd: Standard_Real): void;
+    GetVertex(theP: gp_Pnt[8]): Standard_Boolean;
+    SquareExtent(): Standard_Real;
+    IsCompletelyInside(theOther: Bnd_OBB): Standard_Boolean;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    delete(): void;
+    IsOut(theOther: Bnd_OBB): Standard_Boolean;
+    IsOut(theP: gp_Pnt): Standard_Boolean;
+    Add(theOther: Bnd_OBB): void;
+    Add(theP: gp_Pnt): void;
+}
+export declare class Handle_CDF_Application {
+    constructor();
+    constructor(thePtr: CDF_Application);
+    constructor(theHandle: Handle_CDF_Application);
+    constructor(theHandle: Handle_CDF_Application);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: CDF_Application): void;
+    get(): CDF_Application;
+    delete(): void;
+}
+export declare class Handle_CDF_MetaDataDriver {
+    constructor();
+    constructor(thePtr: CDF_MetaDataDriver);
+    constructor(theHandle: Handle_CDF_MetaDataDriver);
+    constructor(theHandle: Handle_CDF_MetaDataDriver);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: CDF_MetaDataDriver): void;
+    get(): CDF_MetaDataDriver;
+    delete(): void;
+}
+export declare class Handle_CDM_Document {
+    constructor();
+    constructor(thePtr: CDM_Document);
+    constructor(theHandle: Handle_CDM_Document);
+    constructor(theHandle: Handle_CDM_Document);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: CDM_Document): void;
+    get(): CDM_Document;
+    delete(): void;
+}
 export declare class ChFi2d_FilletAPI {
     constructor();
     constructor(theWire: TopoDS_Wire, thePlane: gp_Pln);
@@ -926,7 +1250,24 @@ export declare class ChFi2d_FilletAPI {
     Init(theWire: TopoDS_Wire, thePlane: gp_Pln): void;
     Init(theEdge1: TopoDS_Edge, theEdge2: TopoDS_Edge, thePlane: gp_Pln): void;
 }
-export declare class GC_MakeArcOfCircle {
+export declare class Handle_ChFiDS_SecHArray1 {
+    constructor();
+    constructor(thePtr: ChFiDS_SecHArray1);
+    constructor(theHandle: Handle_ChFiDS_SecHArray1);
+    constructor(theHandle: Handle_ChFiDS_SecHArray1);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ChFiDS_SecHArray1): void;
+    get(): ChFiDS_SecHArray1;
+    delete(): void;
+}
+export declare class GC_Root {
+    constructor();
+    IsDone(): Standard_Boolean;
+    Status(): gce_ErrorType;
+    delete(): void;
+}
+export declare class GC_MakeArcOfCircle extends GC_Root {
     constructor(Circ: gp_Circ, Alpha1: Standard_Real, Alpha2: Standard_Real, Sense: Standard_Boolean);
     constructor(Circ: gp_Circ, P: gp_Pnt, Alpha: Standard_Real, Sense: Standard_Boolean);
     constructor(Circ: gp_Circ, P1: gp_Pnt, P2: gp_Pnt, Sense: Standard_Boolean);
@@ -935,7 +1276,7 @@ export declare class GC_MakeArcOfCircle {
     Value(): Handle_Geom_TrimmedCurve;
     delete(): void;
 }
-export declare class GC_MakeCircle {
+export declare class GC_MakeCircle extends GC_Root {
     constructor(C: gp_Circ);
     constructor(A2: gp_Ax2, Radius: Standard_Real);
     constructor(Circ: gp_Circ, Dist: Standard_Real);
@@ -947,7 +1288,7 @@ export declare class GC_MakeCircle {
     Value(): Handle_Geom_Circle;
     delete(): void;
 }
-export declare class GC_MakeSegment {
+export declare class GC_MakeSegment extends GC_Root {
     constructor(P1: gp_Pnt, P2: gp_Pnt);
     constructor(Line: gp_Lin, U1: Standard_Real, U2: Standard_Real);
     constructor(Line: gp_Lin, Point: gp_Pnt, Ulast: Standard_Real);
@@ -967,6 +1308,19 @@ export declare class GProp_GProps {
     PrincipalProperties(): GProp_PrincipalProps;
     RadiusOfGyration(A: gp_Ax1): Standard_Real;
     delete(): void;
+}
+export declare class GProp_PrincipalProps {
+    constructor();
+    Moments(Ixx: Standard_Real, Iyy: Standard_Real, Izz: Standard_Real): void;
+    FirstAxisOfInertia(): gp_Vec;
+    SecondAxisOfInertia(): gp_Vec;
+    ThirdAxisOfInertia(): gp_Vec;
+    RadiusOfGyration(Rxx: Standard_Real, Ryy: Standard_Real, Rzz: Standard_Real): void;
+    delete(): void;
+    HasSymmetryAxis(): Standard_Boolean;
+    HasSymmetryAxis(aTol: Standard_Real): Standard_Boolean;
+    HasSymmetryPoint(): Standard_Boolean;
+    HasSymmetryPoint(aTol: Standard_Real): Standard_Boolean;
 }
 export declare class GccAna_Circ2d2TanRad {
     constructor(Qualified1: GccEnt_QualifiedCirc, Qualified2: GccEnt_QualifiedCirc, Radius: Standard_Real, Tolerance: Standard_Real);
@@ -1016,6 +1370,61 @@ export declare class GccEnt_QualifiedLin {
     IsOutside(): Standard_Boolean;
     delete(): void;
 }
+export declare class Handle_Geom_BSplineCurve {
+    constructor();
+    constructor(thePtr: Geom_BSplineCurve);
+    constructor(theHandle: Handle_Geom_BSplineCurve);
+    constructor(theHandle: Handle_Geom_BSplineCurve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_BSplineCurve): void;
+    get(): Geom_BSplineCurve;
+    delete(): void;
+}
+export declare class Handle_Geom_BSplineSurface {
+    constructor();
+    constructor(thePtr: Geom_BSplineSurface);
+    constructor(theHandle: Handle_Geom_BSplineSurface);
+    constructor(theHandle: Handle_Geom_BSplineSurface);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_BSplineSurface): void;
+    get(): Geom_BSplineSurface;
+    delete(): void;
+}
+export declare class Handle_Geom_BezierCurve {
+    constructor();
+    constructor(thePtr: Geom_BezierCurve);
+    constructor(theHandle: Handle_Geom_BezierCurve);
+    constructor(theHandle: Handle_Geom_BezierCurve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_BezierCurve): void;
+    get(): Geom_BezierCurve;
+    delete(): void;
+}
+export declare class Handle_Geom_BezierSurface {
+    constructor();
+    constructor(thePtr: Geom_BezierSurface);
+    constructor(theHandle: Handle_Geom_BezierSurface);
+    constructor(theHandle: Handle_Geom_BezierSurface);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_BezierSurface): void;
+    get(): Geom_BezierSurface;
+    delete(): void;
+}
+export declare class Handle_Geom_Circle {
+    constructor();
+    constructor(thePtr: Geom_Circle);
+    constructor(theHandle: Handle_Geom_Circle);
+    constructor(theHandle: Handle_Geom_Circle);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_Circle): void;
+    get(): Geom_Circle;
+    delete(): void;
+}
 export declare class Handle_Geom_Curve {
     constructor();
     constructor(thePtr: Geom_Curve);
@@ -1027,23 +1436,103 @@ export declare class Handle_Geom_Curve {
     get(): Geom_Curve;
     delete(): void;
 }
-export declare class Geom2d_CartesianPoint {
-    constructor(P: gp_Pnt2d);
-    constructor(X: Standard_Real, Y: Standard_Real);
-    SetCoord(X: Standard_Real, Y: Standard_Real): void;
-    SetPnt2d(P: gp_Pnt2d): void;
-    SetX(X: Standard_Real): void;
-    SetY(Y: Standard_Real): void;
-    Coord(X: Standard_Real, Y: Standard_Real): void;
-    Pnt2d(): gp_Pnt2d;
-    X(): Standard_Real;
-    Y(): Standard_Real;
-    Transform(T: gp_Trsf2d): void;
-    Copy(): Handle_Geom2d_Geometry;
-    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
-    static get_type_name(): Standard_Character;
-    static get_type_descriptor(): Handle_Standard_Type;
-    DynamicType(): Handle_Standard_Type;
+export declare class Handle_Geom_Geometry {
+    constructor();
+    constructor(thePtr: Geom_Geometry);
+    constructor(theHandle: Handle_Geom_Geometry);
+    constructor(theHandle: Handle_Geom_Geometry);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_Geometry): void;
+    get(): Geom_Geometry;
+    delete(): void;
+}
+export declare class Handle_Geom_OffsetCurve {
+    constructor();
+    constructor(thePtr: Geom_OffsetCurve);
+    constructor(theHandle: Handle_Geom_OffsetCurve);
+    constructor(theHandle: Handle_Geom_OffsetCurve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_OffsetCurve): void;
+    get(): Geom_OffsetCurve;
+    delete(): void;
+}
+export declare class Handle_Geom_Plane {
+    constructor();
+    constructor(thePtr: Geom_Plane);
+    constructor(theHandle: Handle_Geom_Plane);
+    constructor(theHandle: Handle_Geom_Plane);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_Plane): void;
+    get(): Geom_Plane;
+    delete(): void;
+}
+export declare class Handle_Geom_Surface {
+    constructor();
+    constructor(thePtr: Geom_Surface);
+    constructor(theHandle: Handle_Geom_Surface);
+    constructor(theHandle: Handle_Geom_Surface);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_Surface): void;
+    get(): Geom_Surface;
+    delete(): void;
+}
+export declare class Handle_Geom_TrimmedCurve {
+    constructor();
+    constructor(thePtr: Geom_TrimmedCurve);
+    constructor(theHandle: Handle_Geom_TrimmedCurve);
+    constructor(theHandle: Handle_Geom_TrimmedCurve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom_TrimmedCurve): void;
+    get(): Geom_TrimmedCurve;
+    delete(): void;
+}
+export declare class Handle_Geom2d_BSplineCurve {
+    constructor();
+    constructor(thePtr: Geom2d_BSplineCurve);
+    constructor(theHandle: Handle_Geom2d_BSplineCurve);
+    constructor(theHandle: Handle_Geom2d_BSplineCurve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom2d_BSplineCurve): void;
+    get(): Geom2d_BSplineCurve;
+    delete(): void;
+}
+export declare class Handle_Geom2d_BezierCurve {
+    constructor();
+    constructor(thePtr: Geom2d_BezierCurve);
+    constructor(theHandle: Handle_Geom2d_BezierCurve);
+    constructor(theHandle: Handle_Geom2d_BezierCurve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom2d_BezierCurve): void;
+    get(): Geom2d_BezierCurve;
+    delete(): void;
+}
+export declare class Handle_Geom2d_Curve {
+    constructor();
+    constructor(thePtr: Geom2d_Curve);
+    constructor(theHandle: Handle_Geom2d_Curve);
+    constructor(theHandle: Handle_Geom2d_Curve);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom2d_Curve): void;
+    get(): Geom2d_Curve;
+    delete(): void;
+}
+export declare class Handle_Geom2d_Geometry {
+    constructor();
+    constructor(thePtr: Geom2d_Geometry);
+    constructor(theHandle: Handle_Geom2d_Geometry);
+    constructor(theHandle: Handle_Geom2d_Geometry);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Geom2d_Geometry): void;
+    get(): Geom2d_Geometry;
     delete(): void;
 }
 export declare class Handle_Geom2d_Point {
@@ -1056,49 +1545,6 @@ export declare class Handle_Geom2d_Point {
     reset(thePtr: Geom2d_Point): void;
     get(): Geom2d_Point;
     delete(): void;
-}
-export declare class Geom2dAdaptor_Curve {
-    constructor();
-    constructor(C: Handle_Geom2d_Curve);
-    constructor(C: Handle_Geom2d_Curve, UFirst: Standard_Real, ULast: Standard_Real);
-    static get_type_name(): Standard_Character;
-    static get_type_descriptor(): Handle_Standard_Type;
-    DynamicType(): Handle_Standard_Type;
-    ShallowCopy(): Handle_Adaptor2d_Curve2d;
-    Reset(): void;
-    Curve(): Handle_Geom2d_Curve;
-    FirstParameter(): Standard_Real;
-    LastParameter(): Standard_Real;
-    Continuity(): GeomAbs_Shape;
-    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
-    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
-    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor2d_Curve2d;
-    IsClosed(): Standard_Boolean;
-    IsPeriodic(): Standard_Boolean;
-    Period(): Standard_Real;
-    Value(U: Standard_Real): gp_Pnt2d;
-    D0(U: Standard_Real, P: gp_Pnt2d): void;
-    D1(U: Standard_Real, P: gp_Pnt2d, V: gp_Vec2d): void;
-    D2(U: Standard_Real, P: gp_Pnt2d, V1: gp_Vec2d, V2: gp_Vec2d): void;
-    D3(U: Standard_Real, P: gp_Pnt2d, V1: gp_Vec2d, V2: gp_Vec2d, V3: gp_Vec2d): void;
-    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec2d;
-    Resolution(Ruv: Standard_Real): Standard_Real;
-    GetType(): GeomAbs_CurveType;
-    Line(): gp_Lin2d;
-    Circle(): gp_Circ2d;
-    Ellipse(): gp_Elips2d;
-    Hyperbola(): gp_Hypr2d;
-    Parabola(): gp_Parab2d;
-    Degree(): Graphic3d_ZLayerId;
-    IsRational(): Standard_Boolean;
-    NbPoles(): Graphic3d_ZLayerId;
-    NbKnots(): Graphic3d_ZLayerId;
-    NbSamples(): Graphic3d_ZLayerId;
-    Bezier(): Handle_Geom2d_BezierCurve;
-    BSpline(): Handle_Geom2d_BSplineCurve;
-    delete(): void;
-    Load(theCurve: Handle_Geom2d_Curve): void;
-    Load(theCurve: Handle_Geom2d_Curve, theUFirst: Standard_Real, theULast: Standard_Real): void;
 }
 export declare class Geom2dGcc_Circ2d2TanRad {
     constructor(Qualified1: Geom2dGcc_QualifiedCurve, Qualified2: Geom2dGcc_QualifiedCurve, Radius: Standard_Real, Tolerance: Standard_Real);
@@ -1115,6 +1561,21 @@ export declare class Geom2dGcc_Circ2d2TanRad {
     delete(): void;
     Results(Circ: GccAna_Circ2d2TanRad): void;
     Results(Circ: Geom2dGcc_Circ2d2TanRadGeo): void;
+}
+export declare class Geom2dGcc_Circ2d2TanRadGeo {
+    constructor(Qualified1: GccEnt_QualifiedCirc, Qualified2: Geom2dGcc_QCurve, Radius: Standard_Real, Tolerance: Standard_Real);
+    constructor(Qualified1: GccEnt_QualifiedLin, Qualified2: Geom2dGcc_QCurve, Radius: Standard_Real, Tolerance: Standard_Real);
+    constructor(Qualified1: Geom2dGcc_QCurve, Qualified2: Geom2dGcc_QCurve, Radius: Standard_Real, Tolerance: Standard_Real);
+    constructor(Qualified1: Geom2dGcc_QCurve, Point2: gp_Pnt2d, Radius: Standard_Real, Tolerance: Standard_Real);
+    IsDone(): Standard_Boolean;
+    NbSolutions(): Graphic3d_ZLayerId;
+    ThisSolution(Index: Graphic3d_ZLayerId): gp_Circ2d;
+    WhichQualifier(Index: Graphic3d_ZLayerId, Qualif1: GccEnt_Position, Qualif2: GccEnt_Position): void;
+    Tangency1(Index: Graphic3d_ZLayerId, ParSol: Standard_Real, ParArg: Standard_Real, PntSol: gp_Pnt2d): void;
+    Tangency2(Index: Graphic3d_ZLayerId, ParSol: Standard_Real, ParArg: Standard_Real, PntSol: gp_Pnt2d): void;
+    IsTheSame1(Index: Graphic3d_ZLayerId): Standard_Boolean;
+    IsTheSame2(Index: Graphic3d_ZLayerId): Standard_Boolean;
+    delete(): void;
 }
 export declare class Geom2dGcc_Lin2d2Tan {
     constructor(Qualified1: Geom2dGcc_QualifiedCurve, Qualified2: Geom2dGcc_QualifiedCurve, Tolang: Standard_Real);
@@ -1172,6 +1633,11 @@ export declare class GeomLProp_SLProps {
     GaussianCurvature(): Standard_Real;
     delete(): void;
 }
+export declare class IMeshTools_Parameters {
+    constructor();
+    static RelMinSize(): Standard_Real;
+    delete(): void;
+}
 export declare class IntCurvesFace_ShapeIntersector {
     constructor();
     Load(Sh: TopoDS_Shape, Tol: Standard_Real): void;
@@ -1190,6 +1656,46 @@ export declare class IntCurvesFace_ShapeIntersector {
     delete(): void;
     Perform(L: gp_Lin, PInf: Standard_Real, PSup: Standard_Real): void;
     Perform(HCu: Handle_Adaptor3d_Curve, PInf: Standard_Real, PSup: Standard_Real): void;
+}
+export declare class IntTools_CommonPrt {
+    constructor();
+    constructor(aCPrt: IntTools_CommonPrt);
+    Assign(Other: IntTools_CommonPrt): IntTools_CommonPrt;
+    SetEdge1(anE: TopoDS_Edge): void;
+    SetEdge2(anE: TopoDS_Edge): void;
+    SetType(aType: TopAbs_ShapeEnum): void;
+    SetVertexParameter1(tV: Standard_Real): void;
+    SetVertexParameter2(tV: Standard_Real): void;
+    Edge1(): TopoDS_Edge;
+    Edge2(): TopoDS_Edge;
+    Type(): TopAbs_ShapeEnum;
+    Ranges2(): IntTools_SequenceOfRanges;
+    ChangeRanges2(): IntTools_SequenceOfRanges;
+    VertexParameter1(): Standard_Real;
+    VertexParameter2(): Standard_Real;
+    Copy(anOther: IntTools_CommonPrt): void;
+    AllNullFlag(): Standard_Boolean;
+    SetAllNullFlag(aFlag: Standard_Boolean): void;
+    SetBoundingPoints(aP1: gp_Pnt, aP2: gp_Pnt): void;
+    BoundingPoints(aP1: gp_Pnt, aP2: gp_Pnt): void;
+    delete(): void;
+    SetRange1(aR: IntTools_Range): void;
+    SetRange1(tf: Standard_Real, tl: Standard_Real): void;
+    AppendRange2(aR: IntTools_Range): void;
+    AppendRange2(tf: Standard_Real, tl: Standard_Real): void;
+    Range1(): IntTools_Range;
+    Range1(tf: Standard_Real, tl: Standard_Real): void;
+}
+export declare class Handle_IntTools_Context {
+    constructor();
+    constructor(thePtr: IntTools_Context);
+    constructor(theHandle: Handle_IntTools_Context);
+    constructor(theHandle: Handle_IntTools_Context);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: IntTools_Context): void;
+    get(): IntTools_Context;
+    delete(): void;
 }
 export declare class IntTools_EdgeEdge {
     constructor();
@@ -1212,6 +1718,80 @@ export declare class IntTools_EdgeEdge {
     SetRange2(theRange: IntTools_Range): void;
     SetRange2(aT1: Standard_Real, aT2: Standard_Real): void;
 }
+export declare class IntTools_Range {
+    constructor();
+    constructor(aFirst: Standard_Real, aLast: Standard_Real);
+    SetFirst(aFirst: Standard_Real): void;
+    SetLast(aLast: Standard_Real): void;
+    First(): Standard_Real;
+    Last(): Standard_Real;
+    Range(aFirst: Standard_Real, aLast: Standard_Real): void;
+    delete(): void;
+}
+export declare class Handle_Interface_InterfaceModel {
+    constructor();
+    constructor(thePtr: Interface_InterfaceModel);
+    constructor(theHandle: Handle_Interface_InterfaceModel);
+    constructor(theHandle: Handle_Interface_InterfaceModel);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Interface_InterfaceModel): void;
+    get(): Interface_InterfaceModel;
+    delete(): void;
+}
+export declare class Handle_Law_Function {
+    constructor();
+    constructor(thePtr: Law_Function);
+    constructor(theHandle: Handle_Law_Function);
+    constructor(theHandle: Handle_Law_Function);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Law_Function): void;
+    get(): Law_Function;
+    delete(): void;
+}
+export declare class Handle_Message_Alert {
+    constructor();
+    constructor(thePtr: Message_Alert);
+    constructor(theHandle: Handle_Message_Alert);
+    constructor(theHandle: Handle_Message_Alert);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Message_Alert): void;
+    get(): Message_Alert;
+    delete(): void;
+}
+export declare class Handle_Message_Messenger {
+    constructor();
+    constructor(thePtr: Message_Messenger);
+    constructor(theHandle: Handle_Message_Messenger);
+    constructor(theHandle: Handle_Message_Messenger);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Message_Messenger): void;
+    get(): Message_Messenger;
+    delete(): void;
+}
+export declare class Message_Msg {
+    constructor();
+    constructor(theMsg: Message_Msg);
+    constructor(theKey: Standard_CString);
+    constructor(theKey: TCollection_ExtendedString);
+    Original(): TCollection_ExtendedString;
+    Value(): TCollection_ExtendedString;
+    IsEdited(): Standard_Boolean;
+    Get(): TCollection_ExtendedString;
+    delete(): void;
+    Set(theMsg: Standard_CString): void;
+    Set(theMsg: TCollection_ExtendedString): void;
+    Arg(theString: Standard_CString): Message_Msg;
+    Arg(theString: XCAFDoc_PartId): Message_Msg;
+    Arg(theString: Handle_TCollection_HAsciiString): Message_Msg;
+    Arg(theString: TCollection_ExtendedString): Message_Msg;
+    Arg(theString: Handle_TCollection_HExtendedString): Message_Msg;
+    Arg(theInt: Graphic3d_ZLayerId): Message_Msg;
+    Arg(theReal: Standard_Real): Message_Msg;
+}
 export declare class Message_ProgressRange {
     constructor();
     constructor(theOther: Message_ProgressRange);
@@ -1219,6 +1799,508 @@ export declare class Message_ProgressRange {
     More(): Standard_Boolean;
     IsActive(): Standard_Boolean;
     Close(): void;
+    delete(): void;
+}
+export declare class Handle_Message_Report {
+    constructor();
+    constructor(thePtr: Message_Report);
+    constructor(theHandle: Handle_Message_Report);
+    constructor(theHandle: Handle_Message_Report);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Message_Report): void;
+    get(): Message_Report;
+    delete(): void;
+}
+export declare class Handle_NCollection_BaseAllocator {
+    constructor();
+    constructor(thePtr: NCollection_BaseAllocator);
+    constructor(theHandle: Handle_NCollection_BaseAllocator);
+    constructor(theHandle: Handle_NCollection_BaseAllocator);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: NCollection_BaseAllocator): void;
+    get(): NCollection_BaseAllocator;
+    delete(): void;
+}
+export declare class NCollection_BaseList {
+    constructor();
+    Extent(): Graphic3d_ZLayerId;
+    IsEmpty(): Standard_Boolean;
+    Allocator(): Handle_NCollection_BaseAllocator;
+    delete(): void;
+}
+export declare class TopTools_ListOfShape extends NCollection_BaseList {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_ListOfShape);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Size(): Standard_Integer;
+    Assign(theOther: TopTools_ListOfShape): TopTools_ListOfShape;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+    RemoveFirst(): void;
+    Reverse(): void;
+    delete(): void;
+    First(): TopoDS_Shape;
+    First(): TopoDS_Shape;
+    Last(): TopoDS_Shape;
+    Last(): TopoDS_Shape;
+    Append(theItem: TopoDS_Shape): TopoDS_Shape;
+    Append(theOther: TopTools_ListOfShape): void;
+    Prepend(theItem: TopoDS_Shape): TopoDS_Shape;
+    Prepend(theOther: TopTools_ListOfShape): void;
+}
+export declare class NCollection_BaseMap {
+    constructor();
+    NbBuckets(): Graphic3d_ZLayerId;
+    Extent(): Graphic3d_ZLayerId;
+    IsEmpty(): Standard_Boolean;
+    Statistics(S: Standard_OStream): void;
+    Allocator(): Handle_NCollection_BaseAllocator;
+    delete(): void;
+}
+export declare class TopTools_DataMapOfShapeListOfShape extends NCollection_BaseMap {
+    constructor();
+    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_DataMapOfShapeListOfShape);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Exchange(theOther: TopTools_DataMapOfShapeListOfShape): void;
+    Assign(theOther: TopTools_DataMapOfShapeListOfShape): TopTools_DataMapOfShapeListOfShape;
+    ReSize(N: Standard_Integer): void;
+    Bind(theKey: TopoDS_Shape, theItem: TopTools_ListOfShape): Standard_Boolean;
+    Bound(theKey: TopoDS_Shape, theItem: TopTools_ListOfShape): TopTools_ListOfShape;
+    IsBound(theKey: TopoDS_Shape): Standard_Boolean;
+    UnBind(theKey: TopoDS_Shape): Standard_Boolean;
+    Seek(theKey: TopoDS_Shape): TopTools_ListOfShape;
+    ChangeSeek(theKey: TopoDS_Shape): TopTools_ListOfShape;
+    ChangeFind(theKey: TopoDS_Shape): TopTools_ListOfShape;
+    Size(): Standard_Integer;
+    delete(): void;
+    Clear(doReleaseMemory: Standard_Boolean): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+}
+export declare class TopTools_DataMapOfShapeShape extends NCollection_BaseMap {
+    constructor();
+    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_DataMapOfShapeShape);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Exchange(theOther: TopTools_DataMapOfShapeShape): void;
+    Assign(theOther: TopTools_DataMapOfShapeShape): TopTools_DataMapOfShapeShape;
+    ReSize(N: Standard_Integer): void;
+    Bind(theKey: TopoDS_Shape, theItem: TopoDS_Shape): Standard_Boolean;
+    Bound(theKey: TopoDS_Shape, theItem: TopoDS_Shape): TopoDS_Shape;
+    IsBound(theKey: TopoDS_Shape): Standard_Boolean;
+    UnBind(theKey: TopoDS_Shape): Standard_Boolean;
+    Seek(theKey: TopoDS_Shape): TopoDS_Shape;
+    ChangeSeek(theKey: TopoDS_Shape): TopoDS_Shape;
+    ChangeFind(theKey: TopoDS_Shape): TopoDS_Shape;
+    Size(): Standard_Integer;
+    delete(): void;
+    Clear(doReleaseMemory: Standard_Boolean): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+}
+export declare class TopTools_IndexedDataMapOfShapeListOfShape extends NCollection_BaseMap {
+    constructor();
+    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_IndexedDataMapOfShapeListOfShape);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Exchange(theOther: TopTools_IndexedDataMapOfShapeListOfShape): void;
+    Assign(theOther: TopTools_IndexedDataMapOfShapeListOfShape): TopTools_IndexedDataMapOfShapeListOfShape;
+    ReSize(N: Standard_Integer): void;
+    Add(theKey1: TopoDS_Shape, theItem: TopTools_ListOfShape): Standard_Integer;
+    Contains(theKey1: TopoDS_Shape): Standard_Boolean;
+    Substitute(theIndex: Standard_Integer, theKey1: TopoDS_Shape, theItem: TopTools_ListOfShape): void;
+    Swap(theIndex1: Standard_Integer, theIndex2: Standard_Integer): void;
+    RemoveLast(): void;
+    RemoveFromIndex(theIndex: Standard_Integer): void;
+    RemoveKey(theKey1: TopoDS_Shape): void;
+    FindKey(theIndex: Standard_Integer): TopoDS_Shape;
+    FindFromIndex(theIndex: Standard_Integer): TopTools_ListOfShape;
+    ChangeFromIndex(theIndex: Standard_Integer): TopTools_ListOfShape;
+    FindIndex(theKey1: TopoDS_Shape): Standard_Integer;
+    ChangeFromKey(theKey1: TopoDS_Shape): TopTools_ListOfShape;
+    Seek(theKey1: TopoDS_Shape): TopTools_ListOfShape;
+    ChangeSeek(theKey1: TopoDS_Shape): TopTools_ListOfShape;
+    Size(): Standard_Integer;
+    delete(): void;
+    Clear(doReleaseMemory: Standard_Boolean): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+}
+export declare class TopTools_IndexedMapOfShape extends NCollection_BaseMap {
+    constructor();
+    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_IndexedMapOfShape);
+    cbegin(): any;
+    cend(): any;
+    Exchange(theOther: TopTools_IndexedMapOfShape): void;
+    Assign(theOther: TopTools_IndexedMapOfShape): TopTools_IndexedMapOfShape;
+    ReSize(theExtent: Standard_Integer): void;
+    Add(theKey1: TopoDS_Shape): Standard_Integer;
+    Contains(theKey1: TopoDS_Shape): Standard_Boolean;
+    Substitute(theIndex: Standard_Integer, theKey1: TopoDS_Shape): void;
+    Swap(theIndex1: Standard_Integer, theIndex2: Standard_Integer): void;
+    RemoveLast(): void;
+    RemoveFromIndex(theIndex: Standard_Integer): void;
+    RemoveKey(theKey1: TopoDS_Shape): Standard_Boolean;
+    FindKey(theIndex: Standard_Integer): TopoDS_Shape;
+    FindIndex(theKey1: TopoDS_Shape): Standard_Integer;
+    Size(): Standard_Integer;
+    delete(): void;
+    Clear(doReleaseMemory: Standard_Boolean): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+}
+export declare class TopTools_MapOfShape extends NCollection_BaseMap {
+    constructor();
+    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_MapOfShape);
+    cbegin(): any;
+    cend(): any;
+    Exchange(theOther: TopTools_MapOfShape): void;
+    Assign(theOther: TopTools_MapOfShape): TopTools_MapOfShape;
+    ReSize(N: Standard_Integer): void;
+    Add(K: TopoDS_Shape): Standard_Boolean;
+    Added(K: TopoDS_Shape): TopoDS_Shape;
+    Remove(K: TopoDS_Shape): Standard_Boolean;
+    Size(): Standard_Integer;
+    IsEqual(theOther: TopTools_MapOfShape): Standard_Boolean;
+    Union(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
+    Unite(theOther: TopTools_MapOfShape): Standard_Boolean;
+    HasIntersection(theMap: TopTools_MapOfShape): Standard_Boolean;
+    Intersection(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
+    Intersect(theOther: TopTools_MapOfShape): Standard_Boolean;
+    Subtraction(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
+    Subtract(theOther: TopTools_MapOfShape): Standard_Boolean;
+    Difference(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
+    Differ(theOther: TopTools_MapOfShape): Standard_Boolean;
+    delete(): void;
+    Contains(K: TopoDS_Shape): Standard_Boolean;
+    Contains(theOther: TopTools_MapOfShape): Standard_Boolean;
+    Clear(doReleaseMemory: Standard_Boolean): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+}
+export declare class XCAFDoc_DataMapOfShapeLabel extends NCollection_BaseMap {
+    constructor();
+    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: XCAFDoc_DataMapOfShapeLabel);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Exchange(theOther: XCAFDoc_DataMapOfShapeLabel): void;
+    Assign(theOther: XCAFDoc_DataMapOfShapeLabel): XCAFDoc_DataMapOfShapeLabel;
+    ReSize(N: Standard_Integer): void;
+    Bind(theKey: TopoDS_Shape, theItem: TDF_Label): Standard_Boolean;
+    Bound(theKey: TopoDS_Shape, theItem: TDF_Label): TDF_Label;
+    IsBound(theKey: TopoDS_Shape): Standard_Boolean;
+    UnBind(theKey: TopoDS_Shape): Standard_Boolean;
+    Seek(theKey: TopoDS_Shape): TDF_Label;
+    ChangeSeek(theKey: TopoDS_Shape): TDF_Label;
+    ChangeFind(theKey: TopoDS_Shape): TDF_Label;
+    Size(): Standard_Integer;
+    delete(): void;
+    Clear(doReleaseMemory: Standard_Boolean): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+}
+export declare class NCollection_BaseSequence {
+    constructor();
+    IsEmpty(): Standard_Boolean;
+    Length(): Graphic3d_ZLayerId;
+    Allocator(): Handle_NCollection_BaseAllocator;
+    delete(): void;
+}
+export declare class IntTools_SequenceOfCommonPrts extends NCollection_BaseSequence {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: IntTools_SequenceOfCommonPrts);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Reverse(): void;
+    Exchange(I: Standard_Integer, J: Standard_Integer): void;
+    static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+    Assign(theOther: IntTools_SequenceOfCommonPrts): IntTools_SequenceOfCommonPrts;
+    Split(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfCommonPrts): void;
+    First(): IntTools_CommonPrt;
+    ChangeFirst(): IntTools_CommonPrt;
+    Last(): IntTools_CommonPrt;
+    ChangeLast(): IntTools_CommonPrt;
+    Value(theIndex: Standard_Integer): IntTools_CommonPrt;
+    ChangeValue(theIndex: Standard_Integer): IntTools_CommonPrt;
+    SetValue(theIndex: Standard_Integer, theItem: IntTools_CommonPrt): void;
+    delete(): void;
+    Remove(theIndex: Standard_Integer): void;
+    Remove(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+    Append(theItem: IntTools_CommonPrt): void;
+    Append(theSeq: IntTools_SequenceOfCommonPrts): void;
+    Prepend(theItem: IntTools_CommonPrt): void;
+    Prepend(theSeq: IntTools_SequenceOfCommonPrts): void;
+    InsertBefore(theIndex: Standard_Integer, theItem: IntTools_CommonPrt): void;
+    InsertBefore(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfCommonPrts): void;
+    InsertAfter(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfCommonPrts): void;
+    InsertAfter(theIndex: Standard_Integer, theItem: IntTools_CommonPrt): void;
+}
+export declare class IntTools_SequenceOfRanges extends NCollection_BaseSequence {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: IntTools_SequenceOfRanges);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Reverse(): void;
+    Exchange(I: Standard_Integer, J: Standard_Integer): void;
+    static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+    Assign(theOther: IntTools_SequenceOfRanges): IntTools_SequenceOfRanges;
+    Split(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfRanges): void;
+    First(): IntTools_Range;
+    ChangeFirst(): IntTools_Range;
+    Last(): IntTools_Range;
+    ChangeLast(): IntTools_Range;
+    Value(theIndex: Standard_Integer): IntTools_Range;
+    ChangeValue(theIndex: Standard_Integer): IntTools_Range;
+    SetValue(theIndex: Standard_Integer, theItem: IntTools_Range): void;
+    delete(): void;
+    Remove(theIndex: Standard_Integer): void;
+    Remove(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+    Append(theItem: IntTools_Range): void;
+    Append(theSeq: IntTools_SequenceOfRanges): void;
+    Prepend(theItem: IntTools_Range): void;
+    Prepend(theSeq: IntTools_SequenceOfRanges): void;
+    InsertBefore(theIndex: Standard_Integer, theItem: IntTools_Range): void;
+    InsertBefore(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfRanges): void;
+    InsertAfter(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfRanges): void;
+    InsertAfter(theIndex: Standard_Integer, theItem: IntTools_Range): void;
+}
+export declare class TColStd_SequenceOfAsciiString extends NCollection_BaseSequence {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TColStd_SequenceOfAsciiString);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Reverse(): void;
+    Exchange(I: Standard_Integer, J: Standard_Integer): void;
+    static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+    Assign(theOther: TColStd_SequenceOfAsciiString): TColStd_SequenceOfAsciiString;
+    Split(theIndex: Standard_Integer, theSeq: TColStd_SequenceOfAsciiString): void;
+    First(): TCollection_AsciiString;
+    ChangeFirst(): TCollection_AsciiString;
+    Last(): TCollection_AsciiString;
+    ChangeLast(): TCollection_AsciiString;
+    Value(theIndex: Standard_Integer): TCollection_AsciiString;
+    ChangeValue(theIndex: Standard_Integer): TCollection_AsciiString;
+    SetValue(theIndex: Standard_Integer, theItem: TCollection_AsciiString): void;
+    delete(): void;
+    Remove(theIndex: Standard_Integer): void;
+    Remove(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+    Append(theItem: TCollection_AsciiString): void;
+    Append(theSeq: TColStd_SequenceOfAsciiString): void;
+    Prepend(theItem: TCollection_AsciiString): void;
+    Prepend(theSeq: TColStd_SequenceOfAsciiString): void;
+    InsertBefore(theIndex: Standard_Integer, theItem: TCollection_AsciiString): void;
+    InsertBefore(theIndex: Standard_Integer, theSeq: TColStd_SequenceOfAsciiString): void;
+    InsertAfter(theIndex: Standard_Integer, theSeq: TColStd_SequenceOfAsciiString): void;
+    InsertAfter(theIndex: Standard_Integer, theItem: TCollection_AsciiString): void;
+}
+export declare class TDF_LabelSequence extends NCollection_BaseSequence {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TDF_LabelSequence);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Reverse(): void;
+    Exchange(I: Standard_Integer, J: Standard_Integer): void;
+    static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+    Assign(theOther: TDF_LabelSequence): TDF_LabelSequence;
+    Split(theIndex: Standard_Integer, theSeq: TDF_LabelSequence): void;
+    First(): TDF_Label;
+    ChangeFirst(): TDF_Label;
+    Last(): TDF_Label;
+    ChangeLast(): TDF_Label;
+    Value(theIndex: Standard_Integer): TDF_Label;
+    ChangeValue(theIndex: Standard_Integer): TDF_Label;
+    SetValue(theIndex: Standard_Integer, theItem: TDF_Label): void;
+    delete(): void;
+    Remove(theIndex: Standard_Integer): void;
+    Remove(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+    Append(theItem: TDF_Label): void;
+    Append(theSeq: TDF_LabelSequence): void;
+    Prepend(theItem: TDF_Label): void;
+    Prepend(theSeq: TDF_LabelSequence): void;
+    InsertBefore(theIndex: Standard_Integer, theItem: TDF_Label): void;
+    InsertBefore(theIndex: Standard_Integer, theSeq: TDF_LabelSequence): void;
+    InsertAfter(theIndex: Standard_Integer, theSeq: TDF_LabelSequence): void;
+    InsertAfter(theIndex: Standard_Integer, theItem: TDF_Label): void;
+}
+export declare class TopTools_SequenceOfShape extends NCollection_BaseSequence {
+    constructor();
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+    constructor(theOther: TopTools_SequenceOfShape);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Reverse(): void;
+    Exchange(I: Standard_Integer, J: Standard_Integer): void;
+    static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+    Assign(theOther: TopTools_SequenceOfShape): TopTools_SequenceOfShape;
+    Split(theIndex: Standard_Integer, theSeq: TopTools_SequenceOfShape): void;
+    First(): TopoDS_Shape;
+    ChangeFirst(): TopoDS_Shape;
+    Last(): TopoDS_Shape;
+    ChangeLast(): TopoDS_Shape;
+    Value(theIndex: Standard_Integer): TopoDS_Shape;
+    ChangeValue(theIndex: Standard_Integer): TopoDS_Shape;
+    SetValue(theIndex: Standard_Integer, theItem: TopoDS_Shape): void;
+    delete(): void;
+    Remove(theIndex: Standard_Integer): void;
+    Remove(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+    Append(theItem: TopoDS_Shape): void;
+    Append(theSeq: TopTools_SequenceOfShape): void;
+    Prepend(theItem: TopoDS_Shape): void;
+    Prepend(theSeq: TopTools_SequenceOfShape): void;
+    InsertBefore(theIndex: Standard_Integer, theItem: TopoDS_Shape): void;
+    InsertBefore(theIndex: Standard_Integer, theSeq: TopTools_SequenceOfShape): void;
+    InsertAfter(theIndex: Standard_Integer, theSeq: TopTools_SequenceOfShape): void;
+    InsertAfter(theIndex: Standard_Integer, theItem: TopoDS_Shape): void;
+}
+export declare class Handle_PCDM_ReaderFilter {
+    constructor();
+    constructor(thePtr: PCDM_ReaderFilter);
+    constructor(theHandle: Handle_PCDM_ReaderFilter);
+    constructor(theHandle: Handle_PCDM_ReaderFilter);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: PCDM_ReaderFilter): void;
+    get(): PCDM_ReaderFilter;
+    delete(): void;
+}
+export declare class Handle_PCDM_RetrievalDriver {
+    constructor();
+    constructor(thePtr: PCDM_RetrievalDriver);
+    constructor(theHandle: Handle_PCDM_RetrievalDriver);
+    constructor(theHandle: Handle_PCDM_RetrievalDriver);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: PCDM_RetrievalDriver): void;
+    get(): PCDM_RetrievalDriver;
+    delete(): void;
+}
+export declare class Handle_PCDM_StorageDriver {
+    constructor();
+    constructor(thePtr: PCDM_StorageDriver);
+    constructor(theHandle: Handle_PCDM_StorageDriver);
+    constructor(theHandle: Handle_PCDM_StorageDriver);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: PCDM_StorageDriver): void;
+    get(): PCDM_StorageDriver;
+    delete(): void;
+}
+export declare class Poly_Array1OfTriangle {
+    constructor();
+    constructor(theLower: Standard_Integer, theUpper: Standard_Integer);
+    constructor(theOther: Poly_Array1OfTriangle);
+    constructor(theOther: Poly_Array1OfTriangle);
+    constructor(theBegin: Poly_Triangle, theLower: Standard_Integer, theUpper: Standard_Integer);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Init(theValue: Poly_Triangle): void;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsDeletable(): Standard_Boolean;
+    IsAllocated(): Standard_Boolean;
+    Assign(theOther: Poly_Array1OfTriangle): Poly_Array1OfTriangle;
+    Move(theOther: Poly_Array1OfTriangle): Poly_Array1OfTriangle;
+    First(): Poly_Triangle;
+    ChangeFirst(): Poly_Triangle;
+    Last(): Poly_Triangle;
+    ChangeLast(): Poly_Triangle;
+    Value(theIndex: Standard_Integer): Poly_Triangle;
+    ChangeValue(theIndex: Standard_Integer): Poly_Triangle;
+    SetValue(theIndex: Standard_Integer, theItem: Poly_Triangle): void;
+    Resize(theLower: Standard_Integer, theUpper: Standard_Integer, theToCopyData: Standard_Boolean): void;
+    delete(): void;
+}
+export declare class Poly_ArrayOfNodes {
+    constructor();
+    constructor(theLength: Graphic3d_ZLayerId);
+    constructor(theOther: Poly_ArrayOfNodes);
+    constructor(theBegin: gp_Pnt, theLength: Graphic3d_ZLayerId);
+    constructor(theBegin: gp_Vec3f, theLength: Graphic3d_ZLayerId);
+    constructor(theOther: Poly_ArrayOfNodes);
+    IsDoublePrecision(): Standard_Boolean;
+    SetDoublePrecision(theIsDouble: Standard_Boolean): void;
+    Assign(theOther: Poly_ArrayOfNodes): Poly_ArrayOfNodes;
+    Move(theOther: Poly_ArrayOfNodes): Poly_ArrayOfNodes;
+    Value(theIndex: Graphic3d_ZLayerId): gp_Pnt;
+    SetValue(theIndex: Graphic3d_ZLayerId, theValue: gp_Pnt): void;
+    delete(): void;
+}
+export declare class Poly_ArrayOfUVNodes {
+    constructor();
+    constructor(theLength: Graphic3d_ZLayerId);
+    constructor(theOther: Poly_ArrayOfUVNodes);
+    constructor(theBegin: gp_Pnt2d, theLength: Graphic3d_ZLayerId);
+    constructor(theBegin: gp_Vec2f, theLength: Graphic3d_ZLayerId);
+    constructor(theOther: Poly_ArrayOfUVNodes);
+    IsDoublePrecision(): Standard_Boolean;
+    SetDoublePrecision(theIsDouble: Standard_Boolean): void;
+    Assign(theOther: Poly_ArrayOfUVNodes): Poly_ArrayOfUVNodes;
+    Move(theOther: Poly_ArrayOfUVNodes): Poly_ArrayOfUVNodes;
+    Value(theIndex: Graphic3d_ZLayerId): gp_Pnt2d;
+    SetValue(theIndex: Graphic3d_ZLayerId, theValue: gp_Pnt2d): void;
     delete(): void;
 }
 export declare class Poly_Connect {
@@ -1233,6 +2315,82 @@ export declare class Poly_Connect {
     More(): Standard_Boolean;
     Next(): void;
     Value(): Graphic3d_ZLayerId;
+    delete(): void;
+}
+export declare class Handle_Poly_HArray1OfTriangle {
+    constructor();
+    constructor(thePtr: Poly_HArray1OfTriangle);
+    constructor(theHandle: Handle_Poly_HArray1OfTriangle);
+    constructor(theHandle: Handle_Poly_HArray1OfTriangle);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Poly_HArray1OfTriangle): void;
+    get(): Poly_HArray1OfTriangle;
+    delete(): void;
+}
+export declare class Handle_Poly_Polygon2D {
+    constructor();
+    constructor(thePtr: Poly_Polygon2D);
+    constructor(theHandle: Handle_Poly_Polygon2D);
+    constructor(theHandle: Handle_Poly_Polygon2D);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Poly_Polygon2D): void;
+    get(): Poly_Polygon2D;
+    delete(): void;
+}
+export declare class Handle_Poly_Polygon3D {
+    constructor();
+    constructor(thePtr: Poly_Polygon3D);
+    constructor(theHandle: Handle_Poly_Polygon3D);
+    constructor(theHandle: Handle_Poly_Polygon3D);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Poly_Polygon3D): void;
+    get(): Poly_Polygon3D;
+    delete(): void;
+}
+export declare class Handle_Poly_PolygonOnTriangulation {
+    constructor();
+    constructor(thePtr: Poly_PolygonOnTriangulation);
+    constructor(theHandle: Handle_Poly_PolygonOnTriangulation);
+    constructor(theHandle: Handle_Poly_PolygonOnTriangulation);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Poly_PolygonOnTriangulation): void;
+    get(): Poly_PolygonOnTriangulation;
+    delete(): void;
+}
+export declare class Poly_Triangle {
+    constructor();
+    constructor(theN1: Graphic3d_ZLayerId, theN2: Graphic3d_ZLayerId, theN3: Graphic3d_ZLayerId);
+    Get(theN1: Graphic3d_ZLayerId, theN2: Graphic3d_ZLayerId, theN3: Graphic3d_ZLayerId): void;
+    Value(theIndex: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    ChangeValue(theIndex: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    delete(): void;
+    Set(theN1: Graphic3d_ZLayerId, theN2: Graphic3d_ZLayerId, theN3: Graphic3d_ZLayerId): void;
+    Set(theIndex: Graphic3d_ZLayerId, theNode: Graphic3d_ZLayerId): void;
+}
+export declare class Handle_Poly_Triangulation {
+    constructor();
+    constructor(thePtr: Poly_Triangulation);
+    constructor(theHandle: Handle_Poly_Triangulation);
+    constructor(theHandle: Handle_Poly_Triangulation);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Poly_Triangulation): void;
+    get(): Poly_Triangulation;
+    delete(): void;
+}
+export declare class Handle_Poly_TriangulationParameters {
+    constructor();
+    constructor(thePtr: Poly_TriangulationParameters);
+    constructor(theHandle: Handle_Poly_TriangulationParameters);
+    constructor(theHandle: Handle_Poly_TriangulationParameters);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Poly_TriangulationParameters): void;
+    get(): Poly_TriangulationParameters;
     delete(): void;
 }
 export declare class Precision {
@@ -1278,6 +2436,17 @@ export declare class ProjLib {
     static Project(Sp: gp_Sphere, Ci: gp_Circ): gp_Lin2d;
     static Project(To: gp_Torus, P: gp_Pnt): gp_Pnt2d;
     static Project(To: gp_Torus, Ci: gp_Circ): gp_Lin2d;
+}
+export declare class Handle_Prs3d_Drawer {
+    constructor();
+    constructor(thePtr: Prs3d_Drawer);
+    constructor(theHandle: Handle_Prs3d_Drawer);
+    constructor(theHandle: Handle_Prs3d_Drawer);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Prs3d_Drawer): void;
+    get(): Prs3d_Drawer;
+    delete(): void;
 }
 export declare class Quantity_Color {
     constructor();
@@ -1334,6 +2503,28 @@ export declare class Quantity_Color {
     static Convert_LinearRGB_To_sRGB_approx22(theRGB: NCollection_Vec3<float>): any;
     static Convert_sRGB_To_LinearRGB_approx22(thesRGBValue: Standard_ShortReal): Standard_ShortReal;
     static Convert_sRGB_To_LinearRGB_approx22(theRGB: NCollection_Vec3<float>): any;
+}
+export declare class Handle_Resource_Manager {
+    constructor();
+    constructor(thePtr: Resource_Manager);
+    constructor(theHandle: Handle_Resource_Manager);
+    constructor(theHandle: Handle_Resource_Manager);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Resource_Manager): void;
+    get(): Resource_Manager;
+    delete(): void;
+}
+export declare class Handle_STEPCAFControl_ExternFile {
+    constructor();
+    constructor(thePtr: STEPCAFControl_ExternFile);
+    constructor(theHandle: Handle_STEPCAFControl_ExternFile);
+    constructor(theHandle: Handle_STEPCAFControl_ExternFile);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: STEPCAFControl_ExternFile): void;
+    get(): STEPCAFControl_ExternFile;
+    delete(): void;
 }
 export declare class STEPCAFControl_Reader {
     constructor();
@@ -1400,15 +2591,14 @@ export declare class STEPCAFControl_Writer {
     ExternFile(L: TDF_Label, ef: Handle_STEPCAFControl_ExternFile): Standard_Boolean;
     ExternFile(name: Standard_CString, ef: Handle_STEPCAFControl_ExternFile): Standard_Boolean;
 }
-export declare class STEPControl_Reader {
+export declare class STEPConstruct_Tool {
     constructor();
-    constructor(WS: Handle_XSControl_WorkSession, scratch: Standard_Boolean);
-    StepModel(): Handle_StepData_StepModel;
-    TransferRoot(num: Graphic3d_ZLayerId, theProgress: Message_ProgressRange): Standard_Boolean;
-    NbRootsForTransfer(): Graphic3d_ZLayerId;
-    FileUnits(theUnitLengthNames: TColStd_SequenceOfAsciiString, theUnitAngleNames: TColStd_SequenceOfAsciiString, theUnitSolidAngleNames: TColStd_SequenceOfAsciiString): void;
-    SetSystemLengthUnit(theLengthUnit: Standard_Real): void;
-    SystemLengthUnit(): Standard_Real;
+    constructor(WS: Handle_XSControl_WorkSession);
+    WS(): Handle_XSControl_WorkSession;
+    Model(): Handle_Interface_InterfaceModel;
+    Graph(recompute: Standard_Boolean): Interface_Graph;
+    TransientProcess(): Handle_Transfer_TransientProcess;
+    FinderProcess(): Handle_Transfer_FinderProcess;
     delete(): void;
 }
 export declare class STEPControl_Writer {
@@ -1437,7 +2627,1290 @@ export declare class ShapeAnalysis_FreeBounds {
     static ConnectWiresToWires(iwires: Handle_TopTools_HSequenceOfShape, toler: Standard_Real, shared: Standard_Boolean, owires: Handle_TopTools_HSequenceOfShape, vertices: TopTools_DataMapOfShapeShape): void;
     static SplitWires(wires: Handle_TopTools_HSequenceOfShape, toler: Standard_Real, shared: Standard_Boolean, closed: Handle_TopTools_HSequenceOfShape, open: Handle_TopTools_HSequenceOfShape): void;
 }
-export declare class ShapeExtend_WireData {
+export declare class Handle_ShapeAnalysis_Surface {
+    constructor();
+    constructor(thePtr: ShapeAnalysis_Surface);
+    constructor(theHandle: Handle_ShapeAnalysis_Surface);
+    constructor(theHandle: Handle_ShapeAnalysis_Surface);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeAnalysis_Surface): void;
+    get(): ShapeAnalysis_Surface;
+    delete(): void;
+}
+export declare class Handle_ShapeAnalysis_Wire {
+    constructor();
+    constructor(thePtr: ShapeAnalysis_Wire);
+    constructor(theHandle: Handle_ShapeAnalysis_Wire);
+    constructor(theHandle: Handle_ShapeAnalysis_Wire);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeAnalysis_Wire): void;
+    get(): ShapeAnalysis_Wire;
+    delete(): void;
+}
+export declare class ShapeAnalysis_WireOrder {
+    constructor();
+    constructor(mode3d: Standard_Boolean, tol: Standard_Real);
+    SetMode(mode3d: Standard_Boolean, tol: Standard_Real): void;
+    Tolerance(): Standard_Real;
+    Clear(): void;
+    NbEdges(): Graphic3d_ZLayerId;
+    KeepLoopsMode(): Standard_Boolean;
+    Perform(closed: Standard_Boolean): void;
+    IsDone(): Standard_Boolean;
+    Status(): Graphic3d_ZLayerId;
+    Ordered(n: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    XYZ(num: Graphic3d_ZLayerId, start3d: gp_XYZ, end3d: gp_XYZ): void;
+    XY(num: Graphic3d_ZLayerId, start2d: gp_XY, end2d: gp_XY): void;
+    Gap(num: Graphic3d_ZLayerId): Standard_Real;
+    SetChains(gap: Standard_Real): void;
+    NbChains(): Graphic3d_ZLayerId;
+    Chain(num: Graphic3d_ZLayerId, n1: Graphic3d_ZLayerId, n2: Graphic3d_ZLayerId): void;
+    SetCouples(gap: Standard_Real): void;
+    NbCouples(): Graphic3d_ZLayerId;
+    Couple(num: Graphic3d_ZLayerId, n1: Graphic3d_ZLayerId, n2: Graphic3d_ZLayerId): void;
+    delete(): void;
+    Add(start3d: gp_XYZ, end3d: gp_XYZ): void;
+    Add(start2d: gp_XY, end2d: gp_XY): void;
+}
+export declare class Handle_ShapeBuild_ReShape {
+    constructor();
+    constructor(thePtr: ShapeBuild_ReShape);
+    constructor(theHandle: Handle_ShapeBuild_ReShape);
+    constructor(theHandle: Handle_ShapeBuild_ReShape);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeBuild_ReShape): void;
+    get(): ShapeBuild_ReShape;
+    delete(): void;
+}
+export declare class Handle_ShapeExtend_BasicMsgRegistrator {
+    constructor();
+    constructor(thePtr: ShapeExtend_BasicMsgRegistrator);
+    constructor(theHandle: Handle_ShapeExtend_BasicMsgRegistrator);
+    constructor(theHandle: Handle_ShapeExtend_BasicMsgRegistrator);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeExtend_BasicMsgRegistrator): void;
+    get(): ShapeExtend_BasicMsgRegistrator;
+    delete(): void;
+}
+export declare class Handle_ShapeExtend_WireData {
+    constructor();
+    constructor(thePtr: ShapeExtend_WireData);
+    constructor(theHandle: Handle_ShapeExtend_WireData);
+    constructor(theHandle: Handle_ShapeExtend_WireData);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeExtend_WireData): void;
+    get(): ShapeExtend_WireData;
+    delete(): void;
+}
+export declare class Handle_ShapeFix_Edge {
+    constructor();
+    constructor(thePtr: ShapeFix_Edge);
+    constructor(theHandle: Handle_ShapeFix_Edge);
+    constructor(theHandle: Handle_ShapeFix_Edge);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeFix_Edge): void;
+    get(): ShapeFix_Edge;
+    delete(): void;
+}
+export declare class Handle_ShapeFix_Face {
+    constructor();
+    constructor(thePtr: ShapeFix_Face);
+    constructor(theHandle: Handle_ShapeFix_Face);
+    constructor(theHandle: Handle_ShapeFix_Face);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeFix_Face): void;
+    get(): ShapeFix_Face;
+    delete(): void;
+}
+export declare class Handle_ShapeFix_Root {
+    constructor();
+    constructor(thePtr: ShapeFix_Root);
+    constructor(theHandle: Handle_ShapeFix_Root);
+    constructor(theHandle: Handle_ShapeFix_Root);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeFix_Root): void;
+    get(): ShapeFix_Root;
+    delete(): void;
+}
+export declare class Handle_ShapeFix_Shell {
+    constructor();
+    constructor(thePtr: ShapeFix_Shell);
+    constructor(theHandle: Handle_ShapeFix_Shell);
+    constructor(theHandle: Handle_ShapeFix_Shell);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeFix_Shell): void;
+    get(): ShapeFix_Shell;
+    delete(): void;
+}
+export declare class Handle_ShapeFix_Solid {
+    constructor();
+    constructor(thePtr: ShapeFix_Solid);
+    constructor(theHandle: Handle_ShapeFix_Solid);
+    constructor(theHandle: Handle_ShapeFix_Solid);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeFix_Solid): void;
+    get(): ShapeFix_Solid;
+    delete(): void;
+}
+export declare class Handle_ShapeFix_Wire {
+    constructor();
+    constructor(thePtr: ShapeFix_Wire);
+    constructor(theHandle: Handle_ShapeFix_Wire);
+    constructor(theHandle: Handle_ShapeFix_Wire);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: ShapeFix_Wire): void;
+    get(): ShapeFix_Wire;
+    delete(): void;
+}
+export declare class Handle_Standard_Failure {
+    constructor();
+    constructor(thePtr: Standard_Failure);
+    constructor(theHandle: Handle_Standard_Failure);
+    constructor(theHandle: Handle_Standard_Failure);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Standard_Failure): void;
+    get(): Standard_Failure;
+    delete(): void;
+}
+export declare class Standard_GUID {
+    constructor();
+    constructor(aGuid: Standard_CString);
+    constructor(aGuid: Standard_ExtString);
+    constructor(a32b: Graphic3d_ZLayerId, a16b1: Standard_ExtCharacter, a16b2: Standard_ExtCharacter, a16b3: Standard_ExtCharacter, a8b1: Standard_Byte, a8b2: Standard_Byte, a8b3: Standard_Byte, a8b4: Standard_Byte, a8b5: Standard_Byte, a8b6: Standard_Byte);
+    constructor(aGuid: Standard_UUID);
+    constructor(aGuid: Standard_GUID);
+    ToUUID(): Standard_UUID;
+    ToCString(aStrGuid: Standard_PCharacter): void;
+    ToExtString(aStrGuid: Standard_PExtCharacter): void;
+    IsSame(uid: Standard_GUID): Standard_Boolean;
+    IsNotSame(uid: Standard_GUID): Standard_Boolean;
+    ShallowDump(aStream: Standard_OStream): void;
+    static CheckGUIDFormat(aGuid: Standard_CString): Standard_Boolean;
+    Hash(Upper: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    static HashCode(theGUID: Standard_GUID, theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    static IsEqual(string1: Standard_GUID, string2: Standard_GUID): Standard_Boolean;
+    delete(): void;
+    Assign(uid: Standard_GUID): void;
+    Assign(uid: Standard_UUID): void;
+}
+export declare class Handle_Standard_Transient {
+    constructor();
+    constructor(thePtr: Standard_Transient);
+    constructor(theHandle: Handle_Standard_Transient);
+    constructor(theHandle: Handle_Standard_Transient);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Standard_Transient): void;
+    get(): Standard_Transient;
+    delete(): void;
+}
+export declare class Standard_Transient {
+    constructor();
+    constructor(a: Standard_Transient);
+    Delete(): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    This(): Standard_Transient;
+    GetRefCount(): Graphic3d_ZLayerId;
+    IncrementRefCounter(): void;
+    DecrementRefCounter(): Graphic3d_ZLayerId;
+    delete(): void;
+    IsInstance(theType: Handle_Standard_Type): Standard_Boolean;
+    IsInstance(theTypeName: Standard_CString): Standard_Boolean;
+    IsKind(theType: Handle_Standard_Type): Standard_Boolean;
+    IsKind(theTypeName: Standard_CString): Standard_Boolean;
+}
+export declare class Adaptor2d_Curve2d extends Standard_Transient {
+    constructor();
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor2d_Curve2d;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor2d_Curve2d;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt2d;
+    D0(U: Standard_Real, P: gp_Pnt2d): void;
+    D1(U: Standard_Real, P: gp_Pnt2d, V: gp_Vec2d): void;
+    D2(U: Standard_Real, P: gp_Pnt2d, V1: gp_Vec2d, V2: gp_Vec2d): void;
+    D3(U: Standard_Real, P: gp_Pnt2d, V1: gp_Vec2d, V2: gp_Vec2d, V3: gp_Vec2d): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec2d;
+    Resolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin2d;
+    Circle(): gp_Circ2d;
+    Ellipse(): gp_Elips2d;
+    Hyperbola(): gp_Hypr2d;
+    Parabola(): gp_Parab2d;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    NbSamples(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom2d_BezierCurve;
+    BSpline(): Handle_Geom2d_BSplineCurve;
+    delete(): void;
+}
+export declare class Geom2dAdaptor_Curve extends Adaptor2d_Curve2d {
+    constructor();
+    constructor(C: Handle_Geom2d_Curve);
+    constructor(C: Handle_Geom2d_Curve, UFirst: Standard_Real, ULast: Standard_Real);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor2d_Curve2d;
+    Reset(): void;
+    Curve(): Handle_Geom2d_Curve;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor2d_Curve2d;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt2d;
+    D0(U: Standard_Real, P: gp_Pnt2d): void;
+    D1(U: Standard_Real, P: gp_Pnt2d, V: gp_Vec2d): void;
+    D2(U: Standard_Real, P: gp_Pnt2d, V1: gp_Vec2d, V2: gp_Vec2d): void;
+    D3(U: Standard_Real, P: gp_Pnt2d, V1: gp_Vec2d, V2: gp_Vec2d, V3: gp_Vec2d): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec2d;
+    Resolution(Ruv: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin2d;
+    Circle(): gp_Circ2d;
+    Ellipse(): gp_Elips2d;
+    Hyperbola(): gp_Hypr2d;
+    Parabola(): gp_Parab2d;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    NbSamples(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom2d_BezierCurve;
+    BSpline(): Handle_Geom2d_BSplineCurve;
+    delete(): void;
+    Load(theCurve: Handle_Geom2d_Curve): void;
+    Load(theCurve: Handle_Geom2d_Curve, theUFirst: Standard_Real, theULast: Standard_Real): void;
+}
+export declare class Adaptor3d_Curve extends Standard_Transient {
+    constructor();
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Curve;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Resolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin;
+    Circle(): gp_Circ;
+    Ellipse(): gp_Elips;
+    Hyperbola(): gp_Hypr;
+    Parabola(): gp_Parab;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom_BezierCurve;
+    BSpline(): Handle_Geom_BSplineCurve;
+    OffsetCurve(): Handle_Geom_OffsetCurve;
+    delete(): void;
+}
+export declare class Adaptor3d_CurveOnSurface extends Adaptor3d_Curve {
+    constructor();
+    constructor(S: Handle_Adaptor3d_Surface);
+    constructor(C: Handle_Adaptor2d_Curve2d, S: Handle_Adaptor3d_Surface);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Curve;
+    GetCurve(): Handle_Adaptor2d_Curve2d;
+    GetSurface(): Handle_Adaptor3d_Surface;
+    ChangeCurve(): Handle_Adaptor2d_Curve2d;
+    ChangeSurface(): Handle_Adaptor3d_Surface;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Resolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin;
+    Circle(): gp_Circ;
+    Ellipse(): gp_Elips;
+    Hyperbola(): gp_Hypr;
+    Parabola(): gp_Parab;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom_BezierCurve;
+    BSpline(): Handle_Geom_BSplineCurve;
+    delete(): void;
+    Load(S: Handle_Adaptor3d_Surface): void;
+    Load(C: Handle_Adaptor2d_Curve2d): void;
+    Load(C: Handle_Adaptor2d_Curve2d, S: Handle_Adaptor3d_Surface): void;
+}
+export declare class BRepAdaptor_CompCurve extends Adaptor3d_Curve {
+    constructor();
+    constructor(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean);
+    constructor(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean, First: Standard_Real, Last: Standard_Real, Tol: Standard_Real);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Curve;
+    Wire(): TopoDS_Wire;
+    Edge(U: Standard_Real, E: TopoDS_Edge, UonE: Standard_Real): void;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Resolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin;
+    Circle(): gp_Circ;
+    Ellipse(): gp_Elips;
+    Hyperbola(): gp_Hypr;
+    Parabola(): gp_Parab;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom_BezierCurve;
+    BSpline(): Handle_Geom_BSplineCurve;
+    delete(): void;
+    Initialize(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean): void;
+    Initialize(W: TopoDS_Wire, KnotByCurvilinearAbcissa: Standard_Boolean, First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): void;
+}
+export declare class BRepAdaptor_Curve extends Adaptor3d_Curve {
+    constructor();
+    constructor(E: TopoDS_Edge);
+    constructor(E: TopoDS_Edge, F: TopoDS_Face);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Curve;
+    Reset(): void;
+    Trsf(): gp_Trsf;
+    Is3DCurve(): Standard_Boolean;
+    IsCurveOnSurface(): Standard_Boolean;
+    Curve(): GeomAdaptor_Curve;
+    CurveOnSurface(): Adaptor3d_CurveOnSurface;
+    Edge(): TopoDS_Edge;
+    Tolerance(): Standard_Real;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Resolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin;
+    Circle(): gp_Circ;
+    Ellipse(): gp_Elips;
+    Hyperbola(): gp_Hypr;
+    Parabola(): gp_Parab;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom_BezierCurve;
+    BSpline(): Handle_Geom_BSplineCurve;
+    OffsetCurve(): Handle_Geom_OffsetCurve;
+    delete(): void;
+    Initialize(E: TopoDS_Edge): void;
+    Initialize(E: TopoDS_Edge, F: TopoDS_Face): void;
+}
+export declare class GeomAdaptor_Curve extends Adaptor3d_Curve {
+    constructor();
+    constructor(theCurve: Handle_Geom_Curve);
+    constructor(theCurve: Handle_Geom_Curve, theUFirst: Standard_Real, theULast: Standard_Real);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Curve;
+    Reset(): void;
+    Curve(): Handle_Geom_Curve;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Trim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Curve;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Value(U: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Resolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_CurveType;
+    Line(): gp_Lin;
+    Circle(): gp_Circ;
+    Ellipse(): gp_Elips;
+    Hyperbola(): gp_Hypr;
+    Parabola(): gp_Parab;
+    Degree(): Graphic3d_ZLayerId;
+    IsRational(): Standard_Boolean;
+    NbPoles(): Graphic3d_ZLayerId;
+    NbKnots(): Graphic3d_ZLayerId;
+    Bezier(): Handle_Geom_BezierCurve;
+    BSpline(): Handle_Geom_BSplineCurve;
+    OffsetCurve(): Handle_Geom_OffsetCurve;
+    delete(): void;
+    Load(theCurve: Handle_Geom_Curve): void;
+    Load(theCurve: Handle_Geom_Curve, theUFirst: Standard_Real, theULast: Standard_Real): void;
+}
+export declare class Adaptor3d_Surface extends Standard_Transient {
+    constructor();
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Surface;
+    FirstUParameter(): Standard_Real;
+    LastUParameter(): Standard_Real;
+    FirstVParameter(): Standard_Real;
+    LastVParameter(): Standard_Real;
+    UContinuity(): GeomAbs_Shape;
+    VContinuity(): GeomAbs_Shape;
+    NbUIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    NbVIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    UIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    VIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    UTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
+    VTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
+    IsUClosed(): Standard_Boolean;
+    IsVClosed(): Standard_Boolean;
+    IsUPeriodic(): Standard_Boolean;
+    UPeriod(): Standard_Real;
+    IsVPeriodic(): Standard_Boolean;
+    VPeriod(): Standard_Real;
+    Value(U: Standard_Real, V: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, V: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec): void;
+    D2(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec): void;
+    D3(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec, D3U: gp_Vec, D3V: gp_Vec, D3UUV: gp_Vec, D3UVV: gp_Vec): void;
+    DN(U: Standard_Real, V: Standard_Real, Nu: Graphic3d_ZLayerId, Nv: Graphic3d_ZLayerId): gp_Vec;
+    UResolution(R3d: Standard_Real): Standard_Real;
+    VResolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_SurfaceType;
+    Plane(): gp_Pln;
+    Cylinder(): gp_Cylinder;
+    Cone(): gp_Cone;
+    Sphere(): gp_Sphere;
+    Torus(): gp_Torus;
+    UDegree(): Graphic3d_ZLayerId;
+    NbUPoles(): Graphic3d_ZLayerId;
+    VDegree(): Graphic3d_ZLayerId;
+    NbVPoles(): Graphic3d_ZLayerId;
+    NbUKnots(): Graphic3d_ZLayerId;
+    NbVKnots(): Graphic3d_ZLayerId;
+    IsURational(): Standard_Boolean;
+    IsVRational(): Standard_Boolean;
+    Bezier(): Handle_Geom_BezierSurface;
+    BSpline(): Handle_Geom_BSplineSurface;
+    AxeOfRevolution(): gp_Ax1;
+    Direction(): gp_Dir;
+    BasisCurve(): Handle_Adaptor3d_Curve;
+    BasisSurface(): Handle_Adaptor3d_Surface;
+    OffsetValue(): Standard_Real;
+    delete(): void;
+}
+export declare class BRepAdaptor_Surface extends Adaptor3d_Surface {
+    constructor();
+    constructor(F: TopoDS_Face, R: Standard_Boolean);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Surface;
+    Initialize(F: TopoDS_Face, Restriction: Standard_Boolean): void;
+    Surface(): GeomAdaptor_Surface;
+    ChangeSurface(): GeomAdaptor_Surface;
+    Trsf(): gp_Trsf;
+    Face(): TopoDS_Face;
+    Tolerance(): Standard_Real;
+    FirstUParameter(): Standard_Real;
+    LastUParameter(): Standard_Real;
+    FirstVParameter(): Standard_Real;
+    LastVParameter(): Standard_Real;
+    UContinuity(): GeomAbs_Shape;
+    VContinuity(): GeomAbs_Shape;
+    NbUIntervals(theSh: GeomAbs_Shape): Graphic3d_ZLayerId;
+    NbVIntervals(theSh: GeomAbs_Shape): Graphic3d_ZLayerId;
+    UIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    VIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    UTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
+    VTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
+    IsUClosed(): Standard_Boolean;
+    IsVClosed(): Standard_Boolean;
+    IsUPeriodic(): Standard_Boolean;
+    UPeriod(): Standard_Real;
+    IsVPeriodic(): Standard_Boolean;
+    VPeriod(): Standard_Real;
+    Value(U: Standard_Real, V: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, V: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec): void;
+    D2(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec): void;
+    D3(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec, D3U: gp_Vec, D3V: gp_Vec, D3UUV: gp_Vec, D3UVV: gp_Vec): void;
+    DN(U: Standard_Real, V: Standard_Real, Nu: Graphic3d_ZLayerId, Nv: Graphic3d_ZLayerId): gp_Vec;
+    UResolution(theR3d: Standard_Real): Standard_Real;
+    VResolution(theR3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_SurfaceType;
+    Plane(): gp_Pln;
+    Cylinder(): gp_Cylinder;
+    Cone(): gp_Cone;
+    Sphere(): gp_Sphere;
+    Torus(): gp_Torus;
+    UDegree(): Graphic3d_ZLayerId;
+    NbUPoles(): Graphic3d_ZLayerId;
+    VDegree(): Graphic3d_ZLayerId;
+    NbVPoles(): Graphic3d_ZLayerId;
+    NbUKnots(): Graphic3d_ZLayerId;
+    NbVKnots(): Graphic3d_ZLayerId;
+    IsURational(): Standard_Boolean;
+    IsVRational(): Standard_Boolean;
+    Bezier(): Handle_Geom_BezierSurface;
+    BSpline(): Handle_Geom_BSplineSurface;
+    AxeOfRevolution(): gp_Ax1;
+    Direction(): gp_Dir;
+    BasisCurve(): Handle_Adaptor3d_Curve;
+    BasisSurface(): Handle_Adaptor3d_Surface;
+    OffsetValue(): Standard_Real;
+    delete(): void;
+}
+export declare class GeomAdaptor_Surface extends Adaptor3d_Surface {
+    constructor();
+    constructor(theSurf: Handle_Geom_Surface);
+    constructor(theSurf: Handle_Geom_Surface, theUFirst: Standard_Real, theULast: Standard_Real, theVFirst: Standard_Real, theVLast: Standard_Real, theTolU: Standard_Real, theTolV: Standard_Real);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    ShallowCopy(): Handle_Adaptor3d_Surface;
+    Surface(): Handle_Geom_Surface;
+    FirstUParameter(): Standard_Real;
+    LastUParameter(): Standard_Real;
+    FirstVParameter(): Standard_Real;
+    LastVParameter(): Standard_Real;
+    UContinuity(): GeomAbs_Shape;
+    VContinuity(): GeomAbs_Shape;
+    NbUIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    NbVIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    UIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    VIntervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    UTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
+    VTrim(First: Standard_Real, Last: Standard_Real, Tol: Standard_Real): Handle_Adaptor3d_Surface;
+    IsUClosed(): Standard_Boolean;
+    IsVClosed(): Standard_Boolean;
+    IsUPeriodic(): Standard_Boolean;
+    UPeriod(): Standard_Real;
+    IsVPeriodic(): Standard_Boolean;
+    VPeriod(): Standard_Real;
+    Value(U: Standard_Real, V: Standard_Real): gp_Pnt;
+    D0(U: Standard_Real, V: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec): void;
+    D2(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec): void;
+    D3(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec, D3U: gp_Vec, D3V: gp_Vec, D3UUV: gp_Vec, D3UVV: gp_Vec): void;
+    DN(U: Standard_Real, V: Standard_Real, Nu: Graphic3d_ZLayerId, Nv: Graphic3d_ZLayerId): gp_Vec;
+    UResolution(R3d: Standard_Real): Standard_Real;
+    VResolution(R3d: Standard_Real): Standard_Real;
+    GetType(): GeomAbs_SurfaceType;
+    Plane(): gp_Pln;
+    Cylinder(): gp_Cylinder;
+    Cone(): gp_Cone;
+    Sphere(): gp_Sphere;
+    Torus(): gp_Torus;
+    UDegree(): Graphic3d_ZLayerId;
+    NbUPoles(): Graphic3d_ZLayerId;
+    VDegree(): Graphic3d_ZLayerId;
+    NbVPoles(): Graphic3d_ZLayerId;
+    NbUKnots(): Graphic3d_ZLayerId;
+    NbVKnots(): Graphic3d_ZLayerId;
+    IsURational(): Standard_Boolean;
+    IsVRational(): Standard_Boolean;
+    Bezier(): Handle_Geom_BezierSurface;
+    BSpline(): Handle_Geom_BSplineSurface;
+    AxeOfRevolution(): gp_Ax1;
+    Direction(): gp_Dir;
+    BasisCurve(): Handle_Adaptor3d_Curve;
+    BasisSurface(): Handle_Adaptor3d_Surface;
+    OffsetValue(): Standard_Real;
+    delete(): void;
+    Load(theSurf: Handle_Geom_Surface): void;
+    Load(theSurf: Handle_Geom_Surface, theUFirst: Standard_Real, theULast: Standard_Real, theVFirst: Standard_Real, theVLast: Standard_Real, theTolU: Standard_Real, theTolV: Standard_Real): void;
+}
+export declare class BRepMesh_DiscretRoot extends Standard_Transient {
+    constructor();
+    SetShape(theShape: TopoDS_Shape): void;
+    Shape(): TopoDS_Shape;
+    IsDone(): Standard_Boolean;
+    Perform(theRange: Message_ProgressRange): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class BRepMesh_IncrementalMesh extends BRepMesh_DiscretRoot {
+    constructor();
+    constructor(theShape: TopoDS_Shape, theLinDeflection: Standard_Real, isRelative: Standard_Boolean, theAngDeflection: Standard_Real, isInParallel: Standard_Boolean);
+    constructor(theShape: TopoDS_Shape, theParameters: IMeshTools_Parameters, theRange: Message_ProgressRange);
+    Parameters(): IMeshTools_Parameters;
+    ChangeParameters(): IMeshTools_Parameters;
+    IsModified(): Standard_Boolean;
+    GetStatusFlags(): Graphic3d_ZLayerId;
+    static Discret(theShape: TopoDS_Shape, theLinDeflection: Standard_Real, theAngDeflection: Standard_Real, theAlgo: BRepMesh_DiscretRoot): Graphic3d_ZLayerId;
+    static IsParallelDefault(): Standard_Boolean;
+    static SetParallelDefault(isInParallel: Standard_Boolean): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Perform(theRange: Message_ProgressRange): void;
+    Perform(theContext: any, theRange: Message_ProgressRange): void;
+}
+export declare class CDM_Application extends Standard_Transient {
+    constructor();
+    Resources(): Handle_Resource_Manager;
+    MessageDriver(): Handle_Message_Messenger;
+    BeginOfUpdate(aDocument: Handle_CDM_Document): void;
+    EndOfUpdate(aDocument: Handle_CDM_Document, theStatus: Standard_Boolean, ErrorString: TCollection_ExtendedString): void;
+    Write(aString: Standard_ExtString): void;
+    Name(): TCollection_ExtendedString;
+    Version(): XCAFDoc_PartId;
+    MetaDataLookUpTable(): CDM_MetaDataLookUpTable;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class CDF_Application extends CDM_Application {
+    constructor();
+    static Load(aGUID: Standard_GUID): Handle_CDF_Application;
+    NewDocument(theFormat: TCollection_ExtendedString, theDoc: Handle_CDM_Document): void;
+    InitDocument(theDoc: Handle_CDM_Document): void;
+    Open(aDocument: Handle_CDM_Document): void;
+    CanClose(aDocument: Handle_CDM_Document): CDM_CanCloseStatus;
+    Close(aDocument: Handle_CDM_Document): void;
+    GetRetrieveStatus(): PCDM_ReaderStatus;
+    Read(theIStream: Standard_IStream, theDocument: Handle_CDM_Document, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): void;
+    ReaderFromFormat(aFormat: TCollection_ExtendedString): Handle_PCDM_Reader;
+    WriterFromFormat(aFormat: TCollection_ExtendedString): Handle_PCDM_StorageDriver;
+    Format(aFileName: TCollection_ExtendedString, theFormat: TCollection_ExtendedString): Standard_Boolean;
+    DefaultFolder(): Standard_ExtString;
+    SetDefaultFolder(aFolder: Standard_ExtString): Standard_Boolean;
+    MetaDataDriver(): Handle_CDF_MetaDataDriver;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Retrieve(aFolder: TCollection_ExtendedString, aName: TCollection_ExtendedString, UseStorageConfiguration: Standard_Boolean, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): Handle_CDM_Document;
+    Retrieve(aFolder: TCollection_ExtendedString, aName: TCollection_ExtendedString, aVersion: TCollection_ExtendedString, UseStorageConfiguration: Standard_Boolean, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): Handle_CDM_Document;
+    CanRetrieve(theFolder: TCollection_ExtendedString, theName: TCollection_ExtendedString, theAppendMode: Standard_Boolean): PCDM_ReaderStatus;
+    CanRetrieve(theFolder: TCollection_ExtendedString, theName: TCollection_ExtendedString, theVersion: TCollection_ExtendedString, theAppendMode: Standard_Boolean): PCDM_ReaderStatus;
+}
+export declare class TDocStd_Application extends CDF_Application {
+    constructor();
+    IsDriverLoaded(): Standard_Boolean;
+    Resources(): Handle_Resource_Manager;
+    ResourcesName(): Standard_CString;
+    DefineFormat(theFormat: XCAFDoc_PartId, theDescription: XCAFDoc_PartId, theExtension: XCAFDoc_PartId, theReader: Handle_PCDM_RetrievalDriver, theWriter: Handle_PCDM_StorageDriver): void;
+    ReadingFormats(theFormats: TColStd_SequenceOfAsciiString): void;
+    WritingFormats(theFormats: TColStd_SequenceOfAsciiString): void;
+    NbDocuments(): Graphic3d_ZLayerId;
+    GetDocument(index: Graphic3d_ZLayerId, aDoc: Handle_TDocStd_Document): void;
+    InitDocument(aDoc: Handle_CDM_Document): void;
+    Close(aDoc: Handle_TDocStd_Document): void;
+    IsInSession(path: TCollection_ExtendedString): Graphic3d_ZLayerId;
+    OnOpenTransaction(theDoc: Handle_TDocStd_Document): void;
+    OnCommitTransaction(theDoc: Handle_TDocStd_Document): void;
+    OnAbortTransaction(theDoc: Handle_TDocStd_Document): void;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    NewDocument(format: TCollection_ExtendedString, aDoc: Handle_CDM_Document): void;
+    NewDocument(format: TCollection_ExtendedString, aDoc: Handle_TDocStd_Document): void;
+    Open(thePath: TCollection_ExtendedString, theDoc: Handle_TDocStd_Document, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): PCDM_ReaderStatus;
+    Open(thePath: TCollection_ExtendedString, theDoc: Handle_TDocStd_Document, theRange: Message_ProgressRange): PCDM_ReaderStatus;
+    Open(theIStream: Standard_IStream, theDoc: Handle_TDocStd_Document, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): PCDM_ReaderStatus;
+    Open(theIStream: Standard_IStream, theDoc: Handle_TDocStd_Document, theRange: Message_ProgressRange): PCDM_ReaderStatus;
+    SaveAs(theDoc: Handle_TDocStd_Document, path: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
+    SaveAs(theDoc: Handle_TDocStd_Document, theOStream: Standard_OStream, theRange: Message_ProgressRange): PCDM_StoreStatus;
+    SaveAs(theDoc: Handle_TDocStd_Document, path: TCollection_ExtendedString, theStatusMessage: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
+    SaveAs(theDoc: Handle_TDocStd_Document, theOStream: Standard_OStream, theStatusMessage: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
+    Save(theDoc: Handle_TDocStd_Document, theRange: Message_ProgressRange): PCDM_StoreStatus;
+    Save(theDoc: Handle_TDocStd_Document, theStatusMessage: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
+}
+export declare class CDM_Document extends Standard_Transient {
+    constructor();
+    StorageFormat(): TCollection_ExtendedString;
+    Extensions(Extensions: TColStd_SequenceOfExtendedString): void;
+    GetAlternativeDocument(aFormat: TCollection_ExtendedString, anAlternativeDocument: Handle_CDM_Document): Standard_Boolean;
+    RemoveReference(aReferenceIdentifier: Graphic3d_ZLayerId): void;
+    RemoveAllReferences(): void;
+    Document(aReferenceIdentifier: Graphic3d_ZLayerId): Handle_CDM_Document;
+    IsInSession(aReferenceIdentifier: Graphic3d_ZLayerId): Standard_Boolean;
+    Name(aReferenceIdentifier: Graphic3d_ZLayerId): TCollection_ExtendedString;
+    UpdateFromDocuments(aModifContext: Standard_Address): void;
+    ToReferencesNumber(): Graphic3d_ZLayerId;
+    FromReferencesNumber(): Graphic3d_ZLayerId;
+    ShallowReferences(aDocument: Handle_CDM_Document): Standard_Boolean;
+    DeepReferences(aDocument: Handle_CDM_Document): Standard_Boolean;
+    CopyReference(aFromDocument: Handle_CDM_Document, aReferenceIdentifier: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    SetIsReadOnly(): void;
+    UnsetIsReadOnly(): void;
+    Modify(): void;
+    Modifications(): Graphic3d_ZLayerId;
+    UnModify(): void;
+    IsUpToDate(aReferenceIdentifier: Graphic3d_ZLayerId): Standard_Boolean;
+    SetIsUpToDate(aReferenceIdentifier: Graphic3d_ZLayerId): void;
+    SetComment(aComment: TCollection_ExtendedString): void;
+    AddComment(aComment: TCollection_ExtendedString): void;
+    SetComments(aComments: TColStd_SequenceOfExtendedString): void;
+    Comments(aComments: TColStd_SequenceOfExtendedString): void;
+    Comment(): Standard_ExtString;
+    StorageVersion(): Graphic3d_ZLayerId;
+    SetMetaData(aMetaData: Handle_CDM_MetaData): void;
+    UnsetIsStored(): void;
+    MetaData(): Handle_CDM_MetaData;
+    Folder(): TCollection_ExtendedString;
+    SetRequestedFolder(aFolder: TCollection_ExtendedString): void;
+    RequestedFolder(): TCollection_ExtendedString;
+    HasRequestedFolder(): Standard_Boolean;
+    SetRequestedName(aName: TCollection_ExtendedString): void;
+    RequestedName(): TCollection_ExtendedString;
+    SetRequestedPreviousVersion(aPreviousVersion: TCollection_ExtendedString): void;
+    UnsetRequestedPreviousVersion(): void;
+    HasRequestedPreviousVersion(): Standard_Boolean;
+    RequestedPreviousVersion(): TCollection_ExtendedString;
+    SetRequestedComment(aComment: TCollection_ExtendedString): void;
+    RequestedComment(): TCollection_ExtendedString;
+    LoadResources(): void;
+    FindFileExtension(): Standard_Boolean;
+    FileExtension(): TCollection_ExtendedString;
+    FindDescription(): Standard_Boolean;
+    Description(): TCollection_ExtendedString;
+    IsModified(): Standard_Boolean;
+    Open(anApplication: Handle_CDM_Application): void;
+    CanClose(): CDM_CanCloseStatus;
+    Close(): void;
+    Application(): Handle_CDM_Application;
+    CanCloseReference(aDocument: Handle_CDM_Document, aReferenceIdentifier: Graphic3d_ZLayerId): Standard_Boolean;
+    CloseReference(aDocument: Handle_CDM_Document, aReferenceIdentifier: Graphic3d_ZLayerId): void;
+    ReferenceCounter(): Graphic3d_ZLayerId;
+    Reference(aReferenceIdentifier: Graphic3d_ZLayerId): Handle_CDM_Reference;
+    SetModifications(Modifications: Graphic3d_ZLayerId): void;
+    SetReferenceCounter(aReferenceCounter: Graphic3d_ZLayerId): void;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Update(aToDocument: Handle_CDM_Document, aReferenceIdentifier: Graphic3d_ZLayerId, aModifContext: Standard_Address): void;
+    Update(ErrorString: TCollection_ExtendedString): Standard_Boolean;
+    Update(): void;
+    CreateReference(anOtherDocument: Handle_CDM_Document): Graphic3d_ZLayerId;
+    CreateReference(aMetaData: Handle_CDM_MetaData, aReferenceIdentifier: Graphic3d_ZLayerId, anApplication: Handle_CDM_Application, aToDocumentVersion: Graphic3d_ZLayerId, UseStorageConfiguration: Standard_Boolean): void;
+    CreateReference(aMetaData: Handle_CDM_MetaData, anApplication: Handle_CDM_Application, aDocumentVersion: Graphic3d_ZLayerId, UseStorageConfiguration: Standard_Boolean): Graphic3d_ZLayerId;
+    IsStored(aReferenceIdentifier: Graphic3d_ZLayerId): Standard_Boolean;
+    IsStored(): Standard_Boolean;
+    IsReadOnly(): Standard_Boolean;
+    IsReadOnly(aReferenceIdentifier: Graphic3d_ZLayerId): Standard_Boolean;
+    IsOpened(): Standard_Boolean;
+    IsOpened(aReferenceIdentifier: Graphic3d_ZLayerId): Standard_Boolean;
+}
+export declare class TDocStd_Document extends CDM_Document {
+    constructor(astorageformat: TCollection_ExtendedString);
+    static Get(L: TDF_Label): Handle_TDocStd_Document;
+    IsSaved(): Standard_Boolean;
+    IsChanged(): Standard_Boolean;
+    SetSaved(): void;
+    SetSavedTime(theTime: Graphic3d_ZLayerId): void;
+    GetSavedTime(): Graphic3d_ZLayerId;
+    GetName(): TCollection_ExtendedString;
+    GetPath(): TCollection_ExtendedString;
+    SetData(data: Handle_TDF_Data): void;
+    GetData(): Handle_TDF_Data;
+    Main(): TDF_Label;
+    IsEmpty(): Standard_Boolean;
+    IsValid(): Standard_Boolean;
+    SetModified(L: TDF_Label): void;
+    PurgeModified(): void;
+    GetModified(): TDF_LabelMap;
+    NewCommand(): void;
+    HasOpenCommand(): Standard_Boolean;
+    OpenCommand(): void;
+    CommitCommand(): Standard_Boolean;
+    AbortCommand(): void;
+    GetUndoLimit(): Graphic3d_ZLayerId;
+    SetUndoLimit(L: Graphic3d_ZLayerId): void;
+    ClearUndos(): void;
+    ClearRedos(): void;
+    GetAvailableUndos(): Graphic3d_ZLayerId;
+    Undo(): Standard_Boolean;
+    GetAvailableRedos(): Graphic3d_ZLayerId;
+    Redo(): Standard_Boolean;
+    GetUndos(): TDF_DeltaList;
+    GetRedos(): TDF_DeltaList;
+    RemoveFirstUndo(): void;
+    InitDeltaCompaction(): Standard_Boolean;
+    PerformDeltaCompaction(): Standard_Boolean;
+    UpdateReferences(aDocEntry: XCAFDoc_PartId): void;
+    Recompute(): void;
+    Update(aToDocument: Handle_CDM_Document, aReferenceIdentifier: Graphic3d_ZLayerId, aModifContext: Standard_Address): void;
+    StorageFormat(): TCollection_ExtendedString;
+    SetEmptyLabelsSavingMode(isAllowed: Standard_Boolean): void;
+    EmptyLabelsSavingMode(): Standard_Boolean;
+    ChangeStorageFormat(newStorageFormat: TCollection_ExtendedString): void;
+    SetNestedTransactionMode(isAllowed: Standard_Boolean): void;
+    IsNestedTransactionMode(): Standard_Boolean;
+    SetModificationMode(theTransactionOnly: Standard_Boolean): void;
+    ModificationMode(): Standard_Boolean;
+    BeforeClose(): void;
+    StorageFormatVersion(): TDocStd_FormatVersion;
+    ChangeStorageFormatVersion(theVersion: TDocStd_FormatVersion): void;
+    static CurrentStorageFormatVersion(): TDocStd_FormatVersion;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_Geometry extends Standard_Transient {
+    constructor();
+    Rotate(A1: gp_Ax1, Ang: Standard_Real): void;
+    Scale(P: gp_Pnt, S: Standard_Real): void;
+    Transform(T: gp_Trsf): void;
+    Rotated(A1: gp_Ax1, Ang: Standard_Real): Handle_Geom_Geometry;
+    Scaled(P: gp_Pnt, S: Standard_Real): Handle_Geom_Geometry;
+    Transformed(T: gp_Trsf): Handle_Geom_Geometry;
+    Copy(): Handle_Geom_Geometry;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Mirror(P: gp_Pnt): void;
+    Mirror(A1: gp_Ax1): void;
+    Mirror(A2: gp_Ax2): void;
+    Translate(V: gp_Vec): void;
+    Translate(P1: gp_Pnt, P2: gp_Pnt): void;
+    Mirrored(P: gp_Pnt): Handle_Geom_Geometry;
+    Mirrored(A1: gp_Ax1): Handle_Geom_Geometry;
+    Mirrored(A2: gp_Ax2): Handle_Geom_Geometry;
+    Translated(V: gp_Vec): Handle_Geom_Geometry;
+    Translated(P1: gp_Pnt, P2: gp_Pnt): Handle_Geom_Geometry;
+}
+export declare class Geom_Curve extends Geom_Geometry {
+    constructor();
+    Reverse(): void;
+    ReversedParameter(U: Standard_Real): Standard_Real;
+    TransformedParameter(U: Standard_Real, T: gp_Trsf): Standard_Real;
+    ParametricTransformation(T: gp_Trsf): Standard_Real;
+    Reversed(): Handle_Geom_Curve;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    IsCN(N: Graphic3d_ZLayerId): Standard_Boolean;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V1: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Value(U: Standard_Real): gp_Pnt;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_BoundedCurve extends Geom_Curve {
+    constructor();
+    EndPoint(): gp_Pnt;
+    StartPoint(): gp_Pnt;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_TrimmedCurve extends Geom_BoundedCurve {
+    constructor(C: Handle_Geom_Curve, U1: Standard_Real, U2: Standard_Real, Sense: Standard_Boolean, theAdjustPeriodic: Standard_Boolean);
+    Reverse(): void;
+    ReversedParameter(U: Standard_Real): Standard_Real;
+    SetTrim(U1: Standard_Real, U2: Standard_Real, Sense: Standard_Boolean, theAdjustPeriodic: Standard_Boolean): void;
+    BasisCurve(): Handle_Geom_Curve;
+    Continuity(): GeomAbs_Shape;
+    IsCN(N: Graphic3d_ZLayerId): Standard_Boolean;
+    EndPoint(): gp_Pnt;
+    FirstParameter(): Standard_Real;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    Period(): Standard_Real;
+    LastParameter(): Standard_Real;
+    StartPoint(): gp_Pnt;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V1: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Transform(T: gp_Trsf): void;
+    TransformedParameter(U: Standard_Real, T: gp_Trsf): Standard_Real;
+    ParametricTransformation(T: gp_Trsf): Standard_Real;
+    Copy(): Handle_Geom_Geometry;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_Conic extends Geom_Curve {
+    constructor();
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theP: gp_Pnt): void;
+    SetPosition(theA2: gp_Ax2): void;
+    Axis(): gp_Ax1;
+    Location(): gp_Pnt;
+    Position(): gp_Ax2;
+    Eccentricity(): Standard_Real;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Reverse(): void;
+    ReversedParameter(U: Standard_Real): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    IsCN(N: Graphic3d_ZLayerId): Standard_Boolean;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_Circle extends Geom_Conic {
+    constructor(C: gp_Circ);
+    constructor(A2: gp_Ax2, Radius: Standard_Real);
+    SetCirc(C: gp_Circ): void;
+    SetRadius(R: Standard_Real): void;
+    Circ(): gp_Circ;
+    Radius(): Standard_Real;
+    ReversedParameter(U: Standard_Real): Standard_Real;
+    Eccentricity(): Standard_Real;
+    FirstParameter(): Standard_Real;
+    LastParameter(): Standard_Real;
+    IsClosed(): Standard_Boolean;
+    IsPeriodic(): Standard_Boolean;
+    D0(U: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, P: gp_Pnt, V1: gp_Vec): void;
+    D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+    D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+    DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+    Transform(T: gp_Trsf): void;
+    Copy(): Handle_Geom_Geometry;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_Surface extends Geom_Geometry {
+    constructor();
+    UReverse(): void;
+    UReversed(): Handle_Geom_Surface;
+    UReversedParameter(U: Standard_Real): Standard_Real;
+    VReverse(): void;
+    VReversed(): Handle_Geom_Surface;
+    VReversedParameter(V: Standard_Real): Standard_Real;
+    TransformParameters(U: Standard_Real, V: Standard_Real, T: gp_Trsf): void;
+    ParametricTransformation(T: gp_Trsf): gp_GTrsf2d;
+    Bounds(U1: Standard_Real, U2: Standard_Real, V1: Standard_Real, V2: Standard_Real): void;
+    IsUClosed(): Standard_Boolean;
+    IsVClosed(): Standard_Boolean;
+    IsUPeriodic(): Standard_Boolean;
+    UPeriod(): Standard_Real;
+    IsVPeriodic(): Standard_Boolean;
+    VPeriod(): Standard_Real;
+    UIso(U: Standard_Real): Handle_Geom_Curve;
+    VIso(V: Standard_Real): Handle_Geom_Curve;
+    Continuity(): GeomAbs_Shape;
+    IsCNu(N: Graphic3d_ZLayerId): Standard_Boolean;
+    IsCNv(N: Graphic3d_ZLayerId): Standard_Boolean;
+    D0(U: Standard_Real, V: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec): void;
+    D2(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec): void;
+    D3(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec, D3U: gp_Vec, D3V: gp_Vec, D3UUV: gp_Vec, D3UVV: gp_Vec): void;
+    DN(U: Standard_Real, V: Standard_Real, Nu: Graphic3d_ZLayerId, Nv: Graphic3d_ZLayerId): gp_Vec;
+    Value(U: Standard_Real, V: Standard_Real): gp_Pnt;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_ElementarySurface extends Geom_Surface {
+    constructor();
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theLoc: gp_Pnt): void;
+    SetPosition(theAx3: gp_Ax3): void;
+    Axis(): gp_Ax1;
+    Location(): gp_Pnt;
+    Position(): gp_Ax3;
+    UReverse(): void;
+    UReversedParameter(U: Standard_Real): Standard_Real;
+    VReverse(): void;
+    VReversedParameter(V: Standard_Real): Standard_Real;
+    Continuity(): GeomAbs_Shape;
+    IsCNu(N: Graphic3d_ZLayerId): Standard_Boolean;
+    IsCNv(N: Graphic3d_ZLayerId): Standard_Boolean;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom_Plane extends Geom_ElementarySurface {
+    constructor(A3: gp_Ax3);
+    constructor(Pl: gp_Pln);
+    constructor(P: gp_Pnt, V: gp_Dir);
+    constructor(A: Standard_Real, B: Standard_Real, C: Standard_Real, D: Standard_Real);
+    SetPln(Pl: gp_Pln): void;
+    Pln(): gp_Pln;
+    UReverse(): void;
+    UReversedParameter(U: Standard_Real): Standard_Real;
+    VReverse(): void;
+    VReversedParameter(V: Standard_Real): Standard_Real;
+    TransformParameters(U: Standard_Real, V: Standard_Real, T: gp_Trsf): void;
+    ParametricTransformation(T: gp_Trsf): gp_GTrsf2d;
+    Bounds(U1: Standard_Real, U2: Standard_Real, V1: Standard_Real, V2: Standard_Real): void;
+    Coefficients(A: Standard_Real, B: Standard_Real, C: Standard_Real, D: Standard_Real): void;
+    IsUClosed(): Standard_Boolean;
+    IsVClosed(): Standard_Boolean;
+    IsUPeriodic(): Standard_Boolean;
+    IsVPeriodic(): Standard_Boolean;
+    UIso(U: Standard_Real): Handle_Geom_Curve;
+    VIso(V: Standard_Real): Handle_Geom_Curve;
+    D0(U: Standard_Real, V: Standard_Real, P: gp_Pnt): void;
+    D1(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec): void;
+    D2(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec): void;
+    D3(U: Standard_Real, V: Standard_Real, P: gp_Pnt, D1U: gp_Vec, D1V: gp_Vec, D2U: gp_Vec, D2V: gp_Vec, D2UV: gp_Vec, D3U: gp_Vec, D3V: gp_Vec, D3UUV: gp_Vec, D3UVV: gp_Vec): void;
+    DN(U: Standard_Real, V: Standard_Real, Nu: Graphic3d_ZLayerId, Nv: Graphic3d_ZLayerId): gp_Vec;
+    Transform(T: gp_Trsf): void;
+    Copy(): Handle_Geom_Geometry;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom2d_Geometry extends Standard_Transient {
+    constructor();
+    Rotate(P: gp_Pnt2d, Ang: Standard_Real): void;
+    Scale(P: gp_Pnt2d, S: Standard_Real): void;
+    Transform(T: gp_Trsf2d): void;
+    Rotated(P: gp_Pnt2d, Ang: Standard_Real): Handle_Geom2d_Geometry;
+    Scaled(P: gp_Pnt2d, S: Standard_Real): Handle_Geom2d_Geometry;
+    Transformed(T: gp_Trsf2d): Handle_Geom2d_Geometry;
+    Copy(): Handle_Geom2d_Geometry;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Mirror(P: gp_Pnt2d): void;
+    Mirror(A: gp_Ax2d): void;
+    Translate(V: gp_Vec2d): void;
+    Translate(P1: gp_Pnt2d, P2: gp_Pnt2d): void;
+    Mirrored(P: gp_Pnt2d): Handle_Geom2d_Geometry;
+    Mirrored(A: gp_Ax2d): Handle_Geom2d_Geometry;
+    Translated(V: gp_Vec2d): Handle_Geom2d_Geometry;
+    Translated(P1: gp_Pnt2d, P2: gp_Pnt2d): Handle_Geom2d_Geometry;
+}
+export declare class Geom2d_Point extends Geom2d_Geometry {
+    constructor();
+    Coord(X: Standard_Real, Y: Standard_Real): void;
+    Pnt2d(): gp_Pnt2d;
+    X(): Standard_Real;
+    Y(): Standard_Real;
+    Distance(Other: Handle_Geom2d_Point): Standard_Real;
+    SquareDistance(Other: Handle_Geom2d_Point): Standard_Real;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Geom2d_CartesianPoint extends Geom2d_Point {
+    constructor(P: gp_Pnt2d);
+    constructor(X: Standard_Real, Y: Standard_Real);
+    SetCoord(X: Standard_Real, Y: Standard_Real): void;
+    SetPnt2d(P: gp_Pnt2d): void;
+    SetX(X: Standard_Real): void;
+    SetY(Y: Standard_Real): void;
+    Coord(X: Standard_Real, Y: Standard_Real): void;
+    Pnt2d(): gp_Pnt2d;
+    X(): Standard_Real;
+    Y(): Standard_Real;
+    Transform(T: gp_Trsf2d): void;
+    Copy(): Handle_Geom2d_Geometry;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Law_Function extends Standard_Transient {
+    constructor();
+    Continuity(): GeomAbs_Shape;
+    NbIntervals(S: GeomAbs_Shape): Graphic3d_ZLayerId;
+    Intervals(T: IntTools_CArray1OfReal, S: GeomAbs_Shape): void;
+    Value(X: Standard_Real): Standard_Real;
+    D1(X: Standard_Real, F: Standard_Real, D: Standard_Real): void;
+    D2(X: Standard_Real, F: Standard_Real, D: Standard_Real, D2: Standard_Real): void;
+    Trim(PFirst: Standard_Real, PLast: Standard_Real, Tol: Standard_Real): Handle_Law_Function;
+    Bounds(PFirst: Standard_Real, PLast: Standard_Real): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class Poly_Triangulation extends Standard_Transient {
+    constructor();
+    constructor(theNbNodes: Graphic3d_ZLayerId, theNbTriangles: Graphic3d_ZLayerId, theHasUVNodes: Standard_Boolean, theHasNormals: Standard_Boolean);
+    constructor(Nodes: TColgp_Array1OfPnt, Triangles: Poly_Array1OfTriangle);
+    constructor(Nodes: TColgp_Array1OfPnt, UVNodes: TColgp_Array1OfPnt2d, Triangles: Poly_Array1OfTriangle);
+    constructor(theTriangulation: Handle_Poly_Triangulation);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    Copy(): Handle_Poly_Triangulation;
+    Clear(): void;
+    HasGeometry(): Standard_Boolean;
+    NbNodes(): Graphic3d_ZLayerId;
+    NbTriangles(): Graphic3d_ZLayerId;
+    HasUVNodes(): Standard_Boolean;
+    HasNormals(): Standard_Boolean;
+    Node(theIndex: Graphic3d_ZLayerId): gp_Pnt;
+    SetNode(theIndex: Graphic3d_ZLayerId, thePnt: gp_Pnt): void;
+    UVNode(theIndex: Graphic3d_ZLayerId): gp_Pnt2d;
+    SetUVNode(theIndex: Graphic3d_ZLayerId, thePnt: gp_Pnt2d): void;
+    Triangle(theIndex: Graphic3d_ZLayerId): Poly_Triangle;
+    SetTriangle(theIndex: Graphic3d_ZLayerId, theTriangle: Poly_Triangle): void;
+    MeshPurpose(): Poly_MeshPurpose;
+    SetMeshPurpose(thePurpose: Poly_MeshPurpose): void;
+    CachedMinMax(): Bnd_Box;
+    SetCachedMinMax(theBox: Bnd_Box): void;
+    HasCachedMinMax(): Standard_Boolean;
+    UpdateCachedMinMax(): void;
+    MinMax(theBox: Bnd_Box, theTrsf: gp_Trsf, theIsAccurate: Standard_Boolean): Standard_Boolean;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    IsDoublePrecision(): Standard_Boolean;
+    SetDoublePrecision(theIsDouble: Standard_Boolean): void;
+    ResizeNodes(theNbNodes: Graphic3d_ZLayerId, theToCopyOld: Standard_Boolean): void;
+    ResizeTriangles(theNbTriangles: Graphic3d_ZLayerId, theToCopyOld: Standard_Boolean): void;
+    AddUVNodes(): void;
+    RemoveUVNodes(): void;
+    AddNormals(): void;
+    RemoveNormals(): void;
+    ComputeNormals(): void;
+    MapNodeArray(): Handle_TColgp_HArray1OfPnt;
+    MapTriangleArray(): Handle_Poly_HArray1OfTriangle;
+    MapUVNodeArray(): Handle_TColgp_HArray1OfPnt2d;
+    MapNormalArray(): Handle_TShort_HArray1OfShortReal;
+    InternalTriangles(): Poly_Array1OfTriangle;
+    InternalNodes(): Poly_ArrayOfNodes;
+    InternalUVNodes(): Poly_ArrayOfUVNodes;
+    InternalNormals(): any;
+    SetNormals(theNormals: Handle_TShort_HArray1OfShortReal): void;
+    Triangles(): Poly_Array1OfTriangle;
+    ChangeTriangles(): Poly_Array1OfTriangle;
+    ChangeTriangle(theIndex: Graphic3d_ZLayerId): Poly_Triangle;
+    NbDeferredNodes(): Graphic3d_ZLayerId;
+    NbDeferredTriangles(): Graphic3d_ZLayerId;
+    HasDeferredData(): Standard_Boolean;
+    LoadDeferredData(theFileSystem: any): Standard_Boolean;
+    DetachedLoadDeferredData(theFileSystem: any): Handle_Poly_Triangulation;
+    UnloadDeferredData(): Standard_Boolean;
+    delete(): void;
+    Deflection(): Standard_Real;
+    Deflection(theDeflection: Standard_Real): void;
+    Parameters(): Handle_Poly_TriangulationParameters;
+    Parameters(theParams: Handle_Poly_TriangulationParameters): void;
+    Normal(theIndex: Graphic3d_ZLayerId): gp_Dir;
+    Normal(theIndex: Graphic3d_ZLayerId, theVec3: gp_Vec3f): void;
+    SetNormal(theIndex: Graphic3d_ZLayerId, theNormal: gp_Vec3f): void;
+    SetNormal(theIndex: Graphic3d_ZLayerId, theNormal: gp_Dir): void;
+}
+export declare class ShapeExtend_WireData extends Standard_Transient {
     constructor();
     constructor(wire: TopoDS_Wire, chained: Standard_Boolean, theManifoldMode: Standard_Boolean);
     Clear(): void;
@@ -1472,7 +3945,32 @@ export declare class ShapeExtend_WireData {
     Reverse(): void;
     Reverse(face: TopoDS_Face): void;
 }
-export declare class ShapeFix_Face {
+export declare class ShapeFix_Root extends Standard_Transient {
+    constructor();
+    Set(Root: Handle_ShapeFix_Root): void;
+    SetContext(context: Handle_ShapeBuild_ReShape): void;
+    Context(): Handle_ShapeBuild_ReShape;
+    SetMsgRegistrator(msgreg: Handle_ShapeExtend_BasicMsgRegistrator): void;
+    MsgRegistrator(): Handle_ShapeExtend_BasicMsgRegistrator;
+    SetPrecision(preci: Standard_Real): void;
+    Precision(): Standard_Real;
+    SetMinTolerance(mintol: Standard_Real): void;
+    MinTolerance(): Standard_Real;
+    SetMaxTolerance(maxtol: Standard_Real): void;
+    MaxTolerance(): Standard_Real;
+    LimitTolerance(toler: Standard_Real): Standard_Real;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    SendMsg(shape: TopoDS_Shape, message: Message_Msg, gravity: Message_Gravity): void;
+    SendMsg(message: Message_Msg, gravity: Message_Gravity): void;
+    SendWarning(shape: TopoDS_Shape, message: Message_Msg): void;
+    SendWarning(message: Message_Msg): void;
+    SendFail(shape: TopoDS_Shape, message: Message_Msg): void;
+    SendFail(message: Message_Msg): void;
+}
+export declare class ShapeFix_Face extends ShapeFix_Root {
     constructor();
     constructor(face: TopoDS_Face);
     ClearModes(): void;
@@ -1515,7 +4013,7 @@ export declare class ShapeFix_Face {
     FixOrientation(): Standard_Boolean;
     FixOrientation(MapWires: TopTools_DataMapOfShapeListOfShape): Standard_Boolean;
 }
-export declare class ShapeFix_Shape {
+export declare class ShapeFix_Shape extends ShapeFix_Root {
     constructor();
     constructor(shape: TopoDS_Shape);
     Init(shape: TopoDS_Shape): void;
@@ -1543,7 +4041,7 @@ export declare class ShapeFix_Shape {
     DynamicType(): Handle_Standard_Type;
     delete(): void;
 }
-export declare class ShapeFix_Wire {
+export declare class ShapeFix_Wire extends ShapeFix_Root {
     constructor();
     constructor(wire: TopoDS_Wire, face: TopoDS_Face, prec: Standard_Real);
     ClearModes(): void;
@@ -1637,7 +4135,7 @@ export declare class ShapeFix_Wire {
     FixLacking(force: Standard_Boolean): Standard_Boolean;
     FixLacking(num: Graphic3d_ZLayerId, force: Standard_Boolean): Standard_Boolean;
 }
-export declare class ShapeUpgrade_UnifySameDomain {
+export declare class ShapeUpgrade_UnifySameDomain extends Standard_Transient {
     constructor();
     constructor(aShape: TopoDS_Shape, UnifyEdges: Standard_Boolean, UnifyFaces: Standard_Boolean, ConcatBSplines: Standard_Boolean);
     Initialize(aShape: TopoDS_Shape, UnifyEdges: Standard_Boolean, UnifyFaces: Standard_Boolean, ConcatBSplines: Standard_Boolean): void;
@@ -1656,7 +4154,7 @@ export declare class ShapeUpgrade_UnifySameDomain {
     History(): Handle_BRepTools_History;
     History(): Handle_BRepTools_History;
 }
-export declare class Standard_Failure {
+export declare class Standard_Failure extends Standard_Transient {
     constructor();
     constructor(f: Standard_Failure);
     constructor(theDesc: Standard_CString);
@@ -1681,434 +4179,194 @@ export declare class Standard_Failure {
     static NewInstance(theMessage: Standard_CString): Handle_Standard_Failure;
     static NewInstance(theMessage: Standard_CString, theStackTrace: Standard_CString): Handle_Standard_Failure;
 }
-export declare class StdPrs_ToolTriangulatedShape {
+export declare class TDF_Attribute extends Standard_Transient {
     constructor();
-    static IsTriangulated(theShape: TopoDS_Shape): Standard_Boolean;
-    static IsClosed(theShape: TopoDS_Shape): Standard_Boolean;
-    static Normal(theFace: TopoDS_Face, thePolyConnect: Poly_Connect, theNormals: TColgp_Array1OfDir): void;
-    static GetDeflection(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer): Standard_Real;
-    static IsTessellated(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer): Standard_Boolean;
-    static Tessellate(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer): Standard_Boolean;
-    static ClearOnOwnDeflectionChange(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer, theToResetCoeff: Standard_Boolean): void;
-    delete(): void;
-    static ComputeNormals(theFace: TopoDS_Face, theTris: Handle_Poly_Triangulation): void;
-    static ComputeNormals(theFace: TopoDS_Face, theTris: Handle_Poly_Triangulation, thePolyConnect: Poly_Connect): void;
-}
-export declare class StlAPI_Writer {
-    constructor();
-    ASCIIMode(): Standard_Boolean;
-    Write(theShape: TopoDS_Shape, theFileName: Standard_CString, theProgress: Message_ProgressRange): Standard_Boolean;
-    delete(): void;
-}
-export declare class TColgp_Array1OfDir {
-    constructor();
-    constructor(theLower: Standard_Integer, theUpper: Standard_Integer);
-    constructor(theOther: TColgp_Array1OfDir);
-    constructor(theOther: TColgp_Array1OfDir);
-    constructor(theBegin: gp_Dir, theLower: Standard_Integer, theUpper: Standard_Integer);
-    begin(): any;
-    end(): any;
-    cbegin(): any;
-    cend(): any;
-    Init(theValue: gp_Dir): void;
-    Size(): Standard_Integer;
-    Length(): Standard_Integer;
-    IsEmpty(): Standard_Boolean;
-    Lower(): Standard_Integer;
-    Upper(): Standard_Integer;
-    IsDeletable(): Standard_Boolean;
-    IsAllocated(): Standard_Boolean;
-    Assign(theOther: TColgp_Array1OfDir): TColgp_Array1OfDir;
-    Move(theOther: TColgp_Array1OfDir): TColgp_Array1OfDir;
-    First(): gp_Dir;
-    ChangeFirst(): gp_Dir;
-    Last(): gp_Dir;
-    ChangeLast(): gp_Dir;
-    Value(theIndex: Standard_Integer): gp_Dir;
-    ChangeValue(theIndex: Standard_Integer): gp_Dir;
-    SetValue(theIndex: Standard_Integer, theItem: gp_Dir): void;
-    Resize(theLower: Standard_Integer, theUpper: Standard_Integer, theToCopyData: Standard_Boolean): void;
-    delete(): void;
-}
-export declare class TCollection_ExtendedString {
-    constructor();
-    constructor(astring: Standard_CString, isMultiByte: Standard_Boolean);
-    constructor(astring: Standard_ExtString);
-    constructor(theStringUtf: Standard_WideChar);
-    constructor(aChar: Standard_Character);
-    constructor(aChar: Standard_ExtCharacter);
-    constructor(length: Graphic3d_ZLayerId, filler: Standard_ExtCharacter);
-    constructor(value: Graphic3d_ZLayerId);
-    constructor(value: Standard_Real);
-    constructor(astring: TCollection_ExtendedString);
-    constructor(theOther: TCollection_ExtendedString);
-    constructor(astring: XCAFDoc_PartId, isMultiByte: Standard_Boolean);
-    Cat(other: TCollection_ExtendedString): TCollection_ExtendedString;
-    ChangeAll(aChar: Standard_ExtCharacter, NewChar: Standard_ExtCharacter): void;
-    Clear(): void;
-    Copy(fromwhere: TCollection_ExtendedString): void;
-    Swap(theOther: TCollection_ExtendedString): void;
-    IsEmpty(): Standard_Boolean;
-    StartsWith(theStartString: TCollection_ExtendedString): Standard_Boolean;
-    EndsWith(theEndString: TCollection_ExtendedString): Standard_Boolean;
-    IsAscii(): Standard_Boolean;
-    Length(): Graphic3d_ZLayerId;
-    Print(astream: Standard_OStream): void;
-    RemoveAll(what: Standard_ExtCharacter): void;
-    Remove(where: Graphic3d_ZLayerId, ahowmany: Graphic3d_ZLayerId): void;
-    Search(what: TCollection_ExtendedString): Graphic3d_ZLayerId;
-    SearchFromEnd(what: TCollection_ExtendedString): Graphic3d_ZLayerId;
-    Split(where: Graphic3d_ZLayerId): TCollection_ExtendedString;
-    Token(separators: Standard_ExtString, whichone: Graphic3d_ZLayerId): TCollection_ExtendedString;
-    ToExtString(): Standard_ExtString;
-    Trunc(ahowmany: Graphic3d_ZLayerId): void;
-    Value(where: Graphic3d_ZLayerId): Standard_ExtCharacter;
-    static HashCode(theString: TCollection_ExtendedString, theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
-    LengthOfCString(): Graphic3d_ZLayerId;
-    delete(): void;
-    AssignCat(other: TCollection_ExtendedString): void;
-    AssignCat(theChar: Standard_Utf16Char): void;
-    Insert(where: Graphic3d_ZLayerId, what: Standard_ExtCharacter): void;
-    Insert(where: Graphic3d_ZLayerId, what: TCollection_ExtendedString): void;
-    IsEqual(other: Standard_ExtString): Standard_Boolean;
-    IsEqual(other: TCollection_ExtendedString): Standard_Boolean;
-    IsEqual(theString1: TCollection_ExtendedString, theString2: TCollection_ExtendedString): Standard_Boolean;
-    IsDifferent(other: Standard_ExtString): Standard_Boolean;
-    IsDifferent(other: TCollection_ExtendedString): Standard_Boolean;
-    IsLess(other: Standard_ExtString): Standard_Boolean;
-    IsLess(other: TCollection_ExtendedString): Standard_Boolean;
-    IsGreater(other: Standard_ExtString): Standard_Boolean;
-    IsGreater(other: TCollection_ExtendedString): Standard_Boolean;
-    SetValue(where: Graphic3d_ZLayerId, what: Standard_ExtCharacter): void;
-    SetValue(where: Graphic3d_ZLayerId, what: TCollection_ExtendedString): void;
-}
-export declare class TDF_Label {
-    constructor();
-    Nullify(): void;
-    Data(): Handle_TDF_Data;
-    Tag(): Graphic3d_ZLayerId;
-    Father(): TDF_Label;
-    IsNull(): Standard_Boolean;
-    Imported(aStatus: Standard_Boolean): void;
-    IsImported(): Standard_Boolean;
-    IsEqual(aLabel: TDF_Label): Standard_Boolean;
-    IsDifferent(aLabel: TDF_Label): Standard_Boolean;
-    IsRoot(): Standard_Boolean;
-    IsAttribute(anID: Standard_GUID): Standard_Boolean;
-    AddAttribute(anAttribute: Handle_TDF_Attribute, append: Standard_Boolean): void;
-    ForgetAllAttributes(clearChildren: Standard_Boolean): void;
-    ResumeAttribute(anAttribute: Handle_TDF_Attribute): void;
-    MayBeModified(): Standard_Boolean;
-    AttributesModified(): Standard_Boolean;
-    HasAttribute(): Standard_Boolean;
-    NbAttributes(): Graphic3d_ZLayerId;
-    Depth(): Graphic3d_ZLayerId;
-    IsDescendant(aLabel: TDF_Label): Standard_Boolean;
-    Root(): TDF_Label;
-    HasChild(): Standard_Boolean;
-    NbChildren(): Graphic3d_ZLayerId;
-    FindChild(aTag: Graphic3d_ZLayerId, create: Standard_Boolean): TDF_Label;
-    NewChild(): TDF_Label;
+    ID(): Standard_GUID;
+    Label(): TDF_Label;
     Transaction(): Graphic3d_ZLayerId;
-    HasLowerNode(otherLabel: TDF_Label): Standard_Boolean;
-    HasGreaterNode(otherLabel: TDF_Label): Standard_Boolean;
-    ExtendedDump(anOS: Standard_OStream, aFilter: TDF_IDFilter, aMap: TDF_AttributeIndexedMap): void;
-    EntryDump(anOS: Standard_OStream): void;
-    delete(): void;
-    ForgetAttribute(anAttribute: Handle_TDF_Attribute): void;
+    UntilTransaction(): Graphic3d_ZLayerId;
+    IsValid(): Standard_Boolean;
+    IsNew(): Standard_Boolean;
+    IsForgotten(): Standard_Boolean;
+    IsAttribute(anID: Standard_GUID): Standard_Boolean;
+    AddAttribute(other: Handle_TDF_Attribute): void;
     ForgetAttribute(aguid: Standard_GUID): Standard_Boolean;
-    FindAttribute(anID: Standard_GUID, anAttribute: Handle_TDF_Attribute): Standard_Boolean;
-    FindAttribute(anID: Standard_GUID, aTransaction: Graphic3d_ZLayerId, anAttribute: Handle_TDF_Attribute): Standard_Boolean;
-}
-export declare class TDF_LabelSequence {
-    constructor();
-    constructor(theAllocator: Handle_NCollection_BaseAllocator);
-    constructor(theOther: TDF_LabelSequence);
-    begin(): any;
-    end(): any;
-    cbegin(): any;
-    cend(): any;
-    Size(): Standard_Integer;
-    Length(): Standard_Integer;
-    Lower(): Standard_Integer;
-    Upper(): Standard_Integer;
-    IsEmpty(): Standard_Boolean;
-    Reverse(): void;
-    Exchange(I: Standard_Integer, J: Standard_Integer): void;
-    static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
-    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
-    Assign(theOther: TDF_LabelSequence): TDF_LabelSequence;
-    Split(theIndex: Standard_Integer, theSeq: TDF_LabelSequence): void;
-    First(): TDF_Label;
-    ChangeFirst(): TDF_Label;
-    Last(): TDF_Label;
-    ChangeLast(): TDF_Label;
-    Value(theIndex: Standard_Integer): TDF_Label;
-    ChangeValue(theIndex: Standard_Integer): TDF_Label;
-    SetValue(theIndex: Standard_Integer, theItem: TDF_Label): void;
-    delete(): void;
-    Remove(theIndex: Standard_Integer): void;
-    Remove(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
-    Append(theItem: TDF_Label): void;
-    Append(theSeq: TDF_LabelSequence): void;
-    Prepend(theItem: TDF_Label): void;
-    Prepend(theSeq: TDF_LabelSequence): void;
-    InsertBefore(theIndex: Standard_Integer, theItem: TDF_Label): void;
-    InsertBefore(theIndex: Standard_Integer, theSeq: TDF_LabelSequence): void;
-    InsertAfter(theIndex: Standard_Integer, theSeq: TDF_LabelSequence): void;
-    InsertAfter(theIndex: Standard_Integer, theItem: TDF_Label): void;
-}
-export declare class TDocStd_Application {
-    constructor();
-    IsDriverLoaded(): Standard_Boolean;
-    Resources(): Handle_Resource_Manager;
-    ResourcesName(): Standard_CString;
-    DefineFormat(theFormat: XCAFDoc_PartId, theDescription: XCAFDoc_PartId, theExtension: XCAFDoc_PartId, theReader: Handle_PCDM_RetrievalDriver, theWriter: Handle_PCDM_StorageDriver): void;
-    ReadingFormats(theFormats: TColStd_SequenceOfAsciiString): void;
-    WritingFormats(theFormats: TColStd_SequenceOfAsciiString): void;
-    NbDocuments(): Graphic3d_ZLayerId;
-    GetDocument(index: Graphic3d_ZLayerId, aDoc: Handle_TDocStd_Document): void;
-    InitDocument(aDoc: Handle_CDM_Document): void;
-    Close(aDoc: Handle_TDocStd_Document): void;
-    IsInSession(path: TCollection_ExtendedString): Graphic3d_ZLayerId;
-    OnOpenTransaction(theDoc: Handle_TDocStd_Document): void;
-    OnCommitTransaction(theDoc: Handle_TDocStd_Document): void;
-    OnAbortTransaction(theDoc: Handle_TDocStd_Document): void;
+    ForgetAllAttributes(clearChildren: Standard_Boolean): void;
+    AfterAddition(): void;
+    BeforeRemoval(): void;
+    BeforeForget(): void;
+    AfterResume(): void;
+    AfterRetrieval(forceIt: Standard_Boolean): Standard_Boolean;
+    BeforeUndo(anAttDelta: Handle_TDF_AttributeDelta, forceIt: Standard_Boolean): Standard_Boolean;
+    AfterUndo(anAttDelta: Handle_TDF_AttributeDelta, forceIt: Standard_Boolean): Standard_Boolean;
+    BeforeCommitTransaction(): void;
+    IsBackuped(): Standard_Boolean;
+    BackupCopy(): Handle_TDF_Attribute;
+    Restore(anAttribute: Handle_TDF_Attribute): void;
+    DeltaOnAddition(): Handle_TDF_DeltaOnAddition;
+    DeltaOnForget(): Handle_TDF_DeltaOnForget;
+    DeltaOnResume(): Handle_TDF_DeltaOnResume;
+    DeltaOnRemoval(): Handle_TDF_DeltaOnRemoval;
+    NewEmpty(): Handle_TDF_Attribute;
+    Paste(intoAttribute: Handle_TDF_Attribute, aRelocationTable: Handle_TDF_RelocationTable): void;
+    References(aDataSet: Handle_TDF_DataSet): void;
+    ExtendedDump(anOS: Standard_OStream, aFilter: TDF_IDFilter, aMap: TDF_AttributeIndexedMap): void;
+    Forget(aTransaction: Graphic3d_ZLayerId): void;
     DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
     static get_type_name(): Standard_Character;
     static get_type_descriptor(): Handle_Standard_Type;
     DynamicType(): Handle_Standard_Type;
     delete(): void;
-    NewDocument(format: TCollection_ExtendedString, aDoc: Handle_CDM_Document): void;
-    NewDocument(format: TCollection_ExtendedString, aDoc: Handle_TDocStd_Document): void;
-    Open(thePath: TCollection_ExtendedString, theDoc: Handle_TDocStd_Document, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): PCDM_ReaderStatus;
-    Open(thePath: TCollection_ExtendedString, theDoc: Handle_TDocStd_Document, theRange: Message_ProgressRange): PCDM_ReaderStatus;
-    Open(theIStream: Standard_IStream, theDoc: Handle_TDocStd_Document, theFilter: Handle_PCDM_ReaderFilter, theRange: Message_ProgressRange): PCDM_ReaderStatus;
-    Open(theIStream: Standard_IStream, theDoc: Handle_TDocStd_Document, theRange: Message_ProgressRange): PCDM_ReaderStatus;
-    SaveAs(theDoc: Handle_TDocStd_Document, path: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
-    SaveAs(theDoc: Handle_TDocStd_Document, theOStream: Standard_OStream, theRange: Message_ProgressRange): PCDM_StoreStatus;
-    SaveAs(theDoc: Handle_TDocStd_Document, path: TCollection_ExtendedString, theStatusMessage: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
-    SaveAs(theDoc: Handle_TDocStd_Document, theOStream: Standard_OStream, theStatusMessage: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
-    Save(theDoc: Handle_TDocStd_Document, theRange: Message_ProgressRange): PCDM_StoreStatus;
-    Save(theDoc: Handle_TDocStd_Document, theStatusMessage: TCollection_ExtendedString, theRange: Message_ProgressRange): PCDM_StoreStatus;
+    SetID(a0: Standard_GUID): void;
+    SetID(): void;
+    FindAttribute(anID: Standard_GUID, anAttribute: Handle_TDF_Attribute): Standard_Boolean;
+    Backup(): void;
+    DeltaOnModification(anOldAttribute: Handle_TDF_Attribute): Handle_TDF_DeltaOnModification;
+    DeltaOnModification(aDelta: Handle_TDF_DeltaOnModification): void;
 }
-export declare class Handle_TDocStd_Document {
+export declare class TDataStd_GenericEmpty extends TDF_Attribute {
     constructor();
-    constructor(thePtr: TDocStd_Document);
-    constructor(theHandle: Handle_TDocStd_Document);
-    constructor(theHandle: Handle_TDocStd_Document);
-    Nullify(): void;
-    IsNull(): boolean;
-    reset(thePtr: TDocStd_Document): void;
-    get(): TDocStd_Document;
-    delete(): void;
-}
-export declare class TopExp {
-    constructor();
-    static MapShapesAndAncestors(S: TopoDS_Shape, TS: TopAbs_ShapeEnum, TA: TopAbs_ShapeEnum, M: TopTools_IndexedDataMapOfShapeListOfShape): void;
-    static MapShapesAndUniqueAncestors(S: TopoDS_Shape, TS: TopAbs_ShapeEnum, TA: TopAbs_ShapeEnum, M: TopTools_IndexedDataMapOfShapeListOfShape, useOrientation: Standard_Boolean): void;
-    static FirstVertex(E: TopoDS_Edge, CumOri: Standard_Boolean): TopoDS_Vertex;
-    static LastVertex(E: TopoDS_Edge, CumOri: Standard_Boolean): TopoDS_Vertex;
-    static CommonVertex(E1: TopoDS_Edge, E2: TopoDS_Edge, V: TopoDS_Vertex): Standard_Boolean;
-    delete(): void;
-    static MapShapes(S: TopoDS_Shape, T: TopAbs_ShapeEnum, M: TopTools_IndexedMapOfShape): void;
-    static MapShapes(S: TopoDS_Shape, M: TopTools_IndexedMapOfShape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean): void;
-    static MapShapes(S: TopoDS_Shape, M: TopTools_MapOfShape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean): void;
-    static Vertices(E: TopoDS_Edge, Vfirst: TopoDS_Vertex, Vlast: TopoDS_Vertex, CumOri: Standard_Boolean): void;
-    static Vertices(W: TopoDS_Wire, Vfirst: TopoDS_Vertex, Vlast: TopoDS_Vertex): void;
-}
-export declare class TopExp_Explorer {
-    constructor();
-    constructor(S: TopoDS_Shape, ToFind: TopAbs_ShapeEnum, ToAvoid: TopAbs_ShapeEnum);
-    Init(S: TopoDS_Shape, ToFind: TopAbs_ShapeEnum, ToAvoid: TopAbs_ShapeEnum): void;
-    More(): Standard_Boolean;
-    Next(): void;
-    Value(): TopoDS_Shape;
-    Current(): TopoDS_Shape;
-    ReInit(): void;
-    ExploredShape(): TopoDS_Shape;
-    Depth(): Graphic3d_ZLayerId;
-    Clear(): void;
-    delete(): void;
-}
-export declare class TopLoc_Location {
-    constructor();
-    constructor(T: gp_Trsf);
-    constructor(D: Handle_TopLoc_Datum3D);
-    IsIdentity(): Standard_Boolean;
-    Identity(): void;
-    FirstDatum(): Handle_TopLoc_Datum3D;
-    FirstPower(): Graphic3d_ZLayerId;
-    NextLocation(): TopLoc_Location;
-    Transformation(): gp_Trsf;
-    Inverted(): TopLoc_Location;
-    Multiplied(Other: TopLoc_Location): TopLoc_Location;
-    Divided(Other: TopLoc_Location): TopLoc_Location;
-    Predivided(Other: TopLoc_Location): TopLoc_Location;
-    Powered(pwr: Graphic3d_ZLayerId): TopLoc_Location;
-    HashCode(theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
-    IsEqual(Other: TopLoc_Location): Standard_Boolean;
-    IsDifferent(Other: TopLoc_Location): Standard_Boolean;
+    Restore(a0: Handle_TDF_Attribute): void;
+    Paste(a0: Handle_TDF_Attribute, a1: Handle_TDF_RelocationTable): void;
     DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
-    ShallowDump(S: Standard_OStream): void;
-    Clear(): void;
-    static ScalePrec(): Standard_Real;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
     delete(): void;
 }
-export declare class TopTools_ListOfShape {
+export declare class XCAFDoc_ClippingPlaneTool extends TDataStd_GenericEmpty {
     constructor();
-    constructor(theAllocator: Handle_NCollection_BaseAllocator);
-    constructor(theOther: TopTools_ListOfShape);
-    begin(): any;
-    end(): any;
-    cbegin(): any;
-    cend(): any;
-    Size(): Standard_Integer;
-    Assign(theOther: TopTools_ListOfShape): TopTools_ListOfShape;
-    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
-    RemoveFirst(): void;
-    Reverse(): void;
+    static Set(theLabel: TDF_Label): Handle_XCAFDoc_ClippingPlaneTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    IsClippingPlane(theLabel: TDF_Label): Standard_Boolean;
+    RemoveClippingPlane(theLabel: TDF_Label): Standard_Boolean;
+    GetClippingPlanes(Labels: TDF_LabelSequence): void;
+    UpdateClippingPlane(theLabelL: TDF_Label, thePlane: gp_Pln, theName: TCollection_ExtendedString): void;
+    SetCapping(theClippingPlaneL: TDF_Label, theCapping: Standard_Boolean): void;
+    ID(): Standard_GUID;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
     delete(): void;
-    First(): TopoDS_Shape;
-    First(): TopoDS_Shape;
-    Last(): TopoDS_Shape;
-    Last(): TopoDS_Shape;
-    Append(theItem: TopoDS_Shape): TopoDS_Shape;
-    Append(theOther: TopTools_ListOfShape): void;
-    Prepend(theItem: TopoDS_Shape): TopoDS_Shape;
-    Prepend(theOther: TopTools_ListOfShape): void;
+    GetClippingPlane(theLabel: TDF_Label, thePlane: gp_Pln, theName: TCollection_ExtendedString, theCapping: Standard_Boolean): Standard_Boolean;
+    GetClippingPlane(theLabel: TDF_Label, thePlane: gp_Pln, theName: Handle_TCollection_HAsciiString, theCapping: Standard_Boolean): Standard_Boolean;
+    AddClippingPlane(thePlane: gp_Pln, theName: TCollection_ExtendedString, theCapping: Standard_Boolean): TDF_Label;
+    AddClippingPlane(thePlane: gp_Pln, theName: Handle_TCollection_HAsciiString, theCapping: Standard_Boolean): TDF_Label;
+    AddClippingPlane(thePlane: gp_Pln, theName: TCollection_ExtendedString): TDF_Label;
+    AddClippingPlane(thePlane: gp_Pln, theName: Handle_TCollection_HAsciiString): TDF_Label;
+    GetCapping(theClippingPlaneL: TDF_Label): Standard_Boolean;
+    GetCapping(theClippingPlaneL: TDF_Label, theCapping: Standard_Boolean): Standard_Boolean;
 }
-export declare class TopTools_MapOfShape {
+export declare class XCAFDoc_ColorTool extends TDataStd_GenericEmpty {
     constructor();
-    constructor(theNbBuckets: Standard_Integer, theAllocator: Handle_NCollection_BaseAllocator);
-    constructor(theOther: TopTools_MapOfShape);
-    cbegin(): any;
-    cend(): any;
-    Exchange(theOther: TopTools_MapOfShape): void;
-    Assign(theOther: TopTools_MapOfShape): TopTools_MapOfShape;
-    ReSize(N: Standard_Integer): void;
-    Add(K: TopoDS_Shape): Standard_Boolean;
-    Added(K: TopoDS_Shape): TopoDS_Shape;
-    Remove(K: TopoDS_Shape): Standard_Boolean;
-    Size(): Standard_Integer;
-    IsEqual(theOther: TopTools_MapOfShape): Standard_Boolean;
-    Union(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
-    Unite(theOther: TopTools_MapOfShape): Standard_Boolean;
-    HasIntersection(theMap: TopTools_MapOfShape): Standard_Boolean;
-    Intersection(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
-    Intersect(theOther: TopTools_MapOfShape): Standard_Boolean;
-    Subtraction(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
-    Subtract(theOther: TopTools_MapOfShape): Standard_Boolean;
-    Difference(theLeft: TopTools_MapOfShape, theRight: TopTools_MapOfShape): void;
-    Differ(theOther: TopTools_MapOfShape): Standard_Boolean;
-    delete(): void;
-    Contains(K: TopoDS_Shape): Standard_Boolean;
-    Contains(theOther: TopTools_MapOfShape): Standard_Boolean;
-    Clear(doReleaseMemory: Standard_Boolean): void;
-    Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
-}
-export declare class TopoDS {
-    constructor();
-    delete(): void;
-    static Vertex(S: TopoDS_Shape): TopoDS_Vertex;
-    static Vertex(a0: TopoDS_Shape): TopoDS_Vertex;
-    static Edge(S: TopoDS_Shape): TopoDS_Edge;
-    static Edge(a0: TopoDS_Shape): TopoDS_Edge;
-    static Wire(S: TopoDS_Shape): TopoDS_Wire;
-    static Wire(a0: TopoDS_Shape): TopoDS_Wire;
-    static Face(S: TopoDS_Shape): TopoDS_Face;
-    static Face(a0: TopoDS_Shape): TopoDS_Face;
-    static Shell(S: TopoDS_Shape): TopoDS_Shell;
-    static Shell(a0: TopoDS_Shape): TopoDS_Shell;
-    static Solid(S: TopoDS_Shape): TopoDS_Solid;
-    static Solid(a0: TopoDS_Shape): TopoDS_Solid;
-    static CompSolid(S: TopoDS_Shape): TopoDS_CompSolid;
-    static CompSolid(a0: TopoDS_Shape): TopoDS_CompSolid;
-    static Compound(S: TopoDS_Shape): TopoDS_Compound;
-    static Compound(a0: TopoDS_Shape): TopoDS_Compound;
-}
-export declare class TopoDS_Iterator {
-    constructor();
-    constructor(S: TopoDS_Shape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean);
-    Initialize(S: TopoDS_Shape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean): void;
-    More(): Standard_Boolean;
-    Next(): void;
-    Value(): TopoDS_Shape;
-    delete(): void;
-}
-export declare class TopoDS_Shape {
-    constructor();
-    IsNull(): Standard_Boolean;
-    Nullify(): void;
-    Located(theLoc: TopLoc_Location, theRaiseExc: Standard_Boolean): TopoDS_Shape;
-    Oriented(theOrient: TopAbs_Orientation): TopoDS_Shape;
-    ShapeType(): TopAbs_ShapeEnum;
-    Move(thePosition: TopLoc_Location, theRaiseExc: Standard_Boolean): void;
-    Moved(thePosition: TopLoc_Location, theRaiseExc: Standard_Boolean): TopoDS_Shape;
-    Reverse(): void;
-    Reversed(): TopoDS_Shape;
-    Complement(): void;
-    Complemented(): TopoDS_Shape;
-    Compose(theOrient: TopAbs_Orientation): void;
-    Composed(theOrient: TopAbs_Orientation): TopoDS_Shape;
-    NbChildren(): Graphic3d_ZLayerId;
-    IsPartner(theOther: TopoDS_Shape): Standard_Boolean;
-    IsSame(theOther: TopoDS_Shape): Standard_Boolean;
-    IsEqual(theOther: TopoDS_Shape): Standard_Boolean;
-    IsNotEqual(theOther: TopoDS_Shape): Standard_Boolean;
-    HashCode(theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
-    EmptyCopy(): void;
-    EmptyCopied(): TopoDS_Shape;
+    static AutoNaming(): Standard_Boolean;
+    static SetAutoNaming(theIsAutoNaming: Standard_Boolean): void;
+    static Set(L: TDF_Label): Handle_XCAFDoc_ColorTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    ShapeTool(): Handle_XCAFDoc_ShapeTool;
+    IsColor(lab: TDF_Label): Standard_Boolean;
+    RemoveColor(lab: TDF_Label): void;
+    GetColors(Labels: TDF_LabelSequence): void;
+    IsVisible(L: TDF_Label): Standard_Boolean;
+    SetVisibility(shapeLabel: TDF_Label, isvisible: Standard_Boolean): void;
+    IsColorByLayer(L: TDF_Label): Standard_Boolean;
+    SetColorByLayer(shapeLabel: TDF_Label, isColorByLayer: Standard_Boolean): void;
+    IsInstanceVisible(theShape: TopoDS_Shape): Standard_Boolean;
+    ReverseChainsOfTreeNodes(): Standard_Boolean;
+    ID(): Standard_GUID;
     DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
     delete(): void;
-    Location(): TopLoc_Location;
-    Location(theLoc: TopLoc_Location, theRaiseExc: Standard_Boolean): void;
-    Orientation(): TopAbs_Orientation;
-    Orientation(theOrient: TopAbs_Orientation): void;
-    TShape(): Handle_TopoDS_TShape;
-    TShape(theTShape: Handle_TopoDS_TShape): void;
-    Free(): Standard_Boolean;
-    Free(theIsFree: Standard_Boolean): void;
-    Locked(): Standard_Boolean;
-    Locked(theIsLocked: Standard_Boolean): void;
-    Modified(): Standard_Boolean;
-    Modified(theIsModified: Standard_Boolean): void;
-    Checked(): Standard_Boolean;
-    Checked(theIsChecked: Standard_Boolean): void;
-    Orientable(): Standard_Boolean;
-    Orientable(theIsOrientable: Standard_Boolean): void;
-    Closed(): Standard_Boolean;
-    Closed(theIsClosed: Standard_Boolean): void;
-    Infinite(): Standard_Boolean;
-    Infinite(theIsInfinite: Standard_Boolean): void;
-    Convex(): Standard_Boolean;
-    Convex(theIsConvex: Standard_Boolean): void;
+    GetColor(lab: TDF_Label, col: Quantity_Color): Standard_Boolean;
+    GetColor(lab: TDF_Label, col: Quantity_ColorRGBA): Standard_Boolean;
+    GetColor(L: TDF_Label, type: XCAFDoc_ColorType, colorL: TDF_Label): Standard_Boolean;
+    GetColor(L: TDF_Label, type: XCAFDoc_ColorType, color: Quantity_Color): Standard_Boolean;
+    GetColor(L: TDF_Label, type: XCAFDoc_ColorType, color: Quantity_ColorRGBA): Standard_Boolean;
+    GetColor(S: TopoDS_Shape, type: XCAFDoc_ColorType, colorL: TDF_Label): Standard_Boolean;
+    GetColor(S: TopoDS_Shape, type: XCAFDoc_ColorType, color: Quantity_Color): Standard_Boolean;
+    GetColor(S: TopoDS_Shape, type: XCAFDoc_ColorType, color: Quantity_ColorRGBA): Standard_Boolean;
+    FindColor(col: Quantity_Color, lab: TDF_Label): Standard_Boolean;
+    FindColor(col: Quantity_ColorRGBA, lab: TDF_Label): Standard_Boolean;
+    FindColor(col: Quantity_Color): TDF_Label;
+    FindColor(col: Quantity_ColorRGBA): TDF_Label;
+    AddColor(col: Quantity_Color): TDF_Label;
+    AddColor(col: Quantity_ColorRGBA): TDF_Label;
+    SetColor(L: TDF_Label, colorL: TDF_Label, type: XCAFDoc_ColorType): void;
+    SetColor(L: TDF_Label, Color: Quantity_Color, type: XCAFDoc_ColorType): void;
+    SetColor(L: TDF_Label, Color: Quantity_ColorRGBA, type: XCAFDoc_ColorType): void;
+    SetColor(S: TopoDS_Shape, colorL: TDF_Label, type: XCAFDoc_ColorType): Standard_Boolean;
+    SetColor(S: TopoDS_Shape, Color: Quantity_Color, type: XCAFDoc_ColorType): Standard_Boolean;
+    SetColor(S: TopoDS_Shape, Color: Quantity_ColorRGBA, type: XCAFDoc_ColorType): Standard_Boolean;
+    UnSetColor(L: TDF_Label, type: XCAFDoc_ColorType): void;
+    UnSetColor(S: TopoDS_Shape, type: XCAFDoc_ColorType): Standard_Boolean;
+    IsSet(L: TDF_Label, type: XCAFDoc_ColorType): Standard_Boolean;
+    IsSet(S: TopoDS_Shape, type: XCAFDoc_ColorType): Standard_Boolean;
+    SetInstanceColor(theShape: TopoDS_Shape, type: XCAFDoc_ColorType, color: Quantity_Color, isCreateSHUO: Standard_Boolean): Standard_Boolean;
+    SetInstanceColor(theShape: TopoDS_Shape, type: XCAFDoc_ColorType, color: Quantity_ColorRGBA, isCreateSHUO: Standard_Boolean): Standard_Boolean;
+    GetInstanceColor(theShape: TopoDS_Shape, type: XCAFDoc_ColorType, color: Quantity_Color): Standard_Boolean;
+    GetInstanceColor(theShape: TopoDS_Shape, type: XCAFDoc_ColorType, color: Quantity_ColorRGBA): Standard_Boolean;
 }
-export declare class TopoDS_Compound extends TopoDS_Shape {
+export declare class XCAFDoc_DimTolTool extends TDataStd_GenericEmpty {
     constructor();
+    static Set(L: TDF_Label): Handle_XCAFDoc_DimTolTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    ShapeTool(): Handle_XCAFDoc_ShapeTool;
+    IsDimension(theLab: TDF_Label): Standard_Boolean;
+    GetDimensionLabels(theLabels: TDF_LabelSequence): void;
+    GetRefDimensionLabels(theShapeL: TDF_Label, theDimensions: TDF_LabelSequence): Standard_Boolean;
+    AddDimension(): TDF_Label;
+    IsGeomTolerance(theLab: TDF_Label): Standard_Boolean;
+    GetGeomToleranceLabels(theLabels: TDF_LabelSequence): void;
+    GetRefGeomToleranceLabels(theShapeL: TDF_Label, theDimTols: TDF_LabelSequence): Standard_Boolean;
+    AddGeomTolerance(): TDF_Label;
+    IsDimTol(theLab: TDF_Label): Standard_Boolean;
+    GetDimTolLabels(Labels: TDF_LabelSequence): void;
+    AddDimTol(theKind: Graphic3d_ZLayerId, theVal: Handle_TColStd_HArray1OfReal, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString): TDF_Label;
+    GetRefShapeLabel(theL: TDF_Label, theShapeLFirst: TDF_LabelSequence, theShapeLSecond: TDF_LabelSequence): Standard_Boolean;
+    GetDimTol(theDimTolL: TDF_Label, theKind: Graphic3d_ZLayerId, theVal: Handle_TColStd_HArray1OfReal, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString): Standard_Boolean;
+    IsDatum(lab: TDF_Label): Standard_Boolean;
+    GetDatumLabels(Labels: TDF_LabelSequence): void;
+    FindDatum(theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString, theIdentification: Handle_TCollection_HAsciiString, lab: TDF_Label): Standard_Boolean;
+    SetDatumToGeomTol(theDatumL: TDF_Label, theTolerL: TDF_Label): void;
+    GetDatum(theDatumL: TDF_Label, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString, theIdentification: Handle_TCollection_HAsciiString): Standard_Boolean;
+    GetDatumOfTolerLabels(theDimTolL: TDF_Label, theDatums: TDF_LabelSequence): Standard_Boolean;
+    GetDatumWithObjectOfTolerLabels(theDimTolL: TDF_Label, theDatums: TDF_LabelSequence): Standard_Boolean;
+    GetTolerOfDatumLabels(theDatumL: TDF_Label, theTols: TDF_LabelSequence): Standard_Boolean;
+    GetRefDatumLabel(theShapeL: TDF_Label, theDatum: TDF_LabelSequence): Standard_Boolean;
+    IsLocked(theViewL: TDF_Label): Standard_Boolean;
+    Lock(theViewL: TDF_Label): void;
+    GetGDTPresentations(theGDTLabelToShape: NCollection_IndexedDataMap<TDF_Label, TopoDS_Shape, TDF_LabelMapHasher>): void;
+    SetGDTPresentations(theGDTLabelToPrs: NCollection_IndexedDataMap<TDF_Label, TopoDS_Shape, TDF_LabelMapHasher>): void;
+    Unlock(theViewL: TDF_Label): void;
+    ID(): Standard_GUID;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
     delete(): void;
+    SetDimension(theFirstLS: TDF_LabelSequence, theSecondLS: TDF_LabelSequence, theDimL: TDF_Label): void;
+    SetDimension(theFirstL: TDF_Label, theSecondL: TDF_Label, theDimL: TDF_Label): void;
+    SetDimension(theL: TDF_Label, theDimL: TDF_Label): void;
+    SetGeomTolerance(theL: TDF_Label, theGeomTolL: TDF_Label): void;
+    SetGeomTolerance(theL: TDF_LabelSequence, theGeomTolL: TDF_Label): void;
+    FindDimTol(theKind: Graphic3d_ZLayerId, theVal: Handle_TColStd_HArray1OfReal, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString, lab: TDF_Label): Standard_Boolean;
+    FindDimTol(theKind: Graphic3d_ZLayerId, theVal: Handle_TColStd_HArray1OfReal, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString): TDF_Label;
+    SetDimTol(theL: TDF_Label, theDimTolL: TDF_Label): void;
+    SetDimTol(theL: TDF_Label, theKind: Graphic3d_ZLayerId, theVal: Handle_TColStd_HArray1OfReal, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString): TDF_Label;
+    AddDatum(theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString, theIdentification: Handle_TCollection_HAsciiString): TDF_Label;
+    AddDatum(): TDF_Label;
+    SetDatum(theShapeLabels: TDF_LabelSequence, theDatumL: TDF_Label): void;
+    SetDatum(theL: TDF_Label, theTolerL: TDF_Label, theName: Handle_TCollection_HAsciiString, theDescription: Handle_TCollection_HAsciiString, theIdentification: Handle_TCollection_HAsciiString): void;
 }
-export declare class TopoDS_Edge extends TopoDS_Shape {
-    constructor();
-    delete(): void;
-}
-export declare class TopoDS_Face extends TopoDS_Shape {
-    constructor();
-    delete(): void;
-}
-export declare class TopoDS_Solid extends TopoDS_Shape {
-    constructor();
-    delete(): void;
-}
-export declare class TopoDS_Vertex extends TopoDS_Shape {
-    constructor();
-    delete(): void;
-}
-export declare class TopoDS_Wire extends TopoDS_Shape {
-    constructor();
-    delete(): void;
-}
-export declare class XCAFDoc_DocumentTool {
+export declare class XCAFDoc_DocumentTool extends TDataStd_GenericEmpty {
     constructor();
     static GetID(): Standard_GUID;
     static Set(L: TDF_Label, IsAcces: Standard_Boolean): Handle_XCAFDoc_DocumentTool;
@@ -2154,7 +4412,130 @@ export declare class XCAFDoc_DocumentTool {
     static SetLengthUnit(theDoc: Handle_TDocStd_Document, theUnitValue: Standard_Real): void;
     static SetLengthUnit(theDoc: Handle_TDocStd_Document, theUnitValue: Standard_Real, theBaseUnit: UnitsMethods_LengthUnit): void;
 }
-export declare class XCAFDoc_ShapeTool {
+export declare class XCAFDoc_LayerTool extends TDataStd_GenericEmpty {
+    constructor();
+    static Set(L: TDF_Label): Handle_XCAFDoc_LayerTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    ShapeTool(): Handle_XCAFDoc_ShapeTool;
+    IsLayer(lab: TDF_Label): Standard_Boolean;
+    GetLayer(lab: TDF_Label, aLayer: TCollection_ExtendedString): Standard_Boolean;
+    RemoveLayer(lab: TDF_Label): void;
+    GetLayerLabels(Labels: TDF_LabelSequence): void;
+    GetShapesOfLayer(layerL: TDF_Label, ShLabels: TDF_LabelSequence): void;
+    IsVisible(layerL: TDF_Label): Standard_Boolean;
+    SetVisibility(layerL: TDF_Label, isvisible: Standard_Boolean): void;
+    ID(): Standard_GUID;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
+    delete(): void;
+    FindLayer(aLayer: TCollection_ExtendedString, lab: TDF_Label): Standard_Boolean;
+    FindLayer(aLayer: TCollection_ExtendedString, theToFindWithProperty: Standard_Boolean, theToFindVisible: Standard_Boolean): TDF_Label;
+    AddLayer(theLayer: TCollection_ExtendedString): TDF_Label;
+    AddLayer(theLayer: TCollection_ExtendedString, theToFindVisible: Standard_Boolean): TDF_Label;
+    SetLayer(L: TDF_Label, LayerL: TDF_Label, shapeInOneLayer: Standard_Boolean): void;
+    SetLayer(L: TDF_Label, aLayer: TCollection_ExtendedString, shapeInOneLayer: Standard_Boolean): void;
+    SetLayer(Sh: TopoDS_Shape, LayerL: TDF_Label, shapeInOneLayer: Standard_Boolean): Standard_Boolean;
+    SetLayer(Sh: TopoDS_Shape, aLayer: TCollection_ExtendedString, shapeInOneLayer: Standard_Boolean): Standard_Boolean;
+    UnSetLayers(L: TDF_Label): void;
+    UnSetLayers(Sh: TopoDS_Shape): Standard_Boolean;
+    UnSetOneLayer(L: TDF_Label, aLayer: TCollection_ExtendedString): Standard_Boolean;
+    UnSetOneLayer(L: TDF_Label, aLayerL: TDF_Label): Standard_Boolean;
+    UnSetOneLayer(Sh: TopoDS_Shape, aLayer: TCollection_ExtendedString): Standard_Boolean;
+    UnSetOneLayer(Sh: TopoDS_Shape, aLayerL: TDF_Label): Standard_Boolean;
+    IsSet(L: TDF_Label, aLayer: TCollection_ExtendedString): Standard_Boolean;
+    IsSet(L: TDF_Label, aLayerL: TDF_Label): Standard_Boolean;
+    IsSet(Sh: TopoDS_Shape, aLayer: TCollection_ExtendedString): Standard_Boolean;
+    IsSet(Sh: TopoDS_Shape, aLayerL: TDF_Label): Standard_Boolean;
+    GetLayers(L: TDF_Label, aLayerS: Handle_TColStd_HSequenceOfExtendedString): Standard_Boolean;
+    GetLayers(L: TDF_Label, aLayerLS: TDF_LabelSequence): Standard_Boolean;
+    GetLayers(L: TDF_Label): Handle_TColStd_HSequenceOfExtendedString;
+    GetLayers(Sh: TopoDS_Shape, aLayerS: Handle_TColStd_HSequenceOfExtendedString): Standard_Boolean;
+    GetLayers(Sh: TopoDS_Shape, aLayerLS: TDF_LabelSequence): Standard_Boolean;
+    GetLayers(Sh: TopoDS_Shape): Handle_TColStd_HSequenceOfExtendedString;
+}
+export declare class XCAFDoc_MaterialTool extends TDataStd_GenericEmpty {
+    constructor();
+    static Set(L: TDF_Label): Handle_XCAFDoc_MaterialTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    ShapeTool(): Handle_XCAFDoc_ShapeTool;
+    IsMaterial(lab: TDF_Label): Standard_Boolean;
+    GetMaterialLabels(Labels: TDF_LabelSequence): void;
+    AddMaterial(aName: Handle_TCollection_HAsciiString, aDescription: Handle_TCollection_HAsciiString, aDensity: Standard_Real, aDensName: Handle_TCollection_HAsciiString, aDensValType: Handle_TCollection_HAsciiString): TDF_Label;
+    GetMaterial(MatL: TDF_Label, aName: Handle_TCollection_HAsciiString, aDescription: Handle_TCollection_HAsciiString, aDensity: Standard_Real, aDensName: Handle_TCollection_HAsciiString, aDensValType: Handle_TCollection_HAsciiString): Standard_Boolean;
+    static GetDensityForShape(ShapeL: TDF_Label): Standard_Real;
+    ID(): Standard_GUID;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
+    delete(): void;
+    SetMaterial(L: TDF_Label, MatL: TDF_Label): void;
+    SetMaterial(L: TDF_Label, aName: Handle_TCollection_HAsciiString, aDescription: Handle_TCollection_HAsciiString, aDensity: Standard_Real, aDensName: Handle_TCollection_HAsciiString, aDensValType: Handle_TCollection_HAsciiString): void;
+}
+export declare class XCAFDoc_NotesTool extends TDataStd_GenericEmpty {
+    constructor();
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
+    static GetID(): Standard_GUID;
+    static Set(theLabel: TDF_Label): Handle_XCAFDoc_NotesTool;
+    GetNotesLabel(): TDF_Label;
+    GetAnnotatedItemsLabel(): TDF_Label;
+    NbNotes(): Graphic3d_ZLayerId;
+    NbAnnotatedItems(): Graphic3d_ZLayerId;
+    GetAnnotatedItems(theLabels: TDF_LabelSequence): void;
+    CreateComment(theUserName: TCollection_ExtendedString, theTimeStamp: TCollection_ExtendedString, theComment: TCollection_ExtendedString): Handle_XCAFDoc_Note;
+    CreateBalloon(theUserName: TCollection_ExtendedString, theTimeStamp: TCollection_ExtendedString, theComment: TCollection_ExtendedString): Handle_XCAFDoc_Note;
+    GetSubshapeNotes(theItemId: XCAFDoc_AssemblyItemId, theSubshapeIndex: Graphic3d_ZLayerId, theNoteLabels: TDF_LabelSequence): Graphic3d_ZLayerId;
+    RemoveAllSubshapeNotes(theItemId: XCAFDoc_AssemblyItemId, theSubshapeIndex: Graphic3d_ZLayerId, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    DeleteNote(theNoteLabel: TDF_Label): Standard_Boolean;
+    DeleteNotes(theNoteLabels: TDF_LabelSequence): Graphic3d_ZLayerId;
+    DeleteAllNotes(): Graphic3d_ZLayerId;
+    NbOrphanNotes(): Graphic3d_ZLayerId;
+    GetOrphanNotes(theNoteLabels: TDF_LabelSequence): void;
+    DeleteOrphanNotes(): Graphic3d_ZLayerId;
+    ID(): Standard_GUID;
+    delete(): void;
+    GetNotes(theNoteLabels: TDF_LabelSequence): void;
+    GetNotes(theItemId: XCAFDoc_AssemblyItemId, theNoteLabels: TDF_LabelSequence): Graphic3d_ZLayerId;
+    GetNotes(theItemLabel: TDF_Label, theNoteLabels: TDF_LabelSequence): Graphic3d_ZLayerId;
+    IsAnnotatedItem(theItemId: XCAFDoc_AssemblyItemId): Standard_Boolean;
+    IsAnnotatedItem(theItemLabel: TDF_Label): Standard_Boolean;
+    FindAnnotatedItem(theItemId: XCAFDoc_AssemblyItemId): TDF_Label;
+    FindAnnotatedItem(theItemLabel: TDF_Label): TDF_Label;
+    FindAnnotatedItemAttr(theItemId: XCAFDoc_AssemblyItemId, theGUID: Standard_GUID): TDF_Label;
+    FindAnnotatedItemAttr(theItemLabel: TDF_Label, theGUID: Standard_GUID): TDF_Label;
+    FindAnnotatedItemSubshape(theItemId: XCAFDoc_AssemblyItemId, theSubshapeIndex: Graphic3d_ZLayerId): TDF_Label;
+    FindAnnotatedItemSubshape(theItemLabel: TDF_Label, theSubshapeIndex: Graphic3d_ZLayerId): TDF_Label;
+    CreateBinData(theUserName: TCollection_ExtendedString, theTimeStamp: TCollection_ExtendedString, theTitle: TCollection_ExtendedString, theMIMEtype: XCAFDoc_PartId, theFile: OSD_File): Handle_XCAFDoc_Note;
+    CreateBinData(theUserName: TCollection_ExtendedString, theTimeStamp: TCollection_ExtendedString, theTitle: TCollection_ExtendedString, theMIMEtype: XCAFDoc_PartId, theData: Handle_TColStd_HArray1OfByte): Handle_XCAFDoc_Note;
+    GetAttrNotes(theItemId: XCAFDoc_AssemblyItemId, theGUID: Standard_GUID, theNoteLabels: TDF_LabelSequence): Graphic3d_ZLayerId;
+    GetAttrNotes(theItemLabel: TDF_Label, theGUID: Standard_GUID, theNoteLabels: TDF_LabelSequence): Graphic3d_ZLayerId;
+    AddNote(theNoteLabel: TDF_Label, theItemId: XCAFDoc_AssemblyItemId): Handle_XCAFDoc_AssemblyItemRef;
+    AddNote(theNoteLabel: TDF_Label, theItemLabel: TDF_Label): Handle_XCAFDoc_AssemblyItemRef;
+    AddNoteToAttr(theNoteLabel: TDF_Label, theItemId: XCAFDoc_AssemblyItemId, theGUID: Standard_GUID): Handle_XCAFDoc_AssemblyItemRef;
+    AddNoteToAttr(theNoteLabel: TDF_Label, theItemLabel: TDF_Label, theGUID: Standard_GUID): Handle_XCAFDoc_AssemblyItemRef;
+    AddNoteToSubshape(theNoteLabel: TDF_Label, theItemId: XCAFDoc_AssemblyItemId, theSubshapeIndex: Graphic3d_ZLayerId): Handle_XCAFDoc_AssemblyItemRef;
+    AddNoteToSubshape(theNoteLabel: TDF_Label, theItemLabel: TDF_Label, theSubshapeIndex: Graphic3d_ZLayerId): Handle_XCAFDoc_AssemblyItemRef;
+    RemoveNote(theNoteLabel: TDF_Label, theItemId: XCAFDoc_AssemblyItemId, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveNote(theNoteLabel: TDF_Label, theItemLabel: TDF_Label, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveSubshapeNote(theNoteLabel: TDF_Label, theItemId: XCAFDoc_AssemblyItemId, theSubshapeIndex: Graphic3d_ZLayerId, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveSubshapeNote(theNoteLabel: TDF_Label, theItemLabel: TDF_Label, theSubshapeIndex: Graphic3d_ZLayerId, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveAttrNote(theNoteLabel: TDF_Label, theItemId: XCAFDoc_AssemblyItemId, theGUID: Standard_GUID, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveAttrNote(theNoteLabel: TDF_Label, theItemLabel: TDF_Label, theGUID: Standard_GUID, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveAllNotes(theItemId: XCAFDoc_AssemblyItemId, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveAllNotes(theItemLabel: TDF_Label, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveAllAttrNotes(theItemId: XCAFDoc_AssemblyItemId, theGUID: Standard_GUID, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+    RemoveAllAttrNotes(theItemLabel: TDF_Label, theGUID: Standard_GUID, theDelIfOrphan: Standard_Boolean): Standard_Boolean;
+}
+export declare class XCAFDoc_ShapeTool extends TDataStd_GenericEmpty {
     constructor();
     static GetID(): Standard_GUID;
     static Set(L: TDF_Label): Handle_XCAFDoc_ShapeTool;
@@ -2228,7 +4609,1014 @@ export declare class XCAFDoc_ShapeTool {
     GetNamedProperties(theLabel: TDF_Label, theToCreate: Standard_Boolean): Handle_TDataStd_NamedData;
     GetNamedProperties(theShape: TopoDS_Shape, theToCreate: Standard_Boolean): Handle_TDataStd_NamedData;
 }
-export declare class gce_MakeCylinder {
+export declare class XCAFDoc_ViewTool extends TDataStd_GenericEmpty {
+    constructor();
+    static Set(L: TDF_Label): Handle_XCAFDoc_ViewTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    IsView(theLabel: TDF_Label): Standard_Boolean;
+    GetViewLabels(theLabels: TDF_LabelSequence): void;
+    SetClippingPlanes(theClippingPlaneLabels: TDF_LabelSequence, theViewL: TDF_Label): void;
+    RemoveView(theViewL: TDF_Label): void;
+    GetViewLabelsForShape(theShapeL: TDF_Label, theViews: TDF_LabelSequence): Standard_Boolean;
+    GetViewLabelsForGDT(theGDTL: TDF_Label, theViews: TDF_LabelSequence): Standard_Boolean;
+    GetViewLabelsForClippingPlane(theClippingPlaneL: TDF_Label, theViews: TDF_LabelSequence): Standard_Boolean;
+    GetViewLabelsForNote(theNoteL: TDF_Label, theViews: TDF_LabelSequence): Standard_Boolean;
+    GetViewLabelsForAnnotation(theAnnotationL: TDF_Label, theViews: TDF_LabelSequence): Standard_Boolean;
+    AddView(): TDF_Label;
+    GetRefShapeLabel(theViewL: TDF_Label, theShapeLabels: TDF_LabelSequence): Standard_Boolean;
+    GetRefGDTLabel(theViewL: TDF_Label, theGDTLabels: TDF_LabelSequence): Standard_Boolean;
+    GetRefClippingPlaneLabel(theViewL: TDF_Label, theClippingPlaneLabels: TDF_LabelSequence): Standard_Boolean;
+    GetRefNoteLabel(theViewL: TDF_Label, theNoteLabels: TDF_LabelSequence): Standard_Boolean;
+    GetRefAnnotationLabel(theViewL: TDF_Label, theAnnotationLabels: TDF_LabelSequence): Standard_Boolean;
+    IsLocked(theViewL: TDF_Label): Standard_Boolean;
+    Lock(theViewL: TDF_Label): void;
+    Unlock(theViewL: TDF_Label): void;
+    ID(): Standard_GUID;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    NewEmpty(): Handle_TDF_Attribute;
+    delete(): void;
+    SetView(theShapes: TDF_LabelSequence, theGDTs: TDF_LabelSequence, theClippingPlanes: TDF_LabelSequence, theNotes: TDF_LabelSequence, theAnnotations: TDF_LabelSequence, theViewL: TDF_Label): void;
+    SetView(theShapes: TDF_LabelSequence, theGDTs: TDF_LabelSequence, theClippingPlanes: TDF_LabelSequence, theViewL: TDF_Label): void;
+    SetView(theShapes: TDF_LabelSequence, theGDTs: TDF_LabelSequence, theViewL: TDF_Label): void;
+}
+export declare class XCAFDoc_GraphNode extends TDF_Attribute {
+    constructor();
+    static Find(L: TDF_Label, G: Handle_XCAFDoc_GraphNode): Standard_Boolean;
+    static GetDefaultGraphID(): Standard_GUID;
+    SetGraphID(explicitID: Standard_GUID): void;
+    SetFather(F: Handle_XCAFDoc_GraphNode): Graphic3d_ZLayerId;
+    SetChild(Ch: Handle_XCAFDoc_GraphNode): Graphic3d_ZLayerId;
+    GetFather(Findex: Graphic3d_ZLayerId): Handle_XCAFDoc_GraphNode;
+    GetChild(Chindex: Graphic3d_ZLayerId): Handle_XCAFDoc_GraphNode;
+    FatherIndex(F: Handle_XCAFDoc_GraphNode): Graphic3d_ZLayerId;
+    ChildIndex(Ch: Handle_XCAFDoc_GraphNode): Graphic3d_ZLayerId;
+    IsFather(Ch: Handle_XCAFDoc_GraphNode): Standard_Boolean;
+    IsChild(F: Handle_XCAFDoc_GraphNode): Standard_Boolean;
+    NbFathers(): Graphic3d_ZLayerId;
+    NbChildren(): Graphic3d_ZLayerId;
+    ID(): Standard_GUID;
+    Restore(with_: Handle_TDF_Attribute): void;
+    Paste(into: Handle_TDF_Attribute, RT: Handle_TDF_RelocationTable): void;
+    NewEmpty(): Handle_TDF_Attribute;
+    References(aDataSet: Handle_TDF_DataSet): void;
+    BeforeForget(): void;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    static Set(L: TDF_Label): Handle_XCAFDoc_GraphNode;
+    static Set(L: TDF_Label, ExplicitGraphID: Standard_GUID): Handle_XCAFDoc_GraphNode;
+    UnSetFather(F: Handle_XCAFDoc_GraphNode): void;
+    UnSetFather(Findex: Graphic3d_ZLayerId): void;
+    UnSetChild(Ch: Handle_XCAFDoc_GraphNode): void;
+    UnSetChild(Chindex: Graphic3d_ZLayerId): void;
+}
+export declare class XCAFDoc_VisMaterialTool extends TDF_Attribute {
+    constructor();
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    static Set(L: TDF_Label): Handle_XCAFDoc_VisMaterialTool;
+    static GetID(): Standard_GUID;
+    BaseLabel(): TDF_Label;
+    ShapeTool(): Handle_XCAFDoc_ShapeTool;
+    IsMaterial(theLabel: TDF_Label): Standard_Boolean;
+    GetMaterial(theMatLabel: TDF_Label): Handle_XCAFDoc_VisMaterial;
+    RemoveMaterial(theLabel: TDF_Label): void;
+    GetMaterials(Labels: TDF_LabelSequence): void;
+    ID(): Standard_GUID;
+    Restore(a0: Handle_TDF_Attribute): void;
+    NewEmpty(): Handle_TDF_Attribute;
+    Paste(a0: Handle_TDF_Attribute, a1: Handle_TDF_RelocationTable): void;
+    delete(): void;
+    AddMaterial(theMat: Handle_XCAFDoc_VisMaterial, theName: XCAFDoc_PartId): TDF_Label;
+    AddMaterial(theName: XCAFDoc_PartId): TDF_Label;
+    SetShapeMaterial(theShapeLabel: TDF_Label, theMaterialLabel: TDF_Label): void;
+    SetShapeMaterial(theShape: TopoDS_Shape, theMaterialLabel: TDF_Label): Standard_Boolean;
+    UnSetShapeMaterial(theShapeLabel: TDF_Label): void;
+    UnSetShapeMaterial(theShape: TopoDS_Shape): Standard_Boolean;
+    IsSetShapeMaterial(theLabel: TDF_Label): Standard_Boolean;
+    IsSetShapeMaterial(theShape: TopoDS_Shape): Standard_Boolean;
+    static GetShapeMaterial(theShapeLabel: TDF_Label, theMaterialLabel: TDF_Label): Standard_Boolean;
+    static GetShapeMaterial(theShapeLabel: TDF_Label): Handle_XCAFDoc_VisMaterial;
+    static GetShapeMaterial(theShape: TopoDS_Shape, theMaterialLabel: TDF_Label): Standard_Boolean;
+    static GetShapeMaterial(theShape: TopoDS_Shape): Handle_XCAFDoc_VisMaterial;
+}
+export declare class Handle_Standard_Type {
+    constructor();
+    constructor(thePtr: Standard_Type);
+    constructor(theHandle: Handle_Standard_Type);
+    constructor(theHandle: Handle_Standard_Type);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: Standard_Type): void;
+    get(): Standard_Type;
+    delete(): void;
+}
+export declare class StdPrs_ToolTriangulatedShape {
+    constructor();
+    static IsTriangulated(theShape: TopoDS_Shape): Standard_Boolean;
+    static IsClosed(theShape: TopoDS_Shape): Standard_Boolean;
+    static Normal(theFace: TopoDS_Face, thePolyConnect: Poly_Connect, theNormals: TColgp_Array1OfDir): void;
+    static GetDeflection(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer): Standard_Real;
+    static IsTessellated(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer): Standard_Boolean;
+    static Tessellate(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer): Standard_Boolean;
+    static ClearOnOwnDeflectionChange(theShape: TopoDS_Shape, theDrawer: Handle_Prs3d_Drawer, theToResetCoeff: Standard_Boolean): void;
+    delete(): void;
+    static ComputeNormals(theFace: TopoDS_Face, theTris: Handle_Poly_Triangulation): void;
+    static ComputeNormals(theFace: TopoDS_Face, theTris: Handle_Poly_Triangulation, thePolyConnect: Poly_Connect): void;
+}
+export declare class Handle_StepData_StepModel {
+    constructor();
+    constructor(thePtr: StepData_StepModel);
+    constructor(theHandle: Handle_StepData_StepModel);
+    constructor(theHandle: Handle_StepData_StepModel);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: StepData_StepModel): void;
+    get(): StepData_StepModel;
+    delete(): void;
+}
+export declare class Handle_StepRepr_NextAssemblyUsageOccurrence {
+    constructor();
+    constructor(thePtr: StepRepr_NextAssemblyUsageOccurrence);
+    constructor(theHandle: Handle_StepRepr_NextAssemblyUsageOccurrence);
+    constructor(theHandle: Handle_StepRepr_NextAssemblyUsageOccurrence);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: StepRepr_NextAssemblyUsageOccurrence): void;
+    get(): StepRepr_NextAssemblyUsageOccurrence;
+    delete(): void;
+}
+export declare class StlAPI_Writer {
+    constructor();
+    ASCIIMode(): Standard_Boolean;
+    Write(theShape: TopoDS_Shape, theFileName: Standard_CString, theProgress: Message_ProgressRange): Standard_Boolean;
+    delete(): void;
+}
+export declare class Handle_TColStd_HSequenceOfTransient {
+    constructor();
+    constructor(thePtr: TColStd_HSequenceOfTransient);
+    constructor(theHandle: Handle_TColStd_HSequenceOfTransient);
+    constructor(theHandle: Handle_TColStd_HSequenceOfTransient);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TColStd_HSequenceOfTransient): void;
+    get(): TColStd_HSequenceOfTransient;
+    delete(): void;
+}
+export declare class TColgp_Array1OfDir {
+    constructor();
+    constructor(theLower: Standard_Integer, theUpper: Standard_Integer);
+    constructor(theOther: TColgp_Array1OfDir);
+    constructor(theOther: TColgp_Array1OfDir);
+    constructor(theBegin: gp_Dir, theLower: Standard_Integer, theUpper: Standard_Integer);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Init(theValue: gp_Dir): void;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsDeletable(): Standard_Boolean;
+    IsAllocated(): Standard_Boolean;
+    Assign(theOther: TColgp_Array1OfDir): TColgp_Array1OfDir;
+    Move(theOther: TColgp_Array1OfDir): TColgp_Array1OfDir;
+    First(): gp_Dir;
+    ChangeFirst(): gp_Dir;
+    Last(): gp_Dir;
+    ChangeLast(): gp_Dir;
+    Value(theIndex: Standard_Integer): gp_Dir;
+    ChangeValue(theIndex: Standard_Integer): gp_Dir;
+    SetValue(theIndex: Standard_Integer, theItem: gp_Dir): void;
+    Resize(theLower: Standard_Integer, theUpper: Standard_Integer, theToCopyData: Standard_Boolean): void;
+    delete(): void;
+}
+export declare class TColgp_Array1OfPnt {
+    constructor();
+    constructor(theLower: Standard_Integer, theUpper: Standard_Integer);
+    constructor(theOther: TColgp_Array1OfPnt);
+    constructor(theOther: TColgp_Array1OfPnt);
+    constructor(theBegin: gp_Pnt, theLower: Standard_Integer, theUpper: Standard_Integer);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Init(theValue: gp_Pnt): void;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsDeletable(): Standard_Boolean;
+    IsAllocated(): Standard_Boolean;
+    Assign(theOther: TColgp_Array1OfPnt): TColgp_Array1OfPnt;
+    Move(theOther: TColgp_Array1OfPnt): TColgp_Array1OfPnt;
+    First(): gp_Pnt;
+    ChangeFirst(): gp_Pnt;
+    Last(): gp_Pnt;
+    ChangeLast(): gp_Pnt;
+    Value(theIndex: Standard_Integer): gp_Pnt;
+    ChangeValue(theIndex: Standard_Integer): gp_Pnt;
+    SetValue(theIndex: Standard_Integer, theItem: gp_Pnt): void;
+    Resize(theLower: Standard_Integer, theUpper: Standard_Integer, theToCopyData: Standard_Boolean): void;
+    delete(): void;
+}
+export declare class TColgp_Array1OfPnt2d {
+    constructor();
+    constructor(theLower: Standard_Integer, theUpper: Standard_Integer);
+    constructor(theOther: TColgp_Array1OfPnt2d);
+    constructor(theOther: TColgp_Array1OfPnt2d);
+    constructor(theBegin: gp_Pnt2d, theLower: Standard_Integer, theUpper: Standard_Integer);
+    begin(): any;
+    end(): any;
+    cbegin(): any;
+    cend(): any;
+    Init(theValue: gp_Pnt2d): void;
+    Size(): Standard_Integer;
+    Length(): Standard_Integer;
+    IsEmpty(): Standard_Boolean;
+    Lower(): Standard_Integer;
+    Upper(): Standard_Integer;
+    IsDeletable(): Standard_Boolean;
+    IsAllocated(): Standard_Boolean;
+    Assign(theOther: TColgp_Array1OfPnt2d): TColgp_Array1OfPnt2d;
+    Move(theOther: TColgp_Array1OfPnt2d): TColgp_Array1OfPnt2d;
+    First(): gp_Pnt2d;
+    ChangeFirst(): gp_Pnt2d;
+    Last(): gp_Pnt2d;
+    ChangeLast(): gp_Pnt2d;
+    Value(theIndex: Standard_Integer): gp_Pnt2d;
+    ChangeValue(theIndex: Standard_Integer): gp_Pnt2d;
+    SetValue(theIndex: Standard_Integer, theItem: gp_Pnt2d): void;
+    Resize(theLower: Standard_Integer, theUpper: Standard_Integer, theToCopyData: Standard_Boolean): void;
+    delete(): void;
+}
+export declare class Handle_TColgp_HArray1OfPnt {
+    constructor();
+    constructor(thePtr: TColgp_HArray1OfPnt);
+    constructor(theHandle: Handle_TColgp_HArray1OfPnt);
+    constructor(theHandle: Handle_TColgp_HArray1OfPnt);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TColgp_HArray1OfPnt): void;
+    get(): TColgp_HArray1OfPnt;
+    delete(): void;
+}
+export declare class Handle_TColgp_HArray1OfPnt2d {
+    constructor();
+    constructor(thePtr: TColgp_HArray1OfPnt2d);
+    constructor(theHandle: Handle_TColgp_HArray1OfPnt2d);
+    constructor(theHandle: Handle_TColgp_HArray1OfPnt2d);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TColgp_HArray1OfPnt2d): void;
+    get(): TColgp_HArray1OfPnt2d;
+    delete(): void;
+}
+export declare class TCollection_ExtendedString {
+    constructor();
+    constructor(astring: Standard_CString, isMultiByte: Standard_Boolean);
+    constructor(astring: Standard_ExtString);
+    constructor(theStringUtf: Standard_WideChar);
+    constructor(aChar: Standard_Character);
+    constructor(aChar: Standard_ExtCharacter);
+    constructor(length: Graphic3d_ZLayerId, filler: Standard_ExtCharacter);
+    constructor(value: Graphic3d_ZLayerId);
+    constructor(value: Standard_Real);
+    constructor(astring: TCollection_ExtendedString);
+    constructor(theOther: TCollection_ExtendedString);
+    constructor(astring: XCAFDoc_PartId, isMultiByte: Standard_Boolean);
+    Cat(other: TCollection_ExtendedString): TCollection_ExtendedString;
+    ChangeAll(aChar: Standard_ExtCharacter, NewChar: Standard_ExtCharacter): void;
+    Clear(): void;
+    Copy(fromwhere: TCollection_ExtendedString): void;
+    Swap(theOther: TCollection_ExtendedString): void;
+    IsEmpty(): Standard_Boolean;
+    StartsWith(theStartString: TCollection_ExtendedString): Standard_Boolean;
+    EndsWith(theEndString: TCollection_ExtendedString): Standard_Boolean;
+    IsAscii(): Standard_Boolean;
+    Length(): Graphic3d_ZLayerId;
+    Print(astream: Standard_OStream): void;
+    RemoveAll(what: Standard_ExtCharacter): void;
+    Remove(where: Graphic3d_ZLayerId, ahowmany: Graphic3d_ZLayerId): void;
+    Search(what: TCollection_ExtendedString): Graphic3d_ZLayerId;
+    SearchFromEnd(what: TCollection_ExtendedString): Graphic3d_ZLayerId;
+    Split(where: Graphic3d_ZLayerId): TCollection_ExtendedString;
+    Token(separators: Standard_ExtString, whichone: Graphic3d_ZLayerId): TCollection_ExtendedString;
+    ToExtString(): Standard_ExtString;
+    Trunc(ahowmany: Graphic3d_ZLayerId): void;
+    Value(where: Graphic3d_ZLayerId): Standard_ExtCharacter;
+    static HashCode(theString: TCollection_ExtendedString, theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    LengthOfCString(): Graphic3d_ZLayerId;
+    delete(): void;
+    AssignCat(other: TCollection_ExtendedString): void;
+    AssignCat(theChar: Standard_Utf16Char): void;
+    Insert(where: Graphic3d_ZLayerId, what: Standard_ExtCharacter): void;
+    Insert(where: Graphic3d_ZLayerId, what: TCollection_ExtendedString): void;
+    IsEqual(other: Standard_ExtString): Standard_Boolean;
+    IsEqual(other: TCollection_ExtendedString): Standard_Boolean;
+    IsEqual(theString1: TCollection_ExtendedString, theString2: TCollection_ExtendedString): Standard_Boolean;
+    IsDifferent(other: Standard_ExtString): Standard_Boolean;
+    IsDifferent(other: TCollection_ExtendedString): Standard_Boolean;
+    IsLess(other: Standard_ExtString): Standard_Boolean;
+    IsLess(other: TCollection_ExtendedString): Standard_Boolean;
+    IsGreater(other: Standard_ExtString): Standard_Boolean;
+    IsGreater(other: TCollection_ExtendedString): Standard_Boolean;
+    SetValue(where: Graphic3d_ZLayerId, what: Standard_ExtCharacter): void;
+    SetValue(where: Graphic3d_ZLayerId, what: TCollection_ExtendedString): void;
+}
+export declare class Handle_TDF_Attribute {
+    constructor();
+    constructor(thePtr: TDF_Attribute);
+    constructor(theHandle: Handle_TDF_Attribute);
+    constructor(theHandle: Handle_TDF_Attribute);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_Attribute): void;
+    get(): TDF_Attribute;
+    delete(): void;
+}
+export declare class Handle_TDF_AttributeDelta {
+    constructor();
+    constructor(thePtr: TDF_AttributeDelta);
+    constructor(theHandle: Handle_TDF_AttributeDelta);
+    constructor(theHandle: Handle_TDF_AttributeDelta);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_AttributeDelta): void;
+    get(): TDF_AttributeDelta;
+    delete(): void;
+}
+export declare class Handle_TDF_Data {
+    constructor();
+    constructor(thePtr: TDF_Data);
+    constructor(theHandle: Handle_TDF_Data);
+    constructor(theHandle: Handle_TDF_Data);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_Data): void;
+    get(): TDF_Data;
+    delete(): void;
+}
+export declare class Handle_TDF_DataSet {
+    constructor();
+    constructor(thePtr: TDF_DataSet);
+    constructor(theHandle: Handle_TDF_DataSet);
+    constructor(theHandle: Handle_TDF_DataSet);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_DataSet): void;
+    get(): TDF_DataSet;
+    delete(): void;
+}
+export declare class Handle_TDF_DeltaOnAddition {
+    constructor();
+    constructor(thePtr: TDF_DeltaOnAddition);
+    constructor(theHandle: Handle_TDF_DeltaOnAddition);
+    constructor(theHandle: Handle_TDF_DeltaOnAddition);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_DeltaOnAddition): void;
+    get(): TDF_DeltaOnAddition;
+    delete(): void;
+}
+export declare class Handle_TDF_DeltaOnForget {
+    constructor();
+    constructor(thePtr: TDF_DeltaOnForget);
+    constructor(theHandle: Handle_TDF_DeltaOnForget);
+    constructor(theHandle: Handle_TDF_DeltaOnForget);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_DeltaOnForget): void;
+    get(): TDF_DeltaOnForget;
+    delete(): void;
+}
+export declare class Handle_TDF_DeltaOnModification {
+    constructor();
+    constructor(thePtr: TDF_DeltaOnModification);
+    constructor(theHandle: Handle_TDF_DeltaOnModification);
+    constructor(theHandle: Handle_TDF_DeltaOnModification);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_DeltaOnModification): void;
+    get(): TDF_DeltaOnModification;
+    delete(): void;
+}
+export declare class Handle_TDF_DeltaOnRemoval {
+    constructor();
+    constructor(thePtr: TDF_DeltaOnRemoval);
+    constructor(theHandle: Handle_TDF_DeltaOnRemoval);
+    constructor(theHandle: Handle_TDF_DeltaOnRemoval);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_DeltaOnRemoval): void;
+    get(): TDF_DeltaOnRemoval;
+    delete(): void;
+}
+export declare class Handle_TDF_DeltaOnResume {
+    constructor();
+    constructor(thePtr: TDF_DeltaOnResume);
+    constructor(theHandle: Handle_TDF_DeltaOnResume);
+    constructor(theHandle: Handle_TDF_DeltaOnResume);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_DeltaOnResume): void;
+    get(): TDF_DeltaOnResume;
+    delete(): void;
+}
+export declare class TDF_IDFilter {
+    constructor(ignoreMode: Standard_Boolean);
+    IDList(anIDList: TDF_IDList): void;
+    Copy(fromFilter: TDF_IDFilter): void;
+    Dump(anOS: Standard_OStream): void;
+    Assign(theFilter: TDF_IDFilter): void;
+    delete(): void;
+    IgnoreAll(ignore: Standard_Boolean): void;
+    IgnoreAll(): Standard_Boolean;
+    Keep(anID: Standard_GUID): void;
+    Keep(anIDList: TDF_IDList): void;
+    Ignore(anID: Standard_GUID): void;
+    Ignore(anIDList: TDF_IDList): void;
+    IsKept(anID: Standard_GUID): Standard_Boolean;
+    IsKept(anAtt: Handle_TDF_Attribute): Standard_Boolean;
+    IsIgnored(anID: Standard_GUID): Standard_Boolean;
+    IsIgnored(anAtt: Handle_TDF_Attribute): Standard_Boolean;
+}
+export declare class TDF_Label {
+    constructor();
+    Nullify(): void;
+    Data(): Handle_TDF_Data;
+    Tag(): Graphic3d_ZLayerId;
+    Father(): TDF_Label;
+    IsNull(): Standard_Boolean;
+    Imported(aStatus: Standard_Boolean): void;
+    IsImported(): Standard_Boolean;
+    IsEqual(aLabel: TDF_Label): Standard_Boolean;
+    IsDifferent(aLabel: TDF_Label): Standard_Boolean;
+    IsRoot(): Standard_Boolean;
+    IsAttribute(anID: Standard_GUID): Standard_Boolean;
+    AddAttribute(anAttribute: Handle_TDF_Attribute, append: Standard_Boolean): void;
+    ForgetAllAttributes(clearChildren: Standard_Boolean): void;
+    ResumeAttribute(anAttribute: Handle_TDF_Attribute): void;
+    MayBeModified(): Standard_Boolean;
+    AttributesModified(): Standard_Boolean;
+    HasAttribute(): Standard_Boolean;
+    NbAttributes(): Graphic3d_ZLayerId;
+    Depth(): Graphic3d_ZLayerId;
+    IsDescendant(aLabel: TDF_Label): Standard_Boolean;
+    Root(): TDF_Label;
+    HasChild(): Standard_Boolean;
+    NbChildren(): Graphic3d_ZLayerId;
+    FindChild(aTag: Graphic3d_ZLayerId, create: Standard_Boolean): TDF_Label;
+    NewChild(): TDF_Label;
+    Transaction(): Graphic3d_ZLayerId;
+    HasLowerNode(otherLabel: TDF_Label): Standard_Boolean;
+    HasGreaterNode(otherLabel: TDF_Label): Standard_Boolean;
+    ExtendedDump(anOS: Standard_OStream, aFilter: TDF_IDFilter, aMap: TDF_AttributeIndexedMap): void;
+    EntryDump(anOS: Standard_OStream): void;
+    delete(): void;
+    ForgetAttribute(anAttribute: Handle_TDF_Attribute): void;
+    ForgetAttribute(aguid: Standard_GUID): Standard_Boolean;
+    FindAttribute(anID: Standard_GUID, anAttribute: Handle_TDF_Attribute): Standard_Boolean;
+    FindAttribute(anID: Standard_GUID, aTransaction: Graphic3d_ZLayerId, anAttribute: Handle_TDF_Attribute): Standard_Boolean;
+}
+export declare class Handle_TDF_RelocationTable {
+    constructor();
+    constructor(thePtr: TDF_RelocationTable);
+    constructor(theHandle: Handle_TDF_RelocationTable);
+    constructor(theHandle: Handle_TDF_RelocationTable);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDF_RelocationTable): void;
+    get(): TDF_RelocationTable;
+    delete(): void;
+}
+export declare class Handle_TDataStd_NamedData {
+    constructor();
+    constructor(thePtr: TDataStd_NamedData);
+    constructor(theHandle: Handle_TDataStd_NamedData);
+    constructor(theHandle: Handle_TDataStd_NamedData);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDataStd_NamedData): void;
+    get(): TDataStd_NamedData;
+    delete(): void;
+}
+export declare class Handle_TDocStd_Document {
+    constructor();
+    constructor(thePtr: TDocStd_Document);
+    constructor(theHandle: Handle_TDocStd_Document);
+    constructor(theHandle: Handle_TDocStd_Document);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TDocStd_Document): void;
+    get(): TDocStd_Document;
+    delete(): void;
+}
+export declare class Handle_TShort_HArray1OfShortReal {
+    constructor();
+    constructor(thePtr: TShort_HArray1OfShortReal);
+    constructor(theHandle: Handle_TShort_HArray1OfShortReal);
+    constructor(theHandle: Handle_TShort_HArray1OfShortReal);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TShort_HArray1OfShortReal): void;
+    get(): TShort_HArray1OfShortReal;
+    delete(): void;
+}
+export declare class TopExp {
+    constructor();
+    static MapShapesAndAncestors(S: TopoDS_Shape, TS: TopAbs_ShapeEnum, TA: TopAbs_ShapeEnum, M: TopTools_IndexedDataMapOfShapeListOfShape): void;
+    static MapShapesAndUniqueAncestors(S: TopoDS_Shape, TS: TopAbs_ShapeEnum, TA: TopAbs_ShapeEnum, M: TopTools_IndexedDataMapOfShapeListOfShape, useOrientation: Standard_Boolean): void;
+    static FirstVertex(E: TopoDS_Edge, CumOri: Standard_Boolean): TopoDS_Vertex;
+    static LastVertex(E: TopoDS_Edge, CumOri: Standard_Boolean): TopoDS_Vertex;
+    static CommonVertex(E1: TopoDS_Edge, E2: TopoDS_Edge, V: TopoDS_Vertex): Standard_Boolean;
+    delete(): void;
+    static MapShapes(S: TopoDS_Shape, T: TopAbs_ShapeEnum, M: TopTools_IndexedMapOfShape): void;
+    static MapShapes(S: TopoDS_Shape, M: TopTools_IndexedMapOfShape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean): void;
+    static MapShapes(S: TopoDS_Shape, M: TopTools_MapOfShape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean): void;
+    static Vertices(E: TopoDS_Edge, Vfirst: TopoDS_Vertex, Vlast: TopoDS_Vertex, CumOri: Standard_Boolean): void;
+    static Vertices(W: TopoDS_Wire, Vfirst: TopoDS_Vertex, Vlast: TopoDS_Vertex): void;
+}
+export declare class TopExp_Explorer {
+    constructor();
+    constructor(S: TopoDS_Shape, ToFind: TopAbs_ShapeEnum, ToAvoid: TopAbs_ShapeEnum);
+    Init(S: TopoDS_Shape, ToFind: TopAbs_ShapeEnum, ToAvoid: TopAbs_ShapeEnum): void;
+    More(): Standard_Boolean;
+    Next(): void;
+    Value(): TopoDS_Shape;
+    Current(): TopoDS_Shape;
+    ReInit(): void;
+    ExploredShape(): TopoDS_Shape;
+    Depth(): Graphic3d_ZLayerId;
+    Clear(): void;
+    delete(): void;
+}
+export declare class Handle_TopLoc_Datum3D {
+    constructor();
+    constructor(thePtr: TopLoc_Datum3D);
+    constructor(theHandle: Handle_TopLoc_Datum3D);
+    constructor(theHandle: Handle_TopLoc_Datum3D);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TopLoc_Datum3D): void;
+    get(): TopLoc_Datum3D;
+    delete(): void;
+}
+export declare class TopLoc_Location {
+    constructor();
+    constructor(T: gp_Trsf);
+    constructor(D: Handle_TopLoc_Datum3D);
+    IsIdentity(): Standard_Boolean;
+    Identity(): void;
+    FirstDatum(): Handle_TopLoc_Datum3D;
+    FirstPower(): Graphic3d_ZLayerId;
+    NextLocation(): TopLoc_Location;
+    Transformation(): gp_Trsf;
+    Inverted(): TopLoc_Location;
+    Multiplied(Other: TopLoc_Location): TopLoc_Location;
+    Divided(Other: TopLoc_Location): TopLoc_Location;
+    Predivided(Other: TopLoc_Location): TopLoc_Location;
+    Powered(pwr: Graphic3d_ZLayerId): TopLoc_Location;
+    HashCode(theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    IsEqual(Other: TopLoc_Location): Standard_Boolean;
+    IsDifferent(Other: TopLoc_Location): Standard_Boolean;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    ShallowDump(S: Standard_OStream): void;
+    Clear(): void;
+    static ScalePrec(): Standard_Real;
+    delete(): void;
+}
+export declare class Handle_TopOpeBRepBuild_HBuilder {
+    constructor();
+    constructor(thePtr: TopOpeBRepBuild_HBuilder);
+    constructor(theHandle: Handle_TopOpeBRepBuild_HBuilder);
+    constructor(theHandle: Handle_TopOpeBRepBuild_HBuilder);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TopOpeBRepBuild_HBuilder): void;
+    get(): TopOpeBRepBuild_HBuilder;
+    delete(): void;
+}
+export declare class Handle_TopTools_HSequenceOfShape {
+    constructor();
+    constructor(thePtr: TopTools_HSequenceOfShape);
+    constructor(theHandle: Handle_TopTools_HSequenceOfShape);
+    constructor(theHandle: Handle_TopTools_HSequenceOfShape);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TopTools_HSequenceOfShape): void;
+    get(): TopTools_HSequenceOfShape;
+    delete(): void;
+}
+export declare class TopoDS {
+    constructor();
+    delete(): void;
+    static Vertex(S: TopoDS_Shape): TopoDS_Vertex;
+    static Vertex(a0: TopoDS_Shape): TopoDS_Vertex;
+    static Edge(S: TopoDS_Shape): TopoDS_Edge;
+    static Edge(a0: TopoDS_Shape): TopoDS_Edge;
+    static Wire(S: TopoDS_Shape): TopoDS_Wire;
+    static Wire(a0: TopoDS_Shape): TopoDS_Wire;
+    static Face(S: TopoDS_Shape): TopoDS_Face;
+    static Face(a0: TopoDS_Shape): TopoDS_Face;
+    static Shell(S: TopoDS_Shape): TopoDS_Shell;
+    static Shell(a0: TopoDS_Shape): TopoDS_Shell;
+    static Solid(S: TopoDS_Shape): TopoDS_Solid;
+    static Solid(a0: TopoDS_Shape): TopoDS_Solid;
+    static CompSolid(S: TopoDS_Shape): TopoDS_CompSolid;
+    static CompSolid(a0: TopoDS_Shape): TopoDS_CompSolid;
+    static Compound(S: TopoDS_Shape): TopoDS_Compound;
+    static Compound(a0: TopoDS_Shape): TopoDS_Compound;
+}
+export declare class TopoDS_Builder {
+    constructor();
+    MakeWire(W: TopoDS_Wire): void;
+    MakeShell(S: TopoDS_Shell): void;
+    MakeSolid(S: TopoDS_Solid): void;
+    MakeCompSolid(C: TopoDS_CompSolid): void;
+    MakeCompound(C: TopoDS_Compound): void;
+    Add(S: TopoDS_Shape, C: TopoDS_Shape): void;
+    Remove(S: TopoDS_Shape, C: TopoDS_Shape): void;
+    delete(): void;
+}
+export declare class BRep_Builder extends TopoDS_Builder {
+    constructor();
+    NaturalRestriction(F: TopoDS_Face, N: Standard_Boolean): void;
+    SameParameter(E: TopoDS_Edge, S: Standard_Boolean): void;
+    SameRange(E: TopoDS_Edge, S: Standard_Boolean): void;
+    Degenerated(E: TopoDS_Edge, D: Standard_Boolean): void;
+    delete(): void;
+    MakeFace(F: TopoDS_Face): void;
+    MakeFace(F: TopoDS_Face, S: Handle_Geom_Surface, Tol: Standard_Real): void;
+    MakeFace(F: TopoDS_Face, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
+    MakeFace(theFace: TopoDS_Face, theTriangulation: Handle_Poly_Triangulation): void;
+    MakeFace(theFace: TopoDS_Face, theTriangulations: Poly_ListOfTriangulation, theActiveTriangulation: Handle_Poly_Triangulation): void;
+    UpdateFace(F: TopoDS_Face, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
+    UpdateFace(theFace: TopoDS_Face, theTriangulation: Handle_Poly_Triangulation, theToReset: Standard_Boolean): void;
+    UpdateFace(F: TopoDS_Face, Tol: Standard_Real): void;
+    MakeEdge(E: TopoDS_Edge): void;
+    MakeEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, Tol: Standard_Real): void;
+    MakeEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, L: TopLoc_Location, Tol: Standard_Real): void;
+    MakeEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon3D): void;
+    MakeEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation): void;
+    MakeEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation, L: TopLoc_Location): void;
+    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, Tol: Standard_Real): void;
+    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom_Curve, L: TopLoc_Location, Tol: Standard_Real): void;
+    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom2d_Curve, F: TopoDS_Face, Tol: Standard_Real): void;
+    UpdateEdge(E: TopoDS_Edge, C1: Handle_Geom2d_Curve, C2: Handle_Geom2d_Curve, F: TopoDS_Face, Tol: Standard_Real): void;
+    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
+    UpdateEdge(E: TopoDS_Edge, C: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real, Pf: gp_Pnt2d, Pl: gp_Pnt2d): void;
+    UpdateEdge(E: TopoDS_Edge, C1: Handle_Geom2d_Curve, C2: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
+    UpdateEdge(E: TopoDS_Edge, C1: Handle_Geom2d_Curve, C2: Handle_Geom2d_Curve, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real, Pf: gp_Pnt2d, Pl: gp_Pnt2d): void;
+    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon3D): void;
+    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon3D, L: TopLoc_Location): void;
+    UpdateEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation): void;
+    UpdateEdge(E: TopoDS_Edge, N: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation, L: TopLoc_Location): void;
+    UpdateEdge(E: TopoDS_Edge, N1: Handle_Poly_PolygonOnTriangulation, N2: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation): void;
+    UpdateEdge(E: TopoDS_Edge, N1: Handle_Poly_PolygonOnTriangulation, N2: Handle_Poly_PolygonOnTriangulation, T: Handle_Poly_Triangulation, L: TopLoc_Location): void;
+    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon2D, S: TopoDS_Face): void;
+    UpdateEdge(E: TopoDS_Edge, P: Handle_Poly_Polygon2D, S: Handle_Geom_Surface, T: TopLoc_Location): void;
+    UpdateEdge(E: TopoDS_Edge, P1: Handle_Poly_Polygon2D, P2: Handle_Poly_Polygon2D, S: TopoDS_Face): void;
+    UpdateEdge(E: TopoDS_Edge, P1: Handle_Poly_Polygon2D, P2: Handle_Poly_Polygon2D, S: Handle_Geom_Surface, L: TopLoc_Location): void;
+    UpdateEdge(E: TopoDS_Edge, Tol: Standard_Real): void;
+    Continuity(E: TopoDS_Edge, F1: TopoDS_Face, F2: TopoDS_Face, C: GeomAbs_Shape): void;
+    Continuity(E: TopoDS_Edge, S1: Handle_Geom_Surface, S2: Handle_Geom_Surface, L1: TopLoc_Location, L2: TopLoc_Location, C: GeomAbs_Shape): void;
+    Range(E: TopoDS_Edge, First: Standard_Real, Last: Standard_Real, Only3d: Standard_Boolean): void;
+    Range(E: TopoDS_Edge, S: Handle_Geom_Surface, L: TopLoc_Location, First: Standard_Real, Last: Standard_Real): void;
+    Range(E: TopoDS_Edge, F: TopoDS_Face, First: Standard_Real, Last: Standard_Real): void;
+    Transfert(Ein: TopoDS_Edge, Eout: TopoDS_Edge): void;
+    Transfert(Ein: TopoDS_Edge, Eout: TopoDS_Edge, Vin: TopoDS_Vertex, Vout: TopoDS_Vertex): void;
+    MakeVertex(V: TopoDS_Vertex): void;
+    MakeVertex(V: TopoDS_Vertex, P: gp_Pnt, Tol: Standard_Real): void;
+    UpdateVertex(V: TopoDS_Vertex, P: gp_Pnt, Tol: Standard_Real): void;
+    UpdateVertex(V: TopoDS_Vertex, P: Standard_Real, E: TopoDS_Edge, Tol: Standard_Real): void;
+    UpdateVertex(V: TopoDS_Vertex, P: Standard_Real, E: TopoDS_Edge, F: TopoDS_Face, Tol: Standard_Real): void;
+    UpdateVertex(V: TopoDS_Vertex, P: Standard_Real, E: TopoDS_Edge, S: Handle_Geom_Surface, L: TopLoc_Location, Tol: Standard_Real): void;
+    UpdateVertex(Ve: TopoDS_Vertex, U: Standard_Real, V: Standard_Real, F: TopoDS_Face, Tol: Standard_Real): void;
+    UpdateVertex(V: TopoDS_Vertex, Tol: Standard_Real): void;
+}
+export declare class TopoDS_Iterator {
+    constructor();
+    constructor(S: TopoDS_Shape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean);
+    Initialize(S: TopoDS_Shape, cumOri: Standard_Boolean, cumLoc: Standard_Boolean): void;
+    More(): Standard_Boolean;
+    Next(): void;
+    Value(): TopoDS_Shape;
+    delete(): void;
+}
+export declare class TopoDS_Shape {
+    constructor();
+    IsNull(): Standard_Boolean;
+    Nullify(): void;
+    Located(theLoc: TopLoc_Location, theRaiseExc: Standard_Boolean): TopoDS_Shape;
+    Oriented(theOrient: TopAbs_Orientation): TopoDS_Shape;
+    ShapeType(): TopAbs_ShapeEnum;
+    Move(thePosition: TopLoc_Location, theRaiseExc: Standard_Boolean): void;
+    Moved(thePosition: TopLoc_Location, theRaiseExc: Standard_Boolean): TopoDS_Shape;
+    Reverse(): void;
+    Reversed(): TopoDS_Shape;
+    Complement(): void;
+    Complemented(): TopoDS_Shape;
+    Compose(theOrient: TopAbs_Orientation): void;
+    Composed(theOrient: TopAbs_Orientation): TopoDS_Shape;
+    NbChildren(): Graphic3d_ZLayerId;
+    IsPartner(theOther: TopoDS_Shape): Standard_Boolean;
+    IsSame(theOther: TopoDS_Shape): Standard_Boolean;
+    IsEqual(theOther: TopoDS_Shape): Standard_Boolean;
+    IsNotEqual(theOther: TopoDS_Shape): Standard_Boolean;
+    HashCode(theUpperBound: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    EmptyCopy(): void;
+    EmptyCopied(): TopoDS_Shape;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    delete(): void;
+    Location(): TopLoc_Location;
+    Location(theLoc: TopLoc_Location, theRaiseExc: Standard_Boolean): void;
+    Orientation(): TopAbs_Orientation;
+    Orientation(theOrient: TopAbs_Orientation): void;
+    TShape(): Handle_TopoDS_TShape;
+    TShape(theTShape: Handle_TopoDS_TShape): void;
+    Free(): Standard_Boolean;
+    Free(theIsFree: Standard_Boolean): void;
+    Locked(): Standard_Boolean;
+    Locked(theIsLocked: Standard_Boolean): void;
+    Modified(): Standard_Boolean;
+    Modified(theIsModified: Standard_Boolean): void;
+    Checked(): Standard_Boolean;
+    Checked(theIsChecked: Standard_Boolean): void;
+    Orientable(): Standard_Boolean;
+    Orientable(theIsOrientable: Standard_Boolean): void;
+    Closed(): Standard_Boolean;
+    Closed(theIsClosed: Standard_Boolean): void;
+    Infinite(): Standard_Boolean;
+    Infinite(theIsInfinite: Standard_Boolean): void;
+    Convex(): Standard_Boolean;
+    Convex(theIsConvex: Standard_Boolean): void;
+}
+export declare class TopoDS_CompSolid extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Compound extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Edge extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Face extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Shell extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Solid extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Vertex extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class TopoDS_Wire extends TopoDS_Shape {
+    constructor();
+    delete(): void;
+}
+export declare class Handle_TopoDS_TShape {
+    constructor();
+    constructor(thePtr: TopoDS_TShape);
+    constructor(theHandle: Handle_TopoDS_TShape);
+    constructor(theHandle: Handle_TopoDS_TShape);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: TopoDS_TShape): void;
+    get(): TopoDS_TShape;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_ClippingPlaneTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_ClippingPlaneTool);
+    constructor(theHandle: Handle_XCAFDoc_ClippingPlaneTool);
+    constructor(theHandle: Handle_XCAFDoc_ClippingPlaneTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_ClippingPlaneTool): void;
+    get(): XCAFDoc_ClippingPlaneTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_ColorTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_ColorTool);
+    constructor(theHandle: Handle_XCAFDoc_ColorTool);
+    constructor(theHandle: Handle_XCAFDoc_ColorTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_ColorTool): void;
+    get(): XCAFDoc_ColorTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_DimTolTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_DimTolTool);
+    constructor(theHandle: Handle_XCAFDoc_DimTolTool);
+    constructor(theHandle: Handle_XCAFDoc_DimTolTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_DimTolTool): void;
+    get(): XCAFDoc_DimTolTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_DocumentTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_DocumentTool);
+    constructor(theHandle: Handle_XCAFDoc_DocumentTool);
+    constructor(theHandle: Handle_XCAFDoc_DocumentTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_DocumentTool): void;
+    get(): XCAFDoc_DocumentTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_GraphNode {
+    constructor();
+    constructor(thePtr: XCAFDoc_GraphNode);
+    constructor(theHandle: Handle_XCAFDoc_GraphNode);
+    constructor(theHandle: Handle_XCAFDoc_GraphNode);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_GraphNode): void;
+    get(): XCAFDoc_GraphNode;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_LayerTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_LayerTool);
+    constructor(theHandle: Handle_XCAFDoc_LayerTool);
+    constructor(theHandle: Handle_XCAFDoc_LayerTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_LayerTool): void;
+    get(): XCAFDoc_LayerTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_MaterialTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_MaterialTool);
+    constructor(theHandle: Handle_XCAFDoc_MaterialTool);
+    constructor(theHandle: Handle_XCAFDoc_MaterialTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_MaterialTool): void;
+    get(): XCAFDoc_MaterialTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_NotesTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_NotesTool);
+    constructor(theHandle: Handle_XCAFDoc_NotesTool);
+    constructor(theHandle: Handle_XCAFDoc_NotesTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_NotesTool): void;
+    get(): XCAFDoc_NotesTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_ShapeTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_ShapeTool);
+    constructor(theHandle: Handle_XCAFDoc_ShapeTool);
+    constructor(theHandle: Handle_XCAFDoc_ShapeTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_ShapeTool): void;
+    get(): XCAFDoc_ShapeTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_ViewTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_ViewTool);
+    constructor(theHandle: Handle_XCAFDoc_ViewTool);
+    constructor(theHandle: Handle_XCAFDoc_ViewTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_ViewTool): void;
+    get(): XCAFDoc_ViewTool;
+    delete(): void;
+}
+export declare class Handle_XCAFDoc_VisMaterialTool {
+    constructor();
+    constructor(thePtr: XCAFDoc_VisMaterialTool);
+    constructor(theHandle: Handle_XCAFDoc_VisMaterialTool);
+    constructor(theHandle: Handle_XCAFDoc_VisMaterialTool);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XCAFDoc_VisMaterialTool): void;
+    get(): XCAFDoc_VisMaterialTool;
+    delete(): void;
+}
+export declare class XSControl_Reader {
+    constructor();
+    constructor(norm: Standard_CString);
+    constructor(WS: Handle_XSControl_WorkSession, scratch: Standard_Boolean);
+    SetNorm(norm: Standard_CString): Standard_Boolean;
+    SetWS(WS: Handle_XSControl_WorkSession, scratch: Standard_Boolean): void;
+    WS(): Handle_XSControl_WorkSession;
+    ReadFile(filename: Standard_CString): IFSelect_ReturnStatus;
+    ReadStream(theName: Standard_CString, theIStream: Standard_IStream): IFSelect_ReturnStatus;
+    Model(): Handle_Interface_InterfaceModel;
+    NbRootsForTransfer(): Graphic3d_ZLayerId;
+    RootForTransfer(num: Graphic3d_ZLayerId): Handle_Standard_Transient;
+    TransferOneRoot(num: Graphic3d_ZLayerId, theProgress: Message_ProgressRange): Standard_Boolean;
+    TransferOne(num: Graphic3d_ZLayerId, theProgress: Message_ProgressRange): Standard_Boolean;
+    TransferEntity(start: Handle_Standard_Transient, theProgress: Message_ProgressRange): Standard_Boolean;
+    TransferList(list: Handle_TColStd_HSequenceOfTransient, theProgress: Message_ProgressRange): Graphic3d_ZLayerId;
+    TransferRoots(theProgress: Message_ProgressRange): Graphic3d_ZLayerId;
+    ClearShapes(): void;
+    NbShapes(): Graphic3d_ZLayerId;
+    Shape(num: Graphic3d_ZLayerId): TopoDS_Shape;
+    OneShape(): TopoDS_Shape;
+    GetStatsTransfer(list: Handle_TColStd_HSequenceOfTransient, nbMapped: Graphic3d_ZLayerId, nbWithResult: Graphic3d_ZLayerId, nbWithFail: Graphic3d_ZLayerId): void;
+    delete(): void;
+    GiveList(first: Standard_CString, second: Standard_CString): Handle_TColStd_HSequenceOfTransient;
+    GiveList(first: Standard_CString, ent: Handle_Standard_Transient): Handle_TColStd_HSequenceOfTransient;
+    PrintCheckLoad(failsonly: Standard_Boolean, mode: IFSelect_PrintCount): void;
+    PrintCheckLoad(theStream: Standard_OStream, failsonly: Standard_Boolean, mode: IFSelect_PrintCount): void;
+    PrintCheckTransfer(failsonly: Standard_Boolean, mode: IFSelect_PrintCount): void;
+    PrintCheckTransfer(theStream: Standard_OStream, failsonly: Standard_Boolean, mode: IFSelect_PrintCount): void;
+    PrintStatsTransfer(what: Graphic3d_ZLayerId, mode: Graphic3d_ZLayerId): void;
+    PrintStatsTransfer(theStream: Standard_OStream, what: Graphic3d_ZLayerId, mode: Graphic3d_ZLayerId): void;
+}
+export declare class STEPControl_Reader extends XSControl_Reader {
+    constructor();
+    constructor(WS: Handle_XSControl_WorkSession, scratch: Standard_Boolean);
+    StepModel(): Handle_StepData_StepModel;
+    TransferRoot(num: Graphic3d_ZLayerId, theProgress: Message_ProgressRange): Standard_Boolean;
+    NbRootsForTransfer(): Graphic3d_ZLayerId;
+    FileUnits(theUnitLengthNames: TColStd_SequenceOfAsciiString, theUnitAngleNames: TColStd_SequenceOfAsciiString, theUnitSolidAngleNames: TColStd_SequenceOfAsciiString): void;
+    SetSystemLengthUnit(theLengthUnit: Standard_Real): void;
+    SystemLengthUnit(): Standard_Real;
+    delete(): void;
+}
+export declare class Handle_XSControl_WorkSession {
+    constructor();
+    constructor(thePtr: XSControl_WorkSession);
+    constructor(theHandle: Handle_XSControl_WorkSession);
+    constructor(theHandle: Handle_XSControl_WorkSession);
+    Nullify(): void;
+    IsNull(): boolean;
+    reset(thePtr: XSControl_WorkSession): void;
+    get(): XSControl_WorkSession;
+    delete(): void;
+}
+export declare class XSControl_WorkSession {
+    constructor();
+    ClearData(theMode: Graphic3d_ZLayerId): void;
+    SelectNorm(theNormName: Standard_CString): Standard_Boolean;
+    SetController(theCtl: Handle_XSControl_Controller): void;
+    SelectedNorm(theRsc: Standard_Boolean): Standard_CString;
+    NormAdaptor(): Handle_XSControl_Controller;
+    Context(): any;
+    SetAllContext(theContext: any): void;
+    ClearContext(): void;
+    PrintTransferStatus(theNum: Graphic3d_ZLayerId, theWri: Standard_Boolean, theS: Standard_OStream): Standard_Boolean;
+    InitTransferReader(theMode: Graphic3d_ZLayerId): void;
+    SetTransferReader(theTR: Handle_XSControl_TransferReader): void;
+    TransferReader(): Handle_XSControl_TransferReader;
+    MapReader(): Handle_Transfer_TransientProcess;
+    SetMapReader(theTP: Handle_Transfer_TransientProcess): Standard_Boolean;
+    Result(theEnt: Handle_Standard_Transient, theMode: Graphic3d_ZLayerId): Handle_Standard_Transient;
+    TransferReadOne(theEnts: Handle_Standard_Transient, theProgress: Message_ProgressRange): Graphic3d_ZLayerId;
+    TransferReadRoots(theProgress: Message_ProgressRange): Graphic3d_ZLayerId;
+    NewModel(): Handle_Interface_InterfaceModel;
+    TransferWriter(): Handle_XSControl_TransferWriter;
+    SetMapWriter(theFP: Handle_Transfer_FinderProcess): Standard_Boolean;
+    TransferWriteShape(theShape: TopoDS_Shape, theCompGraph: Standard_Boolean, theProgress: Message_ProgressRange): IFSelect_ReturnStatus;
+    TransferWriteCheckList(): Interface_CheckIterator;
+    Vars(): Handle_XSControl_Vars;
+    SetVars(theVars: Handle_XSControl_Vars): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+}
+export declare class gce_Root {
+    constructor();
+    IsDone(): Standard_Boolean;
+    Status(): gce_ErrorType;
+    delete(): void;
+}
+export declare class gce_MakeCylinder extends gce_Root {
     constructor(A2: gp_Ax2, Radius: Standard_Real);
     constructor(Cyl: gp_Cylinder, Point: gp_Pnt);
     constructor(Cyl: gp_Cylinder, Dist: Standard_Real);
@@ -2309,6 +5697,70 @@ export declare class gp_Ax2 {
     Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
     Translated(theV: gp_Vec): gp_Ax2;
     Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Ax2;
+}
+export declare class gp_Ax22d {
+    constructor();
+    constructor(theP: gp_Pnt2d, theVx: gp_Dir2d, theVy: gp_Dir2d);
+    constructor(theP: gp_Pnt2d, theV: gp_Dir2d, theIsSense: Standard_Boolean);
+    constructor(theA: gp_Ax2d, theIsSense: Standard_Boolean);
+    SetAxis(theA1: gp_Ax22d): void;
+    SetXAxis(theA1: gp_Ax2d): void;
+    SetYAxis(theA1: gp_Ax2d): void;
+    SetLocation(theP: gp_Pnt2d): void;
+    SetXDirection(theVx: gp_Dir2d): void;
+    SetYDirection(theVy: gp_Dir2d): void;
+    XAxis(): gp_Ax2d;
+    YAxis(): gp_Ax2d;
+    Location(): gp_Pnt2d;
+    XDirection(): gp_Dir2d;
+    YDirection(): gp_Dir2d;
+    Rotate(theP: gp_Pnt2d, theAng: Standard_Real): void;
+    Rotated(theP: gp_Pnt2d, theAng: Standard_Real): gp_Ax22d;
+    Scale(theP: gp_Pnt2d, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt2d, theS: Standard_Real): gp_Ax22d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Ax22d;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    delete(): void;
+    Mirror(theP: gp_Pnt2d): void;
+    Mirror(theA: gp_Ax2d): void;
+    Mirrored(theP: gp_Pnt2d): gp_Ax22d;
+    Mirrored(theA: gp_Ax2d): gp_Ax22d;
+    Translate(theV: gp_Vec2d): void;
+    Translate(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
+    Translated(theV: gp_Vec2d): gp_Ax22d;
+    Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Ax22d;
+}
+export declare class gp_Ax2d {
+    constructor();
+    constructor(theP: gp_Pnt2d, theV: gp_Dir2d);
+    SetLocation(theP: gp_Pnt2d): void;
+    SetDirection(theV: gp_Dir2d): void;
+    Location(): gp_Pnt2d;
+    Direction(): gp_Dir2d;
+    IsCoaxial(Other: gp_Ax2d, AngularTolerance: Standard_Real, LinearTolerance: Standard_Real): Standard_Boolean;
+    IsNormal(theOther: gp_Ax2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsOpposite(theOther: gp_Ax2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsParallel(theOther: gp_Ax2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    Angle(theOther: gp_Ax2d): Standard_Real;
+    Reverse(): void;
+    Reversed(): gp_Ax2d;
+    Rotate(theP: gp_Pnt2d, theAng: Standard_Real): void;
+    Rotated(theP: gp_Pnt2d, theAng: Standard_Real): gp_Ax2d;
+    Scale(P: gp_Pnt2d, S: Standard_Real): void;
+    Scaled(theP: gp_Pnt2d, theS: Standard_Real): gp_Ax2d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Ax2d;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    delete(): void;
+    Mirror(P: gp_Pnt2d): void;
+    Mirror(A: gp_Ax2d): void;
+    Mirrored(P: gp_Pnt2d): gp_Ax2d;
+    Mirrored(A: gp_Ax2d): gp_Ax2d;
+    Translate(theV: gp_Vec2d): void;
+    Translate(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
+    Translated(theV: gp_Vec2d): gp_Ax2d;
+    Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Ax2d;
 }
 export declare class gp_Ax3 {
     constructor();
@@ -2429,6 +5881,79 @@ export declare class gp_Circ2d {
     Translated(theV: gp_Vec2d): gp_Circ2d;
     Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Circ2d;
 }
+export declare class gp_Cone {
+    constructor();
+    constructor(theA3: gp_Ax3, theAng: Standard_Real, theRadius: Standard_Real);
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theLoc: gp_Pnt): void;
+    SetPosition(theA3: gp_Ax3): void;
+    SetRadius(theR: Standard_Real): void;
+    SetSemiAngle(theAng: Standard_Real): void;
+    Apex(): gp_Pnt;
+    UReverse(): void;
+    VReverse(): void;
+    Direct(): Standard_Boolean;
+    Axis(): gp_Ax1;
+    Coefficients(theA1: Standard_Real, theA2: Standard_Real, theA3: Standard_Real, theB1: Standard_Real, theB2: Standard_Real, theB3: Standard_Real, theC1: Standard_Real, theC2: Standard_Real, theC3: Standard_Real, theD: Standard_Real): void;
+    Location(): gp_Pnt;
+    Position(): gp_Ax3;
+    RefRadius(): Standard_Real;
+    SemiAngle(): Standard_Real;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Cone;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Cone;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Cone;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Cone;
+    Mirrored(theA1: gp_Ax1): gp_Cone;
+    Mirrored(theA2: gp_Ax2): gp_Cone;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Cone;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Cone;
+}
+export declare class gp_Cylinder {
+    constructor();
+    constructor(theA3: gp_Ax3, theRadius: Standard_Real);
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theLoc: gp_Pnt): void;
+    SetPosition(theA3: gp_Ax3): void;
+    SetRadius(theR: Standard_Real): void;
+    UReverse(): void;
+    VReverse(): void;
+    Direct(): Standard_Boolean;
+    Axis(): gp_Ax1;
+    Coefficients(theA1: Standard_Real, theA2: Standard_Real, theA3: Standard_Real, theB1: Standard_Real, theB2: Standard_Real, theB3: Standard_Real, theC1: Standard_Real, theC2: Standard_Real, theC3: Standard_Real, theD: Standard_Real): void;
+    Location(): gp_Pnt;
+    Position(): gp_Ax3;
+    Radius(): Standard_Real;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Cylinder;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Cylinder;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Cylinder;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Cylinder;
+    Mirrored(theA1: gp_Ax1): gp_Cylinder;
+    Mirrored(theA2: gp_Ax2): gp_Cylinder;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Cylinder;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Cylinder;
+}
 export declare class gp_Dir {
     constructor();
     constructor(theV: gp_Vec);
@@ -2473,6 +5998,219 @@ export declare class gp_Dir {
     Mirrored(theV: gp_Dir): gp_Dir;
     Mirrored(theA1: gp_Ax1): gp_Dir;
     Mirrored(theA2: gp_Ax2): gp_Dir;
+}
+export declare class gp_Dir2d {
+    constructor();
+    constructor(theV: gp_Vec2d);
+    constructor(theCoord: gp_XY);
+    constructor(theXv: Standard_Real, theYv: Standard_Real);
+    SetX(theX: Standard_Real): void;
+    SetY(theY: Standard_Real): void;
+    SetXY(theCoord: gp_XY): void;
+    X(): Standard_Real;
+    Y(): Standard_Real;
+    XY(): gp_XY;
+    IsEqual(theOther: gp_Dir2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsNormal(theOther: gp_Dir2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsOpposite(theOther: gp_Dir2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsParallel(theOther: gp_Dir2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    Angle(theOther: gp_Dir2d): Standard_Real;
+    Crossed(theRight: gp_Dir2d): Standard_Real;
+    Dot(theOther: gp_Dir2d): Standard_Real;
+    Reverse(): void;
+    Reversed(): gp_Dir2d;
+    Rotate(Ang: Standard_Real): void;
+    Rotated(theAng: Standard_Real): gp_Dir2d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Dir2d;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    delete(): void;
+    SetCoord(theIndex: Graphic3d_ZLayerId, theXi: Standard_Real): void;
+    SetCoord(theXv: Standard_Real, theYv: Standard_Real): void;
+    Coord(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    Coord(theXv: Standard_Real, theYv: Standard_Real): void;
+    Mirror(theV: gp_Dir2d): void;
+    Mirror(theA: gp_Ax2d): void;
+    Mirrored(theV: gp_Dir2d): gp_Dir2d;
+    Mirrored(theA: gp_Ax2d): gp_Dir2d;
+}
+export declare class gp_Elips {
+    constructor();
+    constructor(theA2: gp_Ax2, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real);
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theP: gp_Pnt): void;
+    SetMajorRadius(theMajorRadius: Standard_Real): void;
+    SetMinorRadius(theMinorRadius: Standard_Real): void;
+    SetPosition(theA2: gp_Ax2): void;
+    Area(): Standard_Real;
+    Axis(): gp_Ax1;
+    Directrix1(): gp_Ax1;
+    Directrix2(): gp_Ax1;
+    Eccentricity(): Standard_Real;
+    Focal(): Standard_Real;
+    Focus1(): gp_Pnt;
+    Focus2(): gp_Pnt;
+    Location(): gp_Pnt;
+    MajorRadius(): Standard_Real;
+    MinorRadius(): Standard_Real;
+    Parameter(): Standard_Real;
+    Position(): gp_Ax2;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Elips;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Elips;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Elips;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Elips;
+    Mirrored(theA1: gp_Ax1): gp_Elips;
+    Mirrored(theA2: gp_Ax2): gp_Elips;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Elips;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Elips;
+}
+export declare class gp_Elips2d {
+    constructor();
+    constructor(theMajorAxis: gp_Ax2d, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real, theIsSense: Standard_Boolean);
+    constructor(theA: gp_Ax22d, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real);
+    SetLocation(theP: gp_Pnt2d): void;
+    SetMajorRadius(theMajorRadius: Standard_Real): void;
+    SetMinorRadius(theMinorRadius: Standard_Real): void;
+    SetAxis(theA: gp_Ax22d): void;
+    SetXAxis(theA: gp_Ax2d): void;
+    SetYAxis(theA: gp_Ax2d): void;
+    Area(): Standard_Real;
+    Coefficients(theA: Standard_Real, theB: Standard_Real, theC: Standard_Real, theD: Standard_Real, theE: Standard_Real, theF: Standard_Real): void;
+    Directrix1(): gp_Ax2d;
+    Directrix2(): gp_Ax2d;
+    Eccentricity(): Standard_Real;
+    Focal(): Standard_Real;
+    Focus1(): gp_Pnt2d;
+    Focus2(): gp_Pnt2d;
+    Location(): gp_Pnt2d;
+    MajorRadius(): Standard_Real;
+    MinorRadius(): Standard_Real;
+    Parameter(): Standard_Real;
+    Axis(): gp_Ax22d;
+    XAxis(): gp_Ax2d;
+    YAxis(): gp_Ax2d;
+    Reverse(): void;
+    Reversed(): gp_Elips2d;
+    IsDirect(): Standard_Boolean;
+    Rotate(theP: gp_Pnt2d, theAng: Standard_Real): void;
+    Rotated(theP: gp_Pnt2d, theAng: Standard_Real): gp_Elips2d;
+    Scale(theP: gp_Pnt2d, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt2d, theS: Standard_Real): gp_Elips2d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Elips2d;
+    delete(): void;
+    Mirror(theP: gp_Pnt2d): void;
+    Mirror(theA: gp_Ax2d): void;
+    Mirrored(theP: gp_Pnt2d): gp_Elips2d;
+    Mirrored(theA: gp_Ax2d): gp_Elips2d;
+    Translate(theV: gp_Vec2d): void;
+    Translate(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
+    Translated(theV: gp_Vec2d): gp_Elips2d;
+    Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Elips2d;
+}
+export declare class gp_Hypr {
+    constructor();
+    constructor(theA2: gp_Ax2, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real);
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theP: gp_Pnt): void;
+    SetMajorRadius(theMajorRadius: Standard_Real): void;
+    SetMinorRadius(theMinorRadius: Standard_Real): void;
+    SetPosition(theA2: gp_Ax2): void;
+    Asymptote1(): gp_Ax1;
+    Asymptote2(): gp_Ax1;
+    Axis(): gp_Ax1;
+    ConjugateBranch1(): gp_Hypr;
+    ConjugateBranch2(): gp_Hypr;
+    Directrix1(): gp_Ax1;
+    Directrix2(): gp_Ax1;
+    Eccentricity(): Standard_Real;
+    Focal(): Standard_Real;
+    Focus1(): gp_Pnt;
+    Focus2(): gp_Pnt;
+    Location(): gp_Pnt;
+    MajorRadius(): Standard_Real;
+    MinorRadius(): Standard_Real;
+    OtherBranch(): gp_Hypr;
+    Parameter(): Standard_Real;
+    Position(): gp_Ax2;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Hypr;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Hypr;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Hypr;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Hypr;
+    Mirrored(theA1: gp_Ax1): gp_Hypr;
+    Mirrored(theA2: gp_Ax2): gp_Hypr;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Hypr;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Hypr;
+}
+export declare class gp_Hypr2d {
+    constructor();
+    constructor(theMajorAxis: gp_Ax2d, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real, theIsSense: Standard_Boolean);
+    constructor(theA: gp_Ax22d, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real);
+    SetLocation(theP: gp_Pnt2d): void;
+    SetMajorRadius(theMajorRadius: Standard_Real): void;
+    SetMinorRadius(theMinorRadius: Standard_Real): void;
+    SetAxis(theA: gp_Ax22d): void;
+    SetXAxis(theA: gp_Ax2d): void;
+    SetYAxis(theA: gp_Ax2d): void;
+    Asymptote1(): gp_Ax2d;
+    Asymptote2(): gp_Ax2d;
+    Coefficients(theA: Standard_Real, theB: Standard_Real, theC: Standard_Real, theD: Standard_Real, theE: Standard_Real, theF: Standard_Real): void;
+    ConjugateBranch1(): gp_Hypr2d;
+    ConjugateBranch2(): gp_Hypr2d;
+    Directrix1(): gp_Ax2d;
+    Directrix2(): gp_Ax2d;
+    Eccentricity(): Standard_Real;
+    Focal(): Standard_Real;
+    Focus1(): gp_Pnt2d;
+    Focus2(): gp_Pnt2d;
+    Location(): gp_Pnt2d;
+    MajorRadius(): Standard_Real;
+    MinorRadius(): Standard_Real;
+    OtherBranch(): gp_Hypr2d;
+    Parameter(): Standard_Real;
+    Axis(): gp_Ax22d;
+    XAxis(): gp_Ax2d;
+    YAxis(): gp_Ax2d;
+    Reverse(): void;
+    Reversed(): gp_Hypr2d;
+    IsDirect(): Standard_Boolean;
+    Rotate(theP: gp_Pnt2d, theAng: Standard_Real): void;
+    Rotated(theP: gp_Pnt2d, theAng: Standard_Real): gp_Hypr2d;
+    Scale(theP: gp_Pnt2d, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt2d, theS: Standard_Real): gp_Hypr2d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Hypr2d;
+    delete(): void;
+    Mirror(theP: gp_Pnt2d): void;
+    Mirror(theA: gp_Ax2d): void;
+    Mirrored(theP: gp_Pnt2d): gp_Hypr2d;
+    Mirrored(theA: gp_Ax2d): gp_Hypr2d;
+    Translate(theV: gp_Vec2d): void;
+    Translate(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
+    Translated(theV: gp_Vec2d): gp_Hypr2d;
+    Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Hypr2d;
 }
 export declare class gp_Lin {
     constructor();
@@ -2547,6 +6285,119 @@ export declare class gp_Lin2d {
     Translate(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
     Translated(theV: gp_Vec2d): gp_Lin2d;
     Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Lin2d;
+}
+export declare class gp_Mat {
+    constructor();
+    constructor(theA11: Standard_Real, theA12: Standard_Real, theA13: Standard_Real, theA21: Standard_Real, theA22: Standard_Real, theA23: Standard_Real, theA31: Standard_Real, theA32: Standard_Real, theA33: Standard_Real);
+    constructor(theCol1: gp_XYZ, theCol2: gp_XYZ, theCol3: gp_XYZ);
+    SetCol(theCol: Graphic3d_ZLayerId, theValue: gp_XYZ): void;
+    SetCols(theCol1: gp_XYZ, theCol2: gp_XYZ, theCol3: gp_XYZ): void;
+    SetCross(theRef: gp_XYZ): void;
+    SetDiagonal(theX1: Standard_Real, theX2: Standard_Real, theX3: Standard_Real): void;
+    SetDot(theRef: gp_XYZ): void;
+    SetIdentity(): void;
+    SetRotation(theAxis: gp_XYZ, theAng: Standard_Real): void;
+    SetRow(theRow: Graphic3d_ZLayerId, theValue: gp_XYZ): void;
+    SetRows(theRow1: gp_XYZ, theRow2: gp_XYZ, theRow3: gp_XYZ): void;
+    SetScale(theS: Standard_Real): void;
+    SetValue(theRow: Graphic3d_ZLayerId, theCol: Graphic3d_ZLayerId, theValue: Standard_Real): void;
+    Column(theCol: Graphic3d_ZLayerId): gp_XYZ;
+    Determinant(): Standard_Real;
+    Diagonal(): gp_XYZ;
+    Row(theRow: Graphic3d_ZLayerId): gp_XYZ;
+    Value(theRow: Graphic3d_ZLayerId, theCol: Graphic3d_ZLayerId): Standard_Real;
+    ChangeValue(theRow: Graphic3d_ZLayerId, theCol: Graphic3d_ZLayerId): Standard_Real;
+    IsSingular(): Standard_Boolean;
+    Add(theOther: gp_Mat): void;
+    Added(theOther: gp_Mat): gp_Mat;
+    Divide(theScalar: Standard_Real): void;
+    Divided(theScalar: Standard_Real): gp_Mat;
+    Invert(): void;
+    Inverted(): gp_Mat;
+    PreMultiply(theOther: gp_Mat): void;
+    Power(N: Graphic3d_ZLayerId): void;
+    Powered(theN: Graphic3d_ZLayerId): gp_Mat;
+    Subtract(theOther: gp_Mat): void;
+    Subtracted(theOther: gp_Mat): gp_Mat;
+    Transpose(): void;
+    Transposed(): gp_Mat;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    delete(): void;
+    Multiplied(theOther: gp_Mat): gp_Mat;
+    Multiplied(theScalar: Standard_Real): gp_Mat;
+    Multiply(theOther: gp_Mat): void;
+    Multiply(theScalar: Standard_Real): void;
+}
+export declare class gp_Parab {
+    constructor();
+    constructor(theA2: gp_Ax2, theFocal: Standard_Real);
+    constructor(theD: gp_Ax1, theF: gp_Pnt);
+    SetAxis(theA1: gp_Ax1): void;
+    SetFocal(theFocal: Standard_Real): void;
+    SetLocation(theP: gp_Pnt): void;
+    SetPosition(theA2: gp_Ax2): void;
+    Axis(): gp_Ax1;
+    Directrix(): gp_Ax1;
+    Focal(): Standard_Real;
+    Focus(): gp_Pnt;
+    Location(): gp_Pnt;
+    Parameter(): Standard_Real;
+    Position(): gp_Ax2;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Parab;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Parab;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Parab;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Parab;
+    Mirrored(theA1: gp_Ax1): gp_Parab;
+    Mirrored(theA2: gp_Ax2): gp_Parab;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Parab;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Parab;
+}
+export declare class gp_Parab2d {
+    constructor();
+    constructor(theMirrorAxis: gp_Ax2d, theFocalLength: Standard_Real, theSense: Standard_Boolean);
+    constructor(theAxes: gp_Ax22d, theFocalLength: Standard_Real);
+    constructor(theDirectrix: gp_Ax2d, theFocus: gp_Pnt2d, theSense: Standard_Boolean);
+    SetFocal(theFocal: Standard_Real): void;
+    SetLocation(theP: gp_Pnt2d): void;
+    SetMirrorAxis(theA: gp_Ax2d): void;
+    SetAxis(theA: gp_Ax22d): void;
+    Coefficients(theA: Standard_Real, theB: Standard_Real, theC: Standard_Real, theD: Standard_Real, theE: Standard_Real, theF: Standard_Real): void;
+    Directrix(): gp_Ax2d;
+    Focal(): Standard_Real;
+    Focus(): gp_Pnt2d;
+    Location(): gp_Pnt2d;
+    MirrorAxis(): gp_Ax2d;
+    Axis(): gp_Ax22d;
+    Parameter(): Standard_Real;
+    Reverse(): void;
+    Reversed(): gp_Parab2d;
+    IsDirect(): Standard_Boolean;
+    Rotate(theP: gp_Pnt2d, theAng: Standard_Real): void;
+    Rotated(theP: gp_Pnt2d, theAng: Standard_Real): gp_Parab2d;
+    Scale(theP: gp_Pnt2d, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt2d, theS: Standard_Real): gp_Parab2d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Parab2d;
+    delete(): void;
+    Mirror(theP: gp_Pnt2d): void;
+    Mirror(theA: gp_Ax2d): void;
+    Mirrored(theP: gp_Pnt2d): gp_Parab2d;
+    Mirrored(theA: gp_Ax2d): gp_Parab2d;
+    Translate(theV: gp_Vec2d): void;
+    Translate(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
+    Translated(theV: gp_Vec2d): gp_Parab2d;
+    Translated(theP1: gp_Pnt2d, theP2: gp_Pnt2d): gp_Parab2d;
 }
 export declare class gp_Pln {
     constructor();
@@ -2716,6 +6567,80 @@ export declare class gp_Quaternion {
     Multiply(theOther: gp_Quaternion): void;
     Multiply(theVec: gp_Vec): gp_Vec;
 }
+export declare class gp_Sphere {
+    constructor();
+    constructor(theA3: gp_Ax3, theRadius: Standard_Real);
+    SetLocation(theLoc: gp_Pnt): void;
+    SetPosition(theA3: gp_Ax3): void;
+    SetRadius(theR: Standard_Real): void;
+    Area(): Standard_Real;
+    Coefficients(theA1: Standard_Real, theA2: Standard_Real, theA3: Standard_Real, theB1: Standard_Real, theB2: Standard_Real, theB3: Standard_Real, theC1: Standard_Real, theC2: Standard_Real, theC3: Standard_Real, theD: Standard_Real): void;
+    UReverse(): void;
+    VReverse(): void;
+    Direct(): Standard_Boolean;
+    Location(): gp_Pnt;
+    Position(): gp_Ax3;
+    Radius(): Standard_Real;
+    Volume(): Standard_Real;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Sphere;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Sphere;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Sphere;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Sphere;
+    Mirrored(theA1: gp_Ax1): gp_Sphere;
+    Mirrored(theA2: gp_Ax2): gp_Sphere;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Sphere;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Sphere;
+}
+export declare class gp_Torus {
+    constructor();
+    constructor(theA3: gp_Ax3, theMajorRadius: Standard_Real, theMinorRadius: Standard_Real);
+    SetAxis(theA1: gp_Ax1): void;
+    SetLocation(theLoc: gp_Pnt): void;
+    SetMajorRadius(theMajorRadius: Standard_Real): void;
+    SetMinorRadius(theMinorRadius: Standard_Real): void;
+    SetPosition(theA3: gp_Ax3): void;
+    Area(): Standard_Real;
+    UReverse(): void;
+    VReverse(): void;
+    Direct(): Standard_Boolean;
+    Axis(): gp_Ax1;
+    Coefficients(theCoef: IntTools_CArray1OfReal): void;
+    Location(): gp_Pnt;
+    Position(): gp_Ax3;
+    MajorRadius(): Standard_Real;
+    MinorRadius(): Standard_Real;
+    Volume(): Standard_Real;
+    XAxis(): gp_Ax1;
+    YAxis(): gp_Ax1;
+    Rotate(theA1: gp_Ax1, theAng: Standard_Real): void;
+    Rotated(theA1: gp_Ax1, theAng: Standard_Real): gp_Torus;
+    Scale(theP: gp_Pnt, theS: Standard_Real): void;
+    Scaled(theP: gp_Pnt, theS: Standard_Real): gp_Torus;
+    Transform(theT: gp_Trsf): void;
+    Transformed(theT: gp_Trsf): gp_Torus;
+    delete(): void;
+    Mirror(theP: gp_Pnt): void;
+    Mirror(theA1: gp_Ax1): void;
+    Mirror(theA2: gp_Ax2): void;
+    Mirrored(theP: gp_Pnt): gp_Torus;
+    Mirrored(theA1: gp_Ax1): gp_Torus;
+    Mirrored(theA2: gp_Ax2): gp_Torus;
+    Translate(theV: gp_Vec): void;
+    Translate(theP1: gp_Pnt, theP2: gp_Pnt): void;
+    Translated(theV: gp_Vec): gp_Torus;
+    Translated(theP1: gp_Pnt, theP2: gp_Pnt): gp_Torus;
+}
 export declare class gp_Trsf {
     constructor();
     constructor(theT: gp_Trsf2d);
@@ -2757,6 +6682,39 @@ export declare class gp_Trsf {
     GetRotation(): gp_Quaternion;
     Transforms(theX: Standard_Real, theY: Standard_Real, theZ: Standard_Real): void;
     Transforms(theCoord: gp_XYZ): void;
+}
+export declare class gp_Trsf2d {
+    constructor();
+    constructor(theT: gp_Trsf);
+    SetRotation(theP: gp_Pnt2d, theAng: Standard_Real): void;
+    SetScale(theP: gp_Pnt2d, theS: Standard_Real): void;
+    SetTranslationPart(theV: gp_Vec2d): void;
+    SetScaleFactor(theS: Standard_Real): void;
+    IsNegative(): Standard_Boolean;
+    Form(): gp_TrsfForm;
+    ScaleFactor(): Standard_Real;
+    TranslationPart(): gp_XY;
+    VectorialPart(): gp_Mat2d;
+    HVectorialPart(): gp_Mat2d;
+    RotationPart(): Standard_Real;
+    Value(theRow: Graphic3d_ZLayerId, theCol: Graphic3d_ZLayerId): Standard_Real;
+    Invert(): void;
+    Inverted(): gp_Trsf2d;
+    Multiplied(theT: gp_Trsf2d): gp_Trsf2d;
+    Multiply(theT: gp_Trsf2d): void;
+    PreMultiply(theT: gp_Trsf2d): void;
+    Power(theN: Graphic3d_ZLayerId): void;
+    Powered(theN: Graphic3d_ZLayerId): gp_Trsf2d;
+    SetValues(a11: Standard_Real, a12: Standard_Real, a13: Standard_Real, a21: Standard_Real, a22: Standard_Real, a23: Standard_Real): void;
+    delete(): void;
+    SetMirror(theP: gp_Pnt2d): void;
+    SetMirror(theA: gp_Ax2d): void;
+    SetTransformation(theFromSystem1: gp_Ax2d, theToSystem2: gp_Ax2d): void;
+    SetTransformation(theToSystem: gp_Ax2d): void;
+    SetTranslation(theV: gp_Vec2d): void;
+    SetTranslation(theP1: gp_Pnt2d, theP2: gp_Pnt2d): void;
+    Transforms(theX: Standard_Real, theY: Standard_Real): void;
+    Transforms(theCoord: gp_XY): void;
 }
 export declare class gp_Vec {
     constructor();
@@ -2824,6 +6782,210 @@ export declare class gp_Vec {
     Mirrored(theV: gp_Vec): gp_Vec;
     Mirrored(theA1: gp_Ax1): gp_Vec;
     Mirrored(theA2: gp_Ax2): gp_Vec;
+}
+export declare class gp_Vec2d {
+    constructor();
+    constructor(theV: gp_Dir2d);
+    constructor(theCoord: gp_XY);
+    constructor(theXv: Standard_Real, theYv: Standard_Real);
+    constructor(theP1: gp_Pnt2d, theP2: gp_Pnt2d);
+    SetX(theX: Standard_Real): void;
+    SetY(theY: Standard_Real): void;
+    SetXY(theCoord: gp_XY): void;
+    X(): Standard_Real;
+    Y(): Standard_Real;
+    XY(): gp_XY;
+    IsEqual(theOther: gp_Vec2d, theLinearTolerance: Standard_Real, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsNormal(theOther: gp_Vec2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsOpposite(theOther: gp_Vec2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    IsParallel(theOther: gp_Vec2d, theAngularTolerance: Standard_Real): Standard_Boolean;
+    Angle(theOther: gp_Vec2d): Standard_Real;
+    Magnitude(): Standard_Real;
+    SquareMagnitude(): Standard_Real;
+    Add(theOther: gp_Vec2d): void;
+    Added(theOther: gp_Vec2d): gp_Vec2d;
+    Crossed(theRight: gp_Vec2d): Standard_Real;
+    CrossMagnitude(theRight: gp_Vec2d): Standard_Real;
+    CrossSquareMagnitude(theRight: gp_Vec2d): Standard_Real;
+    Divide(theScalar: Standard_Real): void;
+    Divided(theScalar: Standard_Real): gp_Vec2d;
+    Dot(theOther: gp_Vec2d): Standard_Real;
+    GetNormal(): gp_Vec2d;
+    Multiply(theScalar: Standard_Real): void;
+    Multiplied(theScalar: Standard_Real): gp_Vec2d;
+    Normalize(): void;
+    Normalized(): gp_Vec2d;
+    Reverse(): void;
+    Reversed(): gp_Vec2d;
+    Subtract(theRight: gp_Vec2d): void;
+    Subtracted(theRight: gp_Vec2d): gp_Vec2d;
+    Rotate(theAng: Standard_Real): void;
+    Rotated(theAng: Standard_Real): gp_Vec2d;
+    Scale(theS: Standard_Real): void;
+    Scaled(theS: Standard_Real): gp_Vec2d;
+    Transform(theT: gp_Trsf2d): void;
+    Transformed(theT: gp_Trsf2d): gp_Vec2d;
+    delete(): void;
+    SetCoord(theIndex: Graphic3d_ZLayerId, theXi: Standard_Real): void;
+    SetCoord(theXv: Standard_Real, theYv: Standard_Real): void;
+    Coord(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    Coord(theXv: Standard_Real, theYv: Standard_Real): void;
+    SetLinearForm(theA1: Standard_Real, theV1: gp_Vec2d, theA2: Standard_Real, theV2: gp_Vec2d, theV3: gp_Vec2d): void;
+    SetLinearForm(theA1: Standard_Real, theV1: gp_Vec2d, theA2: Standard_Real, theV2: gp_Vec2d): void;
+    SetLinearForm(theA1: Standard_Real, theV1: gp_Vec2d, theV2: gp_Vec2d): void;
+    SetLinearForm(theV1: gp_Vec2d, theV2: gp_Vec2d): void;
+    Mirror(theV: gp_Vec2d): void;
+    Mirror(theA1: gp_Ax2d): void;
+    Mirrored(theV: gp_Vec2d): gp_Vec2d;
+    Mirrored(theA1: gp_Ax2d): gp_Vec2d;
+}
+export declare class gp_Vec3f {
+    constructor();
+    constructor(theValue: Standard_ShortReal);
+    constructor(theX: Standard_ShortReal, theY: Standard_ShortReal, theZ: Standard_ShortReal);
+    constructor(theVec2: gp_Vec2f, theZ: Standard_ShortReal);
+    static Length(): number;
+    xy(): gp_Vec2f;
+    yx(): gp_Vec2f;
+    xz(): gp_Vec2f;
+    zx(): gp_Vec2f;
+    yz(): gp_Vec2f;
+    zy(): gp_Vec2f;
+    xyz(): gp_Vec3f;
+    xzy(): gp_Vec3f;
+    yxz(): gp_Vec3f;
+    yzx(): gp_Vec3f;
+    zyx(): gp_Vec3f;
+    zxy(): gp_Vec3f;
+    IsEqual(theOther: gp_Vec3f): boolean;
+    GetData(): Standard_ShortReal;
+    ChangeData(): Standard_ShortReal;
+    Multiply(theFactor: Standard_ShortReal): void;
+    Multiplied(theFactor: Standard_ShortReal): gp_Vec3f;
+    cwiseMin(theVec: gp_Vec3f): gp_Vec3f;
+    cwiseMax(theVec: gp_Vec3f): gp_Vec3f;
+    maxComp(): Standard_ShortReal;
+    minComp(): Standard_ShortReal;
+    Dot(theOther: gp_Vec3f): Standard_ShortReal;
+    Modulus(): Standard_ShortReal;
+    SquareModulus(): Standard_ShortReal;
+    Normalize(): void;
+    Normalized(): gp_Vec3f;
+    static Cross(theVec1: gp_Vec3f, theVec2: gp_Vec3f): gp_Vec3f;
+    static GetLERP(theFrom: gp_Vec3f, theTo: gp_Vec3f, theT: Standard_ShortReal): gp_Vec3f;
+    static DX(): gp_Vec3f;
+    static DY(): gp_Vec3f;
+    static DZ(): gp_Vec3f;
+    DumpJson(theOStream: Standard_OStream, theDepth: Standard_Integer): void;
+    delete(): void;
+    SetValues(theX: Standard_ShortReal, theY: Standard_ShortReal, theZ: Standard_ShortReal): void;
+    SetValues(theVec2: gp_Vec2f, theZ: Standard_ShortReal): void;
+    x(): Standard_ShortReal;
+    x(): Standard_ShortReal;
+    r(): Standard_ShortReal;
+    r(): Standard_ShortReal;
+    y(): Standard_ShortReal;
+    y(): Standard_ShortReal;
+    g(): Standard_ShortReal;
+    g(): Standard_ShortReal;
+    z(): Standard_ShortReal;
+    z(): Standard_ShortReal;
+    b(): Standard_ShortReal;
+    b(): Standard_ShortReal;
+}
+export declare class gp_XY {
+    constructor();
+    constructor(theX: Standard_Real, theY: Standard_Real);
+    SetX(theX: Standard_Real): void;
+    SetY(theY: Standard_Real): void;
+    ChangeCoord(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    X(): Standard_Real;
+    Y(): Standard_Real;
+    Modulus(): Standard_Real;
+    SquareModulus(): Standard_Real;
+    IsEqual(theOther: gp_XY, theTolerance: Standard_Real): Standard_Boolean;
+    Add(theOther: gp_XY): void;
+    Added(theOther: gp_XY): gp_XY;
+    Crossed(theOther: gp_XY): Standard_Real;
+    CrossMagnitude(theRight: gp_XY): Standard_Real;
+    CrossSquareMagnitude(theRight: gp_XY): Standard_Real;
+    Divide(theScalar: Standard_Real): void;
+    Divided(theScalar: Standard_Real): gp_XY;
+    Dot(theOther: gp_XY): Standard_Real;
+    Normalize(): void;
+    Normalized(): gp_XY;
+    Reverse(): void;
+    Reversed(): gp_XY;
+    Subtract(theOther: gp_XY): void;
+    Subtracted(theOther: gp_XY): gp_XY;
+    delete(): void;
+    SetCoord(theIndex: Graphic3d_ZLayerId, theXi: Standard_Real): void;
+    SetCoord(theX: Standard_Real, theY: Standard_Real): void;
+    Coord(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    Coord(theX: Standard_Real, theY: Standard_Real): void;
+    Multiply(theScalar: Standard_Real): void;
+    Multiply(theOther: gp_XY): void;
+    Multiply(theMatrix: gp_Mat2d): void;
+    Multiplied(theScalar: Standard_Real): gp_XY;
+    Multiplied(theOther: gp_XY): gp_XY;
+    Multiplied(theMatrix: gp_Mat2d): gp_XY;
+    SetLinearForm(theA1: Standard_Real, theXY1: gp_XY, theA2: Standard_Real, theXY2: gp_XY): void;
+    SetLinearForm(theA1: Standard_Real, theXY1: gp_XY, theA2: Standard_Real, theXY2: gp_XY, theXY3: gp_XY): void;
+    SetLinearForm(theA1: Standard_Real, theXY1: gp_XY, theXY2: gp_XY): void;
+    SetLinearForm(theXY1: gp_XY, theXY2: gp_XY): void;
+}
+export declare class gp_XYZ {
+    constructor();
+    constructor(theX: Standard_Real, theY: Standard_Real, theZ: Standard_Real);
+    SetX(theX: Standard_Real): void;
+    SetY(theY: Standard_Real): void;
+    SetZ(theZ: Standard_Real): void;
+    ChangeCoord(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    GetData(): Standard_Real;
+    ChangeData(): Standard_Real;
+    X(): Standard_Real;
+    Y(): Standard_Real;
+    Z(): Standard_Real;
+    Modulus(): Standard_Real;
+    SquareModulus(): Standard_Real;
+    IsEqual(theOther: gp_XYZ, theTolerance: Standard_Real): Standard_Boolean;
+    Add(theOther: gp_XYZ): void;
+    Added(theOther: gp_XYZ): gp_XYZ;
+    Cross(theOther: gp_XYZ): void;
+    Crossed(theOther: gp_XYZ): gp_XYZ;
+    CrossMagnitude(theRight: gp_XYZ): Standard_Real;
+    CrossSquareMagnitude(theRight: gp_XYZ): Standard_Real;
+    CrossCross(theCoord1: gp_XYZ, theCoord2: gp_XYZ): void;
+    CrossCrossed(theCoord1: gp_XYZ, theCoord2: gp_XYZ): gp_XYZ;
+    Divide(theScalar: Standard_Real): void;
+    Divided(theScalar: Standard_Real): gp_XYZ;
+    Dot(theOther: gp_XYZ): Standard_Real;
+    DotCross(theCoord1: gp_XYZ, theCoord2: gp_XYZ): Standard_Real;
+    Normalize(): void;
+    Normalized(): gp_XYZ;
+    Reverse(): void;
+    Reversed(): gp_XYZ;
+    Subtract(theOther: gp_XYZ): void;
+    Subtracted(theOther: gp_XYZ): gp_XYZ;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    InitFromJson(theSStream: Standard_SStream, theStreamPos: Graphic3d_ZLayerId): Standard_Boolean;
+    delete(): void;
+    SetCoord(theX: Standard_Real, theY: Standard_Real, theZ: Standard_Real): void;
+    SetCoord(theIndex: Graphic3d_ZLayerId, theXi: Standard_Real): void;
+    Coord(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    Coord(theX: Standard_Real, theY: Standard_Real, theZ: Standard_Real): void;
+    Multiply(theScalar: Standard_Real): void;
+    Multiply(theOther: gp_XYZ): void;
+    Multiply(theMatrix: gp_Mat): void;
+    Multiplied(theScalar: Standard_Real): gp_XYZ;
+    Multiplied(theOther: gp_XYZ): gp_XYZ;
+    Multiplied(theMatrix: gp_Mat): gp_XYZ;
+    SetLinearForm(theA1: Standard_Real, theXYZ1: gp_XYZ, theA2: Standard_Real, theXYZ2: gp_XYZ, theA3: Standard_Real, theXYZ3: gp_XYZ, theXYZ4: gp_XYZ): void;
+    SetLinearForm(theA1: Standard_Real, theXYZ1: gp_XYZ, theA2: Standard_Real, theXYZ2: gp_XYZ, theA3: Standard_Real, theXYZ3: gp_XYZ): void;
+    SetLinearForm(theA1: Standard_Real, theXYZ1: gp_XYZ, theA2: Standard_Real, theXYZ2: gp_XYZ, theXYZ3: gp_XYZ): void;
+    SetLinearForm(theA1: Standard_Real, theXYZ1: gp_XYZ, theA2: Standard_Real, theXYZ2: gp_XYZ): void;
+    SetLinearForm(theA1: Standard_Real, theXYZ1: gp_XYZ, theXYZ2: gp_XYZ): void;
+    SetLinearForm(theXYZ1: gp_XYZ, theXYZ2: gp_XYZ): void;
 }
 export declare class OCJS {
     constructor();
@@ -2935,135 +7097,346 @@ export declare class FSType {
 export declare class OpenCascadeInstance {
     origin: any;
     FS: FSType;
+    Adaptor2d_Curve2d: typeof Adaptor2d_Curve2d;
+    Handle_Adaptor2d_Curve2d: typeof Handle_Adaptor2d_Curve2d;
+    Adaptor3d_Curve: typeof Adaptor3d_Curve;
+    Handle_Adaptor3d_Curve: typeof Handle_Adaptor3d_Curve;
+    Adaptor3d_CurveOnSurface: typeof Adaptor3d_CurveOnSurface;
+    Adaptor3d_Surface: typeof Adaptor3d_Surface;
+    Handle_Adaptor3d_Surface: typeof Handle_Adaptor3d_Surface;
+    BOPAlgo_Algo: typeof BOPAlgo_Algo;
+    BOPAlgo_Builder: typeof BOPAlgo_Builder;
+    BOPAlgo_BuilderShape: typeof BOPAlgo_BuilderShape;
     BOPAlgo_CellsBuilder: typeof BOPAlgo_CellsBuilder;
+    BOPAlgo_Options: typeof BOPAlgo_Options;
     BOPAlgo_Splitter: typeof BOPAlgo_Splitter;
+    BOPAlgo_ToolsProvider: typeof BOPAlgo_ToolsProvider;
     BRep_Builder: typeof BRep_Builder;
     BRep_Tool: typeof BRep_Tool;
     BRepAdaptor_CompCurve: typeof BRepAdaptor_CompCurve;
     BRepAdaptor_Curve: typeof BRepAdaptor_Curve;
     BRepAdaptor_Surface: typeof BRepAdaptor_Surface;
     BRepAlgo_NormalProjection: typeof BRepAlgo_NormalProjection;
+    BRepAlgoAPI_Algo: typeof BRepAlgoAPI_Algo;
+    BRepAlgoAPI_BooleanOperation: typeof BRepAlgoAPI_BooleanOperation;
+    BRepAlgoAPI_BuilderAlgo: typeof BRepAlgoAPI_BuilderAlgo;
     BRepAlgoAPI_Common: typeof BRepAlgoAPI_Common;
     BRepAlgoAPI_Cut: typeof BRepAlgoAPI_Cut;
     BRepAlgoAPI_Fuse: typeof BRepAlgoAPI_Fuse;
     BRepAlgoAPI_Splitter: typeof BRepAlgoAPI_Splitter;
     BRepBndLib: typeof BRepBndLib;
+    BRepBuilderAPI_Command: typeof BRepBuilderAPI_Command;
     BRepBuilderAPI_FindPlane: typeof BRepBuilderAPI_FindPlane;
     BRepBuilderAPI_MakeEdge: typeof BRepBuilderAPI_MakeEdge;
     BRepBuilderAPI_MakeFace: typeof BRepBuilderAPI_MakeFace;
+    BRepBuilderAPI_MakeShape: typeof BRepBuilderAPI_MakeShape;
     BRepBuilderAPI_MakeVertex: typeof BRepBuilderAPI_MakeVertex;
     BRepBuilderAPI_MakeWire: typeof BRepBuilderAPI_MakeWire;
+    BRepBuilderAPI_ModifyShape: typeof BRepBuilderAPI_ModifyShape;
     BRepBuilderAPI_Transform: typeof BRepBuilderAPI_Transform;
+    BRepBuilderAPI_TransitionMode: BRepBuilderAPI_TransitionMode;
     BRepCheck_Analyzer: typeof BRepCheck_Analyzer;
+    Handle_BRepCheck_Result: typeof Handle_BRepCheck_Result;
+    BRepClass_Edge: typeof BRepClass_Edge;
+    BRepClass_FClassifier: typeof BRepClass_FClassifier;
     BRepClass_FaceClassifier: typeof BRepClass_FaceClassifier;
+    BRepClass_FaceExplorer: typeof BRepClass_FaceExplorer;
+    BRepClass3d_SClassifier: typeof BRepClass3d_SClassifier;
     BRepClass3d_SolidClassifier: typeof BRepClass3d_SolidClassifier;
+    BRepClass3d_SolidExplorer: typeof BRepClass3d_SolidExplorer;
     BRepExtrema_DistShapeShape: typeof BRepExtrema_DistShapeShape;
+    BRepFill_TypeOfContact: BRepFill_TypeOfContact;
+    BRepFilletAPI_LocalOperation: typeof BRepFilletAPI_LocalOperation;
     BRepFilletAPI_MakeChamfer: typeof BRepFilletAPI_MakeChamfer;
     BRepFilletAPI_MakeFillet: typeof BRepFilletAPI_MakeFillet;
     BRepGProp: typeof BRepGProp;
+    BRepLib_Command: typeof BRepLib_Command;
     BRepLib_MakeFace: typeof BRepLib_MakeFace;
+    BRepLib_MakeShape: typeof BRepLib_MakeShape;
+    BRepMesh_DiscretRoot: typeof BRepMesh_DiscretRoot;
     BRepMesh_IncrementalMesh: typeof BRepMesh_IncrementalMesh;
     BRepOffset_Mode: BRepOffset_Mode;
     BRepOffsetAPI_DraftAngle: typeof BRepOffsetAPI_DraftAngle;
     BRepOffsetAPI_MakeOffset: typeof BRepOffsetAPI_MakeOffset;
+    BRepOffsetAPI_MakeOffsetShape: typeof BRepOffsetAPI_MakeOffsetShape;
+    BRepOffsetAPI_MakePipeShell: typeof BRepOffsetAPI_MakePipeShell;
     BRepOffsetAPI_MakeThickSolid: typeof BRepOffsetAPI_MakeThickSolid;
     BRepOffsetAPI_ThruSections: typeof BRepOffsetAPI_ThruSections;
+    BRepPrim_Cylinder: typeof BRepPrim_Cylinder;
+    BRepPrim_Sphere: typeof BRepPrim_Sphere;
     BRepPrimAPI_MakeCylinder: typeof BRepPrimAPI_MakeCylinder;
+    BRepPrimAPI_MakeOneAxis: typeof BRepPrimAPI_MakeOneAxis;
     BRepPrimAPI_MakePrism: typeof BRepPrimAPI_MakePrism;
     BRepPrimAPI_MakeRevol: typeof BRepPrimAPI_MakeRevol;
     BRepPrimAPI_MakeSphere: typeof BRepPrimAPI_MakeSphere;
+    BRepPrimAPI_MakeSweep: typeof BRepPrimAPI_MakeSweep;
+    BRepSweep_Prism: typeof BRepSweep_Prism;
+    BRepSweep_Revol: typeof BRepSweep_Revol;
     BRepTools: typeof BRepTools;
+    Handle_BRepTools_History: typeof Handle_BRepTools_History;
     BRepTools_WireExplorer: typeof BRepTools_WireExplorer;
     Bnd_Box: typeof Bnd_Box;
+    Bnd_Box2d: typeof Bnd_Box2d;
+    Bnd_OBB: typeof Bnd_OBB;
+    CDF_Application: typeof CDF_Application;
+    Handle_CDF_Application: typeof Handle_CDF_Application;
+    Handle_CDF_MetaDataDriver: typeof Handle_CDF_MetaDataDriver;
+    CDM_Application: typeof CDM_Application;
+    CDM_Document: typeof CDM_Document;
+    Handle_CDM_Document: typeof Handle_CDM_Document;
     ChFi2d_FilletAPI: typeof ChFi2d_FilletAPI;
     ChFi3d_FilletShape: ChFi3d_FilletShape;
+    Handle_ChFiDS_SecHArray1: typeof Handle_ChFiDS_SecHArray1;
     Extrema_ExtAlgo: Extrema_ExtAlgo;
     Extrema_ExtFlag: Extrema_ExtFlag;
     GC_MakeArcOfCircle: typeof GC_MakeArcOfCircle;
     GC_MakeCircle: typeof GC_MakeCircle;
     GC_MakeSegment: typeof GC_MakeSegment;
+    GC_Root: typeof GC_Root;
     GProp_GProps: typeof GProp_GProps;
+    GProp_PrincipalProps: typeof GProp_PrincipalProps;
     GccAna_Circ2d2TanRad: typeof GccAna_Circ2d2TanRad;
     GccAna_Lin2d2Tan: typeof GccAna_Lin2d2Tan;
     GccEnt_Position: GccEnt_Position;
     GccEnt_QualifiedCirc: typeof GccEnt_QualifiedCirc;
     GccEnt_QualifiedLin: typeof GccEnt_QualifiedLin;
+    Handle_Geom_BSplineCurve: typeof Handle_Geom_BSplineCurve;
+    Handle_Geom_BSplineSurface: typeof Handle_Geom_BSplineSurface;
+    Handle_Geom_BezierCurve: typeof Handle_Geom_BezierCurve;
+    Handle_Geom_BezierSurface: typeof Handle_Geom_BezierSurface;
+    Geom_BoundedCurve: typeof Geom_BoundedCurve;
+    Geom_Circle: typeof Geom_Circle;
+    Handle_Geom_Circle: typeof Handle_Geom_Circle;
+    Geom_Conic: typeof Geom_Conic;
+    Geom_Curve: typeof Geom_Curve;
     Handle_Geom_Curve: typeof Handle_Geom_Curve;
+    Geom_ElementarySurface: typeof Geom_ElementarySurface;
+    Geom_Geometry: typeof Geom_Geometry;
+    Handle_Geom_Geometry: typeof Handle_Geom_Geometry;
+    Handle_Geom_OffsetCurve: typeof Handle_Geom_OffsetCurve;
+    Geom_Plane: typeof Geom_Plane;
+    Handle_Geom_Plane: typeof Handle_Geom_Plane;
+    Geom_Surface: typeof Geom_Surface;
+    Handle_Geom_Surface: typeof Handle_Geom_Surface;
+    Geom_TrimmedCurve: typeof Geom_TrimmedCurve;
+    Handle_Geom_TrimmedCurve: typeof Handle_Geom_TrimmedCurve;
+    Handle_Geom2d_BSplineCurve: typeof Handle_Geom2d_BSplineCurve;
+    Handle_Geom2d_BezierCurve: typeof Handle_Geom2d_BezierCurve;
     Geom2d_CartesianPoint: typeof Geom2d_CartesianPoint;
+    Handle_Geom2d_Curve: typeof Handle_Geom2d_Curve;
+    Geom2d_Geometry: typeof Geom2d_Geometry;
+    Handle_Geom2d_Geometry: typeof Handle_Geom2d_Geometry;
+    Geom2d_Point: typeof Geom2d_Point;
     Handle_Geom2d_Point: typeof Handle_Geom2d_Point;
     Geom2dAdaptor_Curve: typeof Geom2dAdaptor_Curve;
     Geom2dGcc_Circ2d2TanRad: typeof Geom2dGcc_Circ2d2TanRad;
+    Geom2dGcc_Circ2d2TanRadGeo: typeof Geom2dGcc_Circ2d2TanRadGeo;
     Geom2dGcc_Lin2d2Tan: typeof Geom2dGcc_Lin2d2Tan;
     Geom2dGcc_QualifiedCurve: typeof Geom2dGcc_QualifiedCurve;
     GeomAPI: typeof GeomAPI;
     GeomAbs_CurveType: GeomAbs_CurveType;
     GeomAbs_JoinType: GeomAbs_JoinType;
     GeomAbs_SurfaceType: GeomAbs_SurfaceType;
+    GeomAdaptor_Curve: typeof GeomAdaptor_Curve;
+    GeomAdaptor_Surface: typeof GeomAdaptor_Surface;
     GeomLProp_SLProps: typeof GeomLProp_SLProps;
     IFSelect_ReturnStatus: IFSelect_ReturnStatus;
+    IMeshTools_Parameters: typeof IMeshTools_Parameters;
     IntCurvesFace_ShapeIntersector: typeof IntCurvesFace_ShapeIntersector;
+    IntTools_CommonPrt: typeof IntTools_CommonPrt;
+    Handle_IntTools_Context: typeof Handle_IntTools_Context;
     IntTools_EdgeEdge: typeof IntTools_EdgeEdge;
+    IntTools_Range: typeof IntTools_Range;
+    IntTools_SequenceOfCommonPrts: typeof IntTools_SequenceOfCommonPrts;
+    IntTools_SequenceOfRanges: typeof IntTools_SequenceOfRanges;
+    Handle_Interface_InterfaceModel: typeof Handle_Interface_InterfaceModel;
+    Handle_Law_Function: typeof Handle_Law_Function;
+    Law_Function: typeof Law_Function;
+    Handle_Message_Alert: typeof Handle_Message_Alert;
+    Handle_Message_Messenger: typeof Handle_Message_Messenger;
+    Message_Msg: typeof Message_Msg;
     Message_ProgressRange: typeof Message_ProgressRange;
+    Handle_Message_Report: typeof Handle_Message_Report;
+    Handle_NCollection_BaseAllocator: typeof Handle_NCollection_BaseAllocator;
+    NCollection_BaseList: typeof NCollection_BaseList;
+    NCollection_BaseMap: typeof NCollection_BaseMap;
+    NCollection_BaseSequence: typeof NCollection_BaseSequence;
+    Handle_PCDM_ReaderFilter: typeof Handle_PCDM_ReaderFilter;
+    Handle_PCDM_RetrievalDriver: typeof Handle_PCDM_RetrievalDriver;
+    Handle_PCDM_StorageDriver: typeof Handle_PCDM_StorageDriver;
+    Poly_Array1OfTriangle: typeof Poly_Array1OfTriangle;
+    Poly_ArrayOfNodes: typeof Poly_ArrayOfNodes;
+    Poly_ArrayOfUVNodes: typeof Poly_ArrayOfUVNodes;
     Poly_Connect: typeof Poly_Connect;
+    Handle_Poly_HArray1OfTriangle: typeof Handle_Poly_HArray1OfTriangle;
+    Handle_Poly_Polygon2D: typeof Handle_Poly_Polygon2D;
+    Handle_Poly_Polygon3D: typeof Handle_Poly_Polygon3D;
+    Handle_Poly_PolygonOnTriangulation: typeof Handle_Poly_PolygonOnTriangulation;
+    Poly_Triangle: typeof Poly_Triangle;
+    Handle_Poly_Triangulation: typeof Handle_Poly_Triangulation;
+    Poly_Triangulation: typeof Poly_Triangulation;
+    Handle_Poly_TriangulationParameters: typeof Handle_Poly_TriangulationParameters;
     Precision: typeof Precision;
     ProjLib: typeof ProjLib;
+    Handle_Prs3d_Drawer: typeof Handle_Prs3d_Drawer;
     Quantity_Color: typeof Quantity_Color;
     Quantity_TypeOfColor: Quantity_TypeOfColor;
+    Handle_Resource_Manager: typeof Handle_Resource_Manager;
+    Handle_STEPCAFControl_ExternFile: typeof Handle_STEPCAFControl_ExternFile;
     STEPCAFControl_Reader: typeof STEPCAFControl_Reader;
     STEPCAFControl_Writer: typeof STEPCAFControl_Writer;
+    STEPConstruct_Tool: typeof STEPConstruct_Tool;
     STEPControl_Reader: typeof STEPControl_Reader;
     STEPControl_StepModelType: STEPControl_StepModelType;
     STEPControl_Writer: typeof STEPControl_Writer;
     ShapeAnalysis_FreeBounds: typeof ShapeAnalysis_FreeBounds;
+    Handle_ShapeAnalysis_Surface: typeof Handle_ShapeAnalysis_Surface;
+    Handle_ShapeAnalysis_Wire: typeof Handle_ShapeAnalysis_Wire;
+    ShapeAnalysis_WireOrder: typeof ShapeAnalysis_WireOrder;
+    Handle_ShapeBuild_ReShape: typeof Handle_ShapeBuild_ReShape;
+    Handle_ShapeExtend_BasicMsgRegistrator: typeof Handle_ShapeExtend_BasicMsgRegistrator;
+    Handle_ShapeExtend_WireData: typeof Handle_ShapeExtend_WireData;
     ShapeExtend_WireData: typeof ShapeExtend_WireData;
+    Handle_ShapeFix_Edge: typeof Handle_ShapeFix_Edge;
+    Handle_ShapeFix_Face: typeof Handle_ShapeFix_Face;
     ShapeFix_Face: typeof ShapeFix_Face;
+    Handle_ShapeFix_Root: typeof Handle_ShapeFix_Root;
+    ShapeFix_Root: typeof ShapeFix_Root;
     ShapeFix_Shape: typeof ShapeFix_Shape;
+    Handle_ShapeFix_Shell: typeof Handle_ShapeFix_Shell;
+    Handle_ShapeFix_Solid: typeof Handle_ShapeFix_Solid;
+    Handle_ShapeFix_Wire: typeof Handle_ShapeFix_Wire;
     ShapeFix_Wire: typeof ShapeFix_Wire;
     ShapeUpgrade_UnifySameDomain: typeof ShapeUpgrade_UnifySameDomain;
+    Handle_Standard_Failure: typeof Handle_Standard_Failure;
     Standard_Failure: typeof Standard_Failure;
+    Standard_GUID: typeof Standard_GUID;
+    Handle_Standard_Transient: typeof Handle_Standard_Transient;
+    Standard_Transient: typeof Standard_Transient;
+    Handle_Standard_Type: typeof Handle_Standard_Type;
     StdPrs_ToolTriangulatedShape: typeof StdPrs_ToolTriangulatedShape;
+    Handle_StepData_StepModel: typeof Handle_StepData_StepModel;
+    Handle_StepRepr_NextAssemblyUsageOccurrence: typeof Handle_StepRepr_NextAssemblyUsageOccurrence;
     StlAPI_Writer: typeof StlAPI_Writer;
+    Handle_TColStd_HSequenceOfTransient: typeof Handle_TColStd_HSequenceOfTransient;
+    TColStd_SequenceOfAsciiString: typeof TColStd_SequenceOfAsciiString;
     TColgp_Array1OfDir: typeof TColgp_Array1OfDir;
+    TColgp_Array1OfPnt: typeof TColgp_Array1OfPnt;
+    TColgp_Array1OfPnt2d: typeof TColgp_Array1OfPnt2d;
+    Handle_TColgp_HArray1OfPnt: typeof Handle_TColgp_HArray1OfPnt;
+    Handle_TColgp_HArray1OfPnt2d: typeof Handle_TColgp_HArray1OfPnt2d;
     TCollection_ExtendedString: typeof TCollection_ExtendedString;
+    Handle_TDF_Attribute: typeof Handle_TDF_Attribute;
+    TDF_Attribute: typeof TDF_Attribute;
+    Handle_TDF_AttributeDelta: typeof Handle_TDF_AttributeDelta;
+    Handle_TDF_Data: typeof Handle_TDF_Data;
+    Handle_TDF_DataSet: typeof Handle_TDF_DataSet;
+    Handle_TDF_DeltaOnAddition: typeof Handle_TDF_DeltaOnAddition;
+    Handle_TDF_DeltaOnForget: typeof Handle_TDF_DeltaOnForget;
+    Handle_TDF_DeltaOnModification: typeof Handle_TDF_DeltaOnModification;
+    Handle_TDF_DeltaOnRemoval: typeof Handle_TDF_DeltaOnRemoval;
+    Handle_TDF_DeltaOnResume: typeof Handle_TDF_DeltaOnResume;
+    TDF_IDFilter: typeof TDF_IDFilter;
     TDF_Label: typeof TDF_Label;
     TDF_LabelSequence: typeof TDF_LabelSequence;
+    Handle_TDF_RelocationTable: typeof Handle_TDF_RelocationTable;
+    TDataStd_GenericEmpty: typeof TDataStd_GenericEmpty;
+    Handle_TDataStd_NamedData: typeof Handle_TDataStd_NamedData;
     TDocStd_Application: typeof TDocStd_Application;
     Handle_TDocStd_Document: typeof Handle_TDocStd_Document;
+    TDocStd_Document: typeof TDocStd_Document;
+    Handle_TShort_HArray1OfShortReal: typeof Handle_TShort_HArray1OfShortReal;
     TopAbs_Orientation: TopAbs_Orientation;
     TopAbs_ShapeEnum: TopAbs_ShapeEnum;
     TopAbs_State: TopAbs_State;
     TopExp: typeof TopExp;
     TopExp_Explorer: typeof TopExp_Explorer;
+    Handle_TopLoc_Datum3D: typeof Handle_TopLoc_Datum3D;
     TopLoc_Location: typeof TopLoc_Location;
+    Handle_TopOpeBRepBuild_HBuilder: typeof Handle_TopOpeBRepBuild_HBuilder;
+    TopTools_DataMapOfShapeListOfShape: typeof TopTools_DataMapOfShapeListOfShape;
+    TopTools_DataMapOfShapeShape: typeof TopTools_DataMapOfShapeShape;
+    Handle_TopTools_HSequenceOfShape: typeof Handle_TopTools_HSequenceOfShape;
+    TopTools_IndexedDataMapOfShapeListOfShape: typeof TopTools_IndexedDataMapOfShapeListOfShape;
+    TopTools_IndexedMapOfShape: typeof TopTools_IndexedMapOfShape;
     TopTools_ListOfShape: typeof TopTools_ListOfShape;
     TopTools_MapOfShape: typeof TopTools_MapOfShape;
+    TopTools_SequenceOfShape: typeof TopTools_SequenceOfShape;
     TopoDS: typeof TopoDS;
+    TopoDS_Builder: typeof TopoDS_Builder;
+    TopoDS_CompSolid: typeof TopoDS_CompSolid;
     TopoDS_Compound: typeof TopoDS_Compound;
     TopoDS_Edge: typeof TopoDS_Edge;
     TopoDS_Face: typeof TopoDS_Face;
     TopoDS_Iterator: typeof TopoDS_Iterator;
     TopoDS_Shape: typeof TopoDS_Shape;
+    TopoDS_Shell: typeof TopoDS_Shell;
     TopoDS_Solid: typeof TopoDS_Solid;
+    Handle_TopoDS_TShape: typeof Handle_TopoDS_TShape;
     TopoDS_Vertex: typeof TopoDS_Vertex;
     TopoDS_Wire: typeof TopoDS_Wire;
+    Handle_XCAFDoc_ClippingPlaneTool: typeof Handle_XCAFDoc_ClippingPlaneTool;
+    XCAFDoc_ClippingPlaneTool: typeof XCAFDoc_ClippingPlaneTool;
+    Handle_XCAFDoc_ColorTool: typeof Handle_XCAFDoc_ColorTool;
+    XCAFDoc_ColorTool: typeof XCAFDoc_ColorTool;
     XCAFDoc_ColorType: XCAFDoc_ColorType;
+    XCAFDoc_DataMapOfShapeLabel: typeof XCAFDoc_DataMapOfShapeLabel;
+    Handle_XCAFDoc_DimTolTool: typeof Handle_XCAFDoc_DimTolTool;
+    XCAFDoc_DimTolTool: typeof XCAFDoc_DimTolTool;
+    Handle_XCAFDoc_DocumentTool: typeof Handle_XCAFDoc_DocumentTool;
     XCAFDoc_DocumentTool: typeof XCAFDoc_DocumentTool;
+    Handle_XCAFDoc_GraphNode: typeof Handle_XCAFDoc_GraphNode;
+    XCAFDoc_GraphNode: typeof XCAFDoc_GraphNode;
+    Handle_XCAFDoc_LayerTool: typeof Handle_XCAFDoc_LayerTool;
+    XCAFDoc_LayerTool: typeof XCAFDoc_LayerTool;
+    Handle_XCAFDoc_MaterialTool: typeof Handle_XCAFDoc_MaterialTool;
+    XCAFDoc_MaterialTool: typeof XCAFDoc_MaterialTool;
+    Handle_XCAFDoc_NotesTool: typeof Handle_XCAFDoc_NotesTool;
+    XCAFDoc_NotesTool: typeof XCAFDoc_NotesTool;
+    Handle_XCAFDoc_ShapeTool: typeof Handle_XCAFDoc_ShapeTool;
     XCAFDoc_ShapeTool: typeof XCAFDoc_ShapeTool;
+    Handle_XCAFDoc_ViewTool: typeof Handle_XCAFDoc_ViewTool;
+    XCAFDoc_ViewTool: typeof XCAFDoc_ViewTool;
+    Handle_XCAFDoc_VisMaterialTool: typeof Handle_XCAFDoc_VisMaterialTool;
+    XCAFDoc_VisMaterialTool: typeof XCAFDoc_VisMaterialTool;
+    XSControl_Reader: typeof XSControl_Reader;
+    Handle_XSControl_WorkSession: typeof Handle_XSControl_WorkSession;
+    XSControl_WorkSession: typeof XSControl_WorkSession;
     gce_MakeCylinder: typeof gce_MakeCylinder;
+    gce_Root: typeof gce_Root;
     gp_Ax1: typeof gp_Ax1;
     gp_Ax2: typeof gp_Ax2;
+    gp_Ax22d: typeof gp_Ax22d;
+    gp_Ax2d: typeof gp_Ax2d;
     gp_Ax3: typeof gp_Ax3;
     gp_Circ: typeof gp_Circ;
     gp_Circ2d: typeof gp_Circ2d;
+    gp_Cone: typeof gp_Cone;
+    gp_Cylinder: typeof gp_Cylinder;
     gp_Dir: typeof gp_Dir;
+    gp_Dir2d: typeof gp_Dir2d;
+    gp_Elips: typeof gp_Elips;
+    gp_Elips2d: typeof gp_Elips2d;
+    gp_Hypr: typeof gp_Hypr;
+    gp_Hypr2d: typeof gp_Hypr2d;
     gp_Lin: typeof gp_Lin;
     gp_Lin2d: typeof gp_Lin2d;
+    gp_Mat: typeof gp_Mat;
+    gp_Parab: typeof gp_Parab;
+    gp_Parab2d: typeof gp_Parab2d;
     gp_Pln: typeof gp_Pln;
     gp_Pnt: typeof gp_Pnt;
     gp_Pnt2d: typeof gp_Pnt2d;
     gp_Quaternion: typeof gp_Quaternion;
+    gp_Sphere: typeof gp_Sphere;
+    gp_Torus: typeof gp_Torus;
     gp_Trsf: typeof gp_Trsf;
+    gp_Trsf2d: typeof gp_Trsf2d;
     gp_Vec: typeof gp_Vec;
+    gp_Vec2d: typeof gp_Vec2d;
+    gp_Vec3f: typeof gp_Vec3f;
+    gp_XY: typeof gp_XY;
+    gp_XYZ: typeof gp_XYZ;
     OCJS: typeof OCJS;
     constructor(origin: any);
 }
