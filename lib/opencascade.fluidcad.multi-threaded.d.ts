@@ -842,6 +842,54 @@ export declare class BRepAlgoAPI_Fuse extends BRepAlgoAPI_BooleanOperation {
     constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, aDSF: BOPAlgo_PaveFiller, theRange: Message_ProgressRange);
   }
 
+export declare class BRepAlgoAPI_Section extends BRepAlgoAPI_BooleanOperation {
+  Init1_1(S1: TopoDS_Shape): void;
+  Init1_2(Pl: gp_Pln): void;
+  Init1_3(Sf: Handle_Geom_Surface): void;
+  Init2_1(S2: TopoDS_Shape): void;
+  Init2_2(Pl: gp_Pln): void;
+  Init2_3(Sf: Handle_Geom_Surface): void;
+  Approximation(B: Standard_Boolean): void;
+  ComputePCurveOn1(B: Standard_Boolean): void;
+  ComputePCurveOn2(B: Standard_Boolean): void;
+  Build(theRange: Message_ProgressRange): void;
+  HasAncestorFaceOn1(E: TopoDS_Shape, F: TopoDS_Shape): Standard_Boolean;
+  HasAncestorFaceOn2(E: TopoDS_Shape, F: TopoDS_Shape): Standard_Boolean;
+  delete(): void;
+}
+
+  export declare class BRepAlgoAPI_Section_1 extends BRepAlgoAPI_Section {
+    constructor();
+  }
+
+  export declare class BRepAlgoAPI_Section_2 extends BRepAlgoAPI_Section {
+    constructor(PF: BOPAlgo_PaveFiller);
+  }
+
+  export declare class BRepAlgoAPI_Section_3 extends BRepAlgoAPI_Section {
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, PerformNow: Standard_Boolean);
+  }
+
+  export declare class BRepAlgoAPI_Section_4 extends BRepAlgoAPI_Section {
+    constructor(S1: TopoDS_Shape, S2: TopoDS_Shape, aDSF: BOPAlgo_PaveFiller, PerformNow: Standard_Boolean);
+  }
+
+  export declare class BRepAlgoAPI_Section_5 extends BRepAlgoAPI_Section {
+    constructor(S1: TopoDS_Shape, Pl: gp_Pln, PerformNow: Standard_Boolean);
+  }
+
+  export declare class BRepAlgoAPI_Section_6 extends BRepAlgoAPI_Section {
+    constructor(S1: TopoDS_Shape, Sf: Handle_Geom_Surface, PerformNow: Standard_Boolean);
+  }
+
+  export declare class BRepAlgoAPI_Section_7 extends BRepAlgoAPI_Section {
+    constructor(Sf: Handle_Geom_Surface, S2: TopoDS_Shape, PerformNow: Standard_Boolean);
+  }
+
+  export declare class BRepAlgoAPI_Section_8 extends BRepAlgoAPI_Section {
+    constructor(Sf1: Handle_Geom_Surface, Sf2: Handle_Geom_Surface, PerformNow: Standard_Boolean);
+  }
+
 export declare class BRepAlgoAPI_Splitter extends BRepAlgoAPI_BuilderAlgo {
   SetTools(theLS: TopTools_ListOfShape): void;
   Tools(): TopTools_ListOfShape;
@@ -1829,6 +1877,25 @@ export declare class BRepOffsetAPI_MakeOffsetShape extends BRepBuilderAPI_MakeSh
   GetJoinType(): GeomAbs_JoinType;
   delete(): void;
 }
+
+export declare class BRepOffsetAPI_MakePipe extends BRepPrimAPI_MakeSweep {
+  Pipe(): BRepFill_Pipe;
+  Build(theRange: Message_ProgressRange): void;
+  FirstShape(): TopoDS_Shape;
+  LastShape(): TopoDS_Shape;
+  Generated_1(S: TopoDS_Shape): TopTools_ListOfShape;
+  Generated_2(SSpine: TopoDS_Shape, SProfile: TopoDS_Shape): TopoDS_Shape;
+  ErrorOnSurface(): Standard_Real;
+  delete(): void;
+}
+
+  export declare class BRepOffsetAPI_MakePipe_1 extends BRepOffsetAPI_MakePipe {
+    constructor(Spine: TopoDS_Wire, Profile: TopoDS_Shape);
+  }
+
+  export declare class BRepOffsetAPI_MakePipe_2 extends BRepOffsetAPI_MakePipe {
+    constructor(Spine: TopoDS_Wire, Profile: TopoDS_Shape, aMode: GeomFill_Trihedron, ForceApproxC1: Standard_Boolean);
+  }
 
 export declare class BRepOffsetAPI_MakePipeShell extends BRepPrimAPI_MakeSweep {
   constructor(Spine: TopoDS_Wire)
@@ -2865,6 +2932,60 @@ export declare class Handle_Geom_BSplineSurface {
 
   export declare class Handle_Geom_BSplineSurface_4 extends Handle_Geom_BSplineSurface {
     constructor(theHandle: Handle_Geom_BSplineSurface);
+  }
+
+export declare class Geom_BezierCurve extends Geom_BoundedCurve {
+  Increase(Degree: Graphic3d_ZLayerId): void;
+  InsertPoleAfter_1(Index: Graphic3d_ZLayerId, P: gp_Pnt): void;
+  InsertPoleAfter_2(Index: Graphic3d_ZLayerId, P: gp_Pnt, Weight: Standard_Real): void;
+  InsertPoleBefore_1(Index: Graphic3d_ZLayerId, P: gp_Pnt): void;
+  InsertPoleBefore_2(Index: Graphic3d_ZLayerId, P: gp_Pnt, Weight: Standard_Real): void;
+  RemovePole(Index: Graphic3d_ZLayerId): void;
+  Reverse(): void;
+  ReversedParameter(U: Standard_Real): Standard_Real;
+  Segment(U1: Standard_Real, U2: Standard_Real): void;
+  SetPole_1(Index: Graphic3d_ZLayerId, P: gp_Pnt): void;
+  SetPole_2(Index: Graphic3d_ZLayerId, P: gp_Pnt, Weight: Standard_Real): void;
+  SetWeight(Index: Graphic3d_ZLayerId, Weight: Standard_Real): void;
+  IsClosed(): Standard_Boolean;
+  IsCN(N: Graphic3d_ZLayerId): Standard_Boolean;
+  IsPeriodic(): Standard_Boolean;
+  IsRational(): Standard_Boolean;
+  Continuity(): GeomAbs_Shape;
+  Degree(): Graphic3d_ZLayerId;
+  D0(U: Standard_Real, P: gp_Pnt): void;
+  D1(U: Standard_Real, P: gp_Pnt, V1: gp_Vec): void;
+  D2(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec): void;
+  D3(U: Standard_Real, P: gp_Pnt, V1: gp_Vec, V2: gp_Vec, V3: gp_Vec): void;
+  DN(U: Standard_Real, N: Graphic3d_ZLayerId): gp_Vec;
+  StartPoint(): gp_Pnt;
+  EndPoint(): gp_Pnt;
+  FirstParameter(): Standard_Real;
+  LastParameter(): Standard_Real;
+  NbPoles(): Graphic3d_ZLayerId;
+  Pole(Index: Graphic3d_ZLayerId): gp_Pnt;
+  Poles_1(P: TColgp_Array1OfPnt): void;
+  Poles_2(): TColgp_Array1OfPnt;
+  Weight(Index: Graphic3d_ZLayerId): Standard_Real;
+  Weights_1(W: IntTools_CArray1OfReal): void;
+  Weights_2(): IntTools_CArray1OfReal;
+  Transform(T: gp_Trsf): void;
+  static MaxDegree(): Graphic3d_ZLayerId;
+  Resolution(Tolerance3D: Standard_Real, UTolerance: Standard_Real): void;
+  Copy(): Handle_Geom_Geometry;
+  DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+  static get_type_name(): Standard_Character;
+  static get_type_descriptor(): Handle_Standard_Type;
+  DynamicType(): Handle_Standard_Type;
+  delete(): void;
+}
+
+  export declare class Geom_BezierCurve_1 extends Geom_BezierCurve {
+    constructor(CurvePoles: TColgp_Array1OfPnt);
+  }
+
+  export declare class Geom_BezierCurve_2 extends Geom_BezierCurve {
+    constructor(CurvePoles: TColgp_Array1OfPnt, PoleWeights: IntTools_CArray1OfReal);
   }
 
 export declare class Handle_Geom_BezierCurve {
@@ -3951,6 +4072,45 @@ export declare class Handle_IntTools_Context {
     constructor(theHandle: Handle_IntTools_Context);
   }
 
+export declare class IntTools_Context extends Standard_Transient {
+  ProjPC(aE: TopoDS_Edge): GeomAPI_ProjectPointOnCurve;
+  ProjPT(aC: Handle_Geom_Curve): GeomAPI_ProjectPointOnCurve;
+  SurfaceData(aF: TopoDS_Face): IntTools_SurfaceRangeLocalizeData;
+  Hatcher(aF: TopoDS_Face): Geom2dHatch_Hatcher;
+  SurfaceAdaptor(theFace: TopoDS_Face): BRepAdaptor_Surface;
+  OBB(theShape: TopoDS_Shape, theFuzzyValue: Standard_Real): Bnd_OBB;
+  UVBounds(theFace: TopoDS_Face, UMin: Standard_Real, UMax: Standard_Real, VMin: Standard_Real, VMax: Standard_Real): void;
+  ComputePE(theP: gp_Pnt, theTolP: Standard_Real, theE: TopoDS_Edge, theT: Standard_Real, theDist: Standard_Real): Graphic3d_ZLayerId;
+  ComputeVE(theV: TopoDS_Vertex, theE: TopoDS_Edge, theT: Standard_Real, theTol: Standard_Real, theFuzz: Standard_Real): Graphic3d_ZLayerId;
+  ComputeVF(theVertex: TopoDS_Vertex, theFace: TopoDS_Face, theU: Standard_Real, theV: Standard_Real, theTol: Standard_Real, theFuzz: Standard_Real): Graphic3d_ZLayerId;
+  StatePointFace(aF: TopoDS_Face, aP2D: gp_Pnt2d): TopAbs_State;
+  IsPointInFace_1(aF: TopoDS_Face, aP2D: gp_Pnt2d): Standard_Boolean;
+  IsPointInFace_2(aP3D: gp_Pnt, aF: TopoDS_Face, aTol: Standard_Real): Standard_Boolean;
+  IsPointInOnFace(aF: TopoDS_Face, aP2D: gp_Pnt2d): Standard_Boolean;
+  IsValidPointForFace(aP3D: gp_Pnt, aF: TopoDS_Face, aTol: Standard_Real): Standard_Boolean;
+  IsValidPointForFaces(aP3D: gp_Pnt, aF1: TopoDS_Face, aF2: TopoDS_Face, aTol: Standard_Real): Standard_Boolean;
+  IsValidBlockForFace(aT1: Standard_Real, aT2: Standard_Real, aIC: IntTools_Curve, aF: TopoDS_Face, aTol: Standard_Real): Standard_Boolean;
+  IsValidBlockForFaces(aT1: Standard_Real, aT2: Standard_Real, aIC: IntTools_Curve, aF1: TopoDS_Face, aF2: TopoDS_Face, aTol: Standard_Real): Standard_Boolean;
+  IsVertexOnLine_1(aV: TopoDS_Vertex, aIC: IntTools_Curve, aTolC: Standard_Real, aT: Standard_Real): Standard_Boolean;
+  IsVertexOnLine_2(aV: TopoDS_Vertex, aTolV: Standard_Real, aIC: IntTools_Curve, aTolC: Standard_Real, aT: Standard_Real): Standard_Boolean;
+  ProjectPointOnEdge(aP: gp_Pnt, aE: TopoDS_Edge, aT: Standard_Real): Standard_Boolean;
+  BndBox(theS: TopoDS_Shape): Bnd_Box;
+  IsInfiniteFace(theFace: TopoDS_Face): Standard_Boolean;
+  SetPOnSProjectionTolerance(theValue: Standard_Real): void;
+  static get_type_name(): Standard_Character;
+  static get_type_descriptor(): Handle_Standard_Type;
+  DynamicType(): Handle_Standard_Type;
+  delete(): void;
+}
+
+  export declare class IntTools_Context_1 extends IntTools_Context {
+    constructor();
+  }
+
+  export declare class IntTools_Context_2 extends IntTools_Context {
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+  }
+
 export declare class IntTools_EdgeEdge {
   SetEdge1_1(theEdge: TopoDS_Edge): void;
   SetEdge1_2(theEdge: TopoDS_Edge, aT1: Standard_Real, aT2: Standard_Real): void;
@@ -3981,6 +4141,25 @@ export declare class IntTools_EdgeEdge {
   export declare class IntTools_EdgeEdge_3 extends IntTools_EdgeEdge {
     constructor(theEdge1: TopoDS_Edge, aT11: Standard_Real, aT12: Standard_Real, theEdge2: TopoDS_Edge, aT21: Standard_Real, aT22: Standard_Real);
   }
+
+export declare class IntTools_FaceFace {
+  constructor()
+  SetParameters(ApproxCurves: Standard_Boolean, ComputeCurveOnS1: Standard_Boolean, ComputeCurveOnS2: Standard_Boolean, ApproximationTolerance: Standard_Real): void;
+  Perform(F1: TopoDS_Face, F2: TopoDS_Face, theToRunParallel: Standard_Boolean): void;
+  IsDone(): Standard_Boolean;
+  Lines(): IntTools_SequenceOfCurves;
+  Points(): IntTools_SequenceOfPntOn2Faces;
+  Face1(): TopoDS_Face;
+  Face2(): TopoDS_Face;
+  TangentFaces(): Standard_Boolean;
+  PrepareLines3D(bToSplit: Standard_Boolean): void;
+  SetList(ListOfPnts: IntSurf_ListOfPntOn2S): void;
+  SetContext(aContext: Handle_IntTools_Context): void;
+  SetFuzzyValue(theFuzz: Standard_Real): void;
+  FuzzyValue(): Standard_Real;
+  Context(): Handle_IntTools_Context;
+  delete(): void;
+}
 
 export declare class IntTools_Range {
   SetFirst(aFirst: Standard_Real): void;
@@ -4045,6 +4224,102 @@ export declare class IntTools_SequenceOfCommonPrts extends NCollection_BaseSeque
 
   export declare class IntTools_SequenceOfCommonPrts_3 extends IntTools_SequenceOfCommonPrts {
     constructor(theOther: IntTools_SequenceOfCommonPrts);
+  }
+
+export declare class IntTools_SequenceOfCurves extends NCollection_BaseSequence {
+  begin(): any;
+  end(): any;
+  cbegin(): any;
+  cend(): any;
+  Size(): Standard_Integer;
+  Length(): Standard_Integer;
+  Lower(): Standard_Integer;
+  Upper(): Standard_Integer;
+  IsEmpty(): Standard_Boolean;
+  Reverse(): void;
+  Exchange(I: Standard_Integer, J: Standard_Integer): void;
+  static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+  Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+  Assign(theOther: IntTools_SequenceOfCurves): IntTools_SequenceOfCurves;
+  Remove_2(theIndex: Standard_Integer): void;
+  Remove_3(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+  Append_1(theItem: IntTools_Curve): void;
+  Append_2(theSeq: IntTools_SequenceOfCurves): void;
+  Prepend_1(theItem: IntTools_Curve): void;
+  Prepend_2(theSeq: IntTools_SequenceOfCurves): void;
+  InsertBefore_1(theIndex: Standard_Integer, theItem: IntTools_Curve): void;
+  InsertBefore_2(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfCurves): void;
+  InsertAfter_2(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfCurves): void;
+  InsertAfter_3(theIndex: Standard_Integer, theItem: IntTools_Curve): void;
+  Split(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfCurves): void;
+  First(): IntTools_Curve;
+  ChangeFirst(): IntTools_Curve;
+  Last(): IntTools_Curve;
+  ChangeLast(): IntTools_Curve;
+  Value(theIndex: Standard_Integer): IntTools_Curve;
+  ChangeValue(theIndex: Standard_Integer): IntTools_Curve;
+  SetValue(theIndex: Standard_Integer, theItem: IntTools_Curve): void;
+  delete(): void;
+}
+
+  export declare class IntTools_SequenceOfCurves_1 extends IntTools_SequenceOfCurves {
+    constructor();
+  }
+
+  export declare class IntTools_SequenceOfCurves_2 extends IntTools_SequenceOfCurves {
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+  }
+
+  export declare class IntTools_SequenceOfCurves_3 extends IntTools_SequenceOfCurves {
+    constructor(theOther: IntTools_SequenceOfCurves);
+  }
+
+export declare class IntTools_SequenceOfPntOn2Faces extends NCollection_BaseSequence {
+  begin(): any;
+  end(): any;
+  cbegin(): any;
+  cend(): any;
+  Size(): Standard_Integer;
+  Length(): Standard_Integer;
+  Lower(): Standard_Integer;
+  Upper(): Standard_Integer;
+  IsEmpty(): Standard_Boolean;
+  Reverse(): void;
+  Exchange(I: Standard_Integer, J: Standard_Integer): void;
+  static delNode(theNode: NCollection_SeqNode, theAl: Handle_NCollection_BaseAllocator): void;
+  Clear(theAllocator: Handle_NCollection_BaseAllocator): void;
+  Assign(theOther: IntTools_SequenceOfPntOn2Faces): IntTools_SequenceOfPntOn2Faces;
+  Remove_2(theIndex: Standard_Integer): void;
+  Remove_3(theFromIndex: Standard_Integer, theToIndex: Standard_Integer): void;
+  Append_1(theItem: IntTools_PntOn2Faces): void;
+  Append_2(theSeq: IntTools_SequenceOfPntOn2Faces): void;
+  Prepend_1(theItem: IntTools_PntOn2Faces): void;
+  Prepend_2(theSeq: IntTools_SequenceOfPntOn2Faces): void;
+  InsertBefore_1(theIndex: Standard_Integer, theItem: IntTools_PntOn2Faces): void;
+  InsertBefore_2(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfPntOn2Faces): void;
+  InsertAfter_2(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfPntOn2Faces): void;
+  InsertAfter_3(theIndex: Standard_Integer, theItem: IntTools_PntOn2Faces): void;
+  Split(theIndex: Standard_Integer, theSeq: IntTools_SequenceOfPntOn2Faces): void;
+  First(): IntTools_PntOn2Faces;
+  ChangeFirst(): IntTools_PntOn2Faces;
+  Last(): IntTools_PntOn2Faces;
+  ChangeLast(): IntTools_PntOn2Faces;
+  Value(theIndex: Standard_Integer): IntTools_PntOn2Faces;
+  ChangeValue(theIndex: Standard_Integer): IntTools_PntOn2Faces;
+  SetValue(theIndex: Standard_Integer, theItem: IntTools_PntOn2Faces): void;
+  delete(): void;
+}
+
+  export declare class IntTools_SequenceOfPntOn2Faces_1 extends IntTools_SequenceOfPntOn2Faces {
+    constructor();
+  }
+
+  export declare class IntTools_SequenceOfPntOn2Faces_2 extends IntTools_SequenceOfPntOn2Faces {
+    constructor(theAllocator: Handle_NCollection_BaseAllocator);
+  }
+
+  export declare class IntTools_SequenceOfPntOn2Faces_3 extends IntTools_SequenceOfPntOn2Faces {
+    constructor(theOther: IntTools_SequenceOfPntOn2Faces);
   }
 
 export declare class IntTools_SequenceOfRanges extends NCollection_BaseSequence {
@@ -10318,6 +10593,15 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   BRepAlgoAPI_Fuse_2: typeof BRepAlgoAPI_Fuse_2;
   BRepAlgoAPI_Fuse_3: typeof BRepAlgoAPI_Fuse_3;
   BRepAlgoAPI_Fuse_4: typeof BRepAlgoAPI_Fuse_4;
+  BRepAlgoAPI_Section: typeof BRepAlgoAPI_Section;
+  BRepAlgoAPI_Section_1: typeof BRepAlgoAPI_Section_1;
+  BRepAlgoAPI_Section_2: typeof BRepAlgoAPI_Section_2;
+  BRepAlgoAPI_Section_3: typeof BRepAlgoAPI_Section_3;
+  BRepAlgoAPI_Section_4: typeof BRepAlgoAPI_Section_4;
+  BRepAlgoAPI_Section_5: typeof BRepAlgoAPI_Section_5;
+  BRepAlgoAPI_Section_6: typeof BRepAlgoAPI_Section_6;
+  BRepAlgoAPI_Section_7: typeof BRepAlgoAPI_Section_7;
+  BRepAlgoAPI_Section_8: typeof BRepAlgoAPI_Section_8;
   BRepAlgoAPI_Splitter: typeof BRepAlgoAPI_Splitter;
   BRepAlgoAPI_Splitter_1: typeof BRepAlgoAPI_Splitter_1;
   BRepAlgoAPI_Splitter_2: typeof BRepAlgoAPI_Splitter_2;
@@ -10476,6 +10760,9 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   BRepOffsetAPI_MakeOffset_2: typeof BRepOffsetAPI_MakeOffset_2;
   BRepOffsetAPI_MakeOffset_3: typeof BRepOffsetAPI_MakeOffset_3;
   BRepOffsetAPI_MakeOffsetShape: typeof BRepOffsetAPI_MakeOffsetShape;
+  BRepOffsetAPI_MakePipe: typeof BRepOffsetAPI_MakePipe;
+  BRepOffsetAPI_MakePipe_1: typeof BRepOffsetAPI_MakePipe_1;
+  BRepOffsetAPI_MakePipe_2: typeof BRepOffsetAPI_MakePipe_2;
   BRepOffsetAPI_MakePipeShell: typeof BRepOffsetAPI_MakePipeShell;
   BRepOffsetAPI_MakeThickSolid: typeof BRepOffsetAPI_MakeThickSolid;
   BRepOffsetAPI_ThruSections: typeof BRepOffsetAPI_ThruSections;
@@ -10619,6 +10906,9 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   Handle_Geom_BSplineSurface_2: typeof Handle_Geom_BSplineSurface_2;
   Handle_Geom_BSplineSurface_3: typeof Handle_Geom_BSplineSurface_3;
   Handle_Geom_BSplineSurface_4: typeof Handle_Geom_BSplineSurface_4;
+  Geom_BezierCurve: typeof Geom_BezierCurve;
+  Geom_BezierCurve_1: typeof Geom_BezierCurve_1;
+  Geom_BezierCurve_2: typeof Geom_BezierCurve_2;
   Handle_Geom_BezierCurve: typeof Handle_Geom_BezierCurve;
   Handle_Geom_BezierCurve_1: typeof Handle_Geom_BezierCurve_1;
   Handle_Geom_BezierCurve_2: typeof Handle_Geom_BezierCurve_2;
@@ -10755,10 +11045,14 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   Handle_IntTools_Context_2: typeof Handle_IntTools_Context_2;
   Handle_IntTools_Context_3: typeof Handle_IntTools_Context_3;
   Handle_IntTools_Context_4: typeof Handle_IntTools_Context_4;
+  IntTools_Context: typeof IntTools_Context;
+  IntTools_Context_1: typeof IntTools_Context_1;
+  IntTools_Context_2: typeof IntTools_Context_2;
   IntTools_EdgeEdge: typeof IntTools_EdgeEdge;
   IntTools_EdgeEdge_1: typeof IntTools_EdgeEdge_1;
   IntTools_EdgeEdge_2: typeof IntTools_EdgeEdge_2;
   IntTools_EdgeEdge_3: typeof IntTools_EdgeEdge_3;
+  IntTools_FaceFace: typeof IntTools_FaceFace;
   IntTools_Range: typeof IntTools_Range;
   IntTools_Range_1: typeof IntTools_Range_1;
   IntTools_Range_2: typeof IntTools_Range_2;
@@ -10766,6 +11060,14 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   IntTools_SequenceOfCommonPrts_1: typeof IntTools_SequenceOfCommonPrts_1;
   IntTools_SequenceOfCommonPrts_2: typeof IntTools_SequenceOfCommonPrts_2;
   IntTools_SequenceOfCommonPrts_3: typeof IntTools_SequenceOfCommonPrts_3;
+  IntTools_SequenceOfCurves: typeof IntTools_SequenceOfCurves;
+  IntTools_SequenceOfCurves_1: typeof IntTools_SequenceOfCurves_1;
+  IntTools_SequenceOfCurves_2: typeof IntTools_SequenceOfCurves_2;
+  IntTools_SequenceOfCurves_3: typeof IntTools_SequenceOfCurves_3;
+  IntTools_SequenceOfPntOn2Faces: typeof IntTools_SequenceOfPntOn2Faces;
+  IntTools_SequenceOfPntOn2Faces_1: typeof IntTools_SequenceOfPntOn2Faces_1;
+  IntTools_SequenceOfPntOn2Faces_2: typeof IntTools_SequenceOfPntOn2Faces_2;
+  IntTools_SequenceOfPntOn2Faces_3: typeof IntTools_SequenceOfPntOn2Faces_3;
   IntTools_SequenceOfRanges: typeof IntTools_SequenceOfRanges;
   IntTools_SequenceOfRanges_1: typeof IntTools_SequenceOfRanges_1;
   IntTools_SequenceOfRanges_2: typeof IntTools_SequenceOfRanges_2;
