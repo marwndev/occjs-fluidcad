@@ -1655,6 +1655,44 @@ export declare class BRepGProp {
   delete(): void;
 }
 
+export declare class BRepLib {
+  constructor();
+  static Precision_1(P: Standard_Real): void;
+  static Precision_2(): Standard_Real;
+  static Plane_1(P: Handle_Geom_Plane): void;
+  static Plane_2(): Handle_Geom_Plane;
+  static CheckSameRange(E: TopoDS_Edge, Confusion: Standard_Real): Standard_Boolean;
+  static SameRange(E: TopoDS_Edge, Tolerance: Standard_Real): void;
+  static BuildCurve3d(E: TopoDS_Edge, Tolerance: Standard_Real, Continuity: GeomAbs_Shape, MaxDegree: Graphic3d_ZLayerId, MaxSegment: Graphic3d_ZLayerId): Standard_Boolean;
+  static BuildCurves3d_1(S: TopoDS_Shape, Tolerance: Standard_Real, Continuity: GeomAbs_Shape, MaxDegree: Graphic3d_ZLayerId, MaxSegment: Graphic3d_ZLayerId): Standard_Boolean;
+  static BuildCurves3d_2(S: TopoDS_Shape): Standard_Boolean;
+  static BuildPCurveForEdgeOnPlane_1(theE: TopoDS_Edge, theF: TopoDS_Face): void;
+  static BuildPCurveForEdgeOnPlane_2(theE: TopoDS_Edge, theF: TopoDS_Face, aC2D: Handle_Geom2d_Curve, bToUpdate: Standard_Boolean): void;
+  static UpdateEdgeTol(E: TopoDS_Edge, MinToleranceRequest: Standard_Real, MaxToleranceToCheck: Standard_Real): Standard_Boolean;
+  static UpdateEdgeTolerance(S: TopoDS_Shape, MinToleranceRequest: Standard_Real, MaxToleranceToCheck: Standard_Real): Standard_Boolean;
+  static SameParameter_1(theEdge: TopoDS_Edge, Tolerance: Standard_Real): void;
+  static SameParameter_2(theEdge: TopoDS_Edge, theTolerance: Standard_Real, theNewTol: Standard_Real, IsUseOldEdge: Standard_Boolean): TopoDS_Edge;
+  static SameParameter_3(S: TopoDS_Shape, Tolerance: Standard_Real, forced: Standard_Boolean): void;
+  static SameParameter_4(S: TopoDS_Shape, theReshaper: BRepTools_ReShape, Tolerance: Standard_Real, forced: Standard_Boolean): void;
+  static UpdateTolerances_1(S: TopoDS_Shape, verifyFaceTolerance: Standard_Boolean): void;
+  static UpdateTolerances_2(S: TopoDS_Shape, theReshaper: BRepTools_ReShape, verifyFaceTolerance: Standard_Boolean): void;
+  static UpdateInnerTolerances(S: TopoDS_Shape): void;
+  static OrientClosedSolid(solid: TopoDS_Solid): Standard_Boolean;
+  static ContinuityOfFaces(theEdge: TopoDS_Edge, theFace1: TopoDS_Face, theFace2: TopoDS_Face, theAngleTol: Standard_Real): GeomAbs_Shape;
+  static EncodeRegularity_1(S: TopoDS_Shape, TolAng: Standard_Real): void;
+  static EncodeRegularity_2(S: TopoDS_Shape, LE: TopTools_ListOfShape, TolAng: Standard_Real): void;
+  static EncodeRegularity_3(E: TopoDS_Edge, F1: TopoDS_Face, F2: TopoDS_Face, TolAng: Standard_Real): void;
+  static SortFaces(S: TopoDS_Shape, LF: TopTools_ListOfShape): void;
+  static ReverseSortFaces(S: TopoDS_Shape, LF: TopTools_ListOfShape): void;
+  static EnsureNormalConsistency(S: TopoDS_Shape, theAngTol: Standard_Real, ForceComputeNormals: Standard_Boolean): Standard_Boolean;
+  static UpdateDeflection(S: TopoDS_Shape): void;
+  static BoundingVertex(theLV: TopoDS_ListOfShape, theNewCenter: gp_Pnt, theNewTol: Standard_Real): void;
+  static FindValidRange_1(theCurve: Adaptor3d_Curve, theTolE: Standard_Real, theParV1: Standard_Real, thePntV1: gp_Pnt, theTolV1: Standard_Real, theParV2: Standard_Real, thePntV2: gp_Pnt, theTolV2: Standard_Real, theFirst: Standard_Real, theLast: Standard_Real): Standard_Boolean;
+  static FindValidRange_2(theEdge: TopoDS_Edge, theFirst: Standard_Real, theLast: Standard_Real): Standard_Boolean;
+  static ExtendFace(theF: TopoDS_Face, theExtVal: Standard_Real, theExtUMin: Standard_Boolean, theExtUMax: Standard_Boolean, theExtVMin: Standard_Boolean, theExtVMax: Standard_Boolean, theFExtended: TopoDS_Face): void;
+  delete(): void;
+}
+
 export declare class BRepLib_Command {
   IsDone(): Standard_Boolean;
   Check(): void;
@@ -3804,6 +3842,16 @@ export declare type GeomAbs_JoinType = {
   GeomAbs_Intersection: {};
 }
 
+export declare type GeomAbs_Shape = {
+  GeomAbs_C0: {};
+  GeomAbs_G1: {};
+  GeomAbs_C1: {};
+  GeomAbs_G2: {};
+  GeomAbs_C2: {};
+  GeomAbs_C3: {};
+  GeomAbs_CN: {};
+}
+
 export declare type GeomAbs_SurfaceType = {
   GeomAbs_Plane: {};
   GeomAbs_Cylinder: {};
@@ -4854,6 +4902,27 @@ export declare class Handle_Poly_Polygon2D {
 
   export declare class Handle_Poly_Polygon2D_4 extends Handle_Poly_Polygon2D {
     constructor(theHandle: Handle_Poly_Polygon2D);
+  }
+
+export declare class Poly_Polygon2D extends Standard_Transient {
+  Deflection_1(): Standard_Real;
+  Deflection_2(theDefl: Standard_Real): void;
+  NbNodes(): Graphic3d_ZLayerId;
+  Nodes(): TColgp_Array1OfPnt2d;
+  ChangeNodes(): TColgp_Array1OfPnt2d;
+  DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+  static get_type_name(): Standard_Character;
+  static get_type_descriptor(): Handle_Standard_Type;
+  DynamicType(): Handle_Standard_Type;
+  delete(): void;
+}
+
+  export declare class Poly_Polygon2D_1 extends Poly_Polygon2D {
+    constructor(theNbNodes: Graphic3d_ZLayerId);
+  }
+
+  export declare class Poly_Polygon2D_2 extends Poly_Polygon2D {
+    constructor(Nodes: TColgp_Array1OfPnt2d);
   }
 
 export declare class Handle_Poly_Polygon3D {
@@ -10721,6 +10790,7 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   BRepFilletAPI_MakeChamfer: typeof BRepFilletAPI_MakeChamfer;
   BRepFilletAPI_MakeFillet: typeof BRepFilletAPI_MakeFillet;
   BRepGProp: typeof BRepGProp;
+  BRepLib: typeof BRepLib;
   BRepLib_Command: typeof BRepLib_Command;
   BRepLib_MakeFace: typeof BRepLib_MakeFace;
   BRepLib_MakeFace_1: typeof BRepLib_MakeFace_1;
@@ -11021,6 +11091,7 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   GeomAPI: typeof GeomAPI;
   GeomAbs_CurveType: GeomAbs_CurveType;
   GeomAbs_JoinType: GeomAbs_JoinType;
+  GeomAbs_Shape: GeomAbs_Shape;
   GeomAbs_SurfaceType: GeomAbs_SurfaceType;
   GeomAdaptor_Curve: typeof GeomAdaptor_Curve;
   GeomAdaptor_Curve_1: typeof GeomAdaptor_Curve_1;
@@ -11162,6 +11233,9 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   Handle_Poly_Polygon2D_2: typeof Handle_Poly_Polygon2D_2;
   Handle_Poly_Polygon2D_3: typeof Handle_Poly_Polygon2D_3;
   Handle_Poly_Polygon2D_4: typeof Handle_Poly_Polygon2D_4;
+  Poly_Polygon2D: typeof Poly_Polygon2D;
+  Poly_Polygon2D_1: typeof Poly_Polygon2D_1;
+  Poly_Polygon2D_2: typeof Poly_Polygon2D_2;
   Handle_Poly_Polygon3D: typeof Handle_Poly_Polygon3D;
   Handle_Poly_Polygon3D_1: typeof Handle_Poly_Polygon3D_1;
   Handle_Poly_Polygon3D_2: typeof Handle_Poly_Polygon3D_2;

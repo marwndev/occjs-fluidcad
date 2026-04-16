@@ -1,4 +1,4 @@
-export type { BRepBuilderAPI_TransitionMode, BRepFill_TypeOfContact, BRepOffset_Mode, ChFi3d_FilletShape, Extrema_ExtAlgo, Extrema_ExtFlag, GccEnt_Position, GeomAbs_CurveType, GeomAbs_JoinType, GeomAbs_SurfaceType, IFSelect_ReturnStatus, Quantity_TypeOfColor, STEPControl_StepModelType, TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State, XCAFDoc_ColorType } from "opencascade.js/dist/opencascade.full.js";
+export type { BRepBuilderAPI_TransitionMode, BRepFill_TypeOfContact, BRepOffset_Mode, ChFi3d_FilletShape, Extrema_ExtAlgo, Extrema_ExtFlag, GccEnt_Position, GeomAbs_CurveType, GeomAbs_JoinType, GeomAbs_Shape, GeomAbs_SurfaceType, IFSelect_ReturnStatus, Quantity_TypeOfColor, STEPControl_StepModelType, TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State, XCAFDoc_ColorType } from "opencascade.js/dist/opencascade.full.js";
 export declare class Handle_Adaptor2d_Curve2d {
     constructor();
     constructor(thePtr: Adaptor2d_Curve2d);
@@ -949,6 +949,43 @@ export declare class BRepGProp {
     static VolumeProperties(S: TopoDS_Shape, VProps: GProp_GProps, Eps: Standard_Real, OnlyClosed: Standard_Boolean, SkipShared: Standard_Boolean): Standard_Real;
     static VolumePropertiesGK(S: TopoDS_Shape, VProps: GProp_GProps, Eps: Standard_Real, OnlyClosed: Standard_Boolean, IsUseSpan: Standard_Boolean, CGFlag: Standard_Boolean, IFlag: Standard_Boolean, SkipShared: Standard_Boolean): Standard_Real;
     static VolumePropertiesGK(S: TopoDS_Shape, VProps: GProp_GProps, thePln: gp_Pln, Eps: Standard_Real, OnlyClosed: Standard_Boolean, IsUseSpan: Standard_Boolean, CGFlag: Standard_Boolean, IFlag: Standard_Boolean, SkipShared: Standard_Boolean): Standard_Real;
+}
+export declare class BRepLib {
+    constructor();
+    static CheckSameRange(E: TopoDS_Edge, Confusion: Standard_Real): Standard_Boolean;
+    static SameRange(E: TopoDS_Edge, Tolerance: Standard_Real): void;
+    static BuildCurve3d(E: TopoDS_Edge, Tolerance: Standard_Real, Continuity: GeomAbs_Shape, MaxDegree: Graphic3d_ZLayerId, MaxSegment: Graphic3d_ZLayerId): Standard_Boolean;
+    static UpdateEdgeTol(E: TopoDS_Edge, MinToleranceRequest: Standard_Real, MaxToleranceToCheck: Standard_Real): Standard_Boolean;
+    static UpdateEdgeTolerance(S: TopoDS_Shape, MinToleranceRequest: Standard_Real, MaxToleranceToCheck: Standard_Real): Standard_Boolean;
+    static UpdateInnerTolerances(S: TopoDS_Shape): void;
+    static OrientClosedSolid(solid: TopoDS_Solid): Standard_Boolean;
+    static ContinuityOfFaces(theEdge: TopoDS_Edge, theFace1: TopoDS_Face, theFace2: TopoDS_Face, theAngleTol: Standard_Real): GeomAbs_Shape;
+    static SortFaces(S: TopoDS_Shape, LF: TopTools_ListOfShape): void;
+    static ReverseSortFaces(S: TopoDS_Shape, LF: TopTools_ListOfShape): void;
+    static EnsureNormalConsistency(S: TopoDS_Shape, theAngTol: Standard_Real, ForceComputeNormals: Standard_Boolean): Standard_Boolean;
+    static UpdateDeflection(S: TopoDS_Shape): void;
+    static BoundingVertex(theLV: TopoDS_ListOfShape, theNewCenter: gp_Pnt, theNewTol: Standard_Real): void;
+    static ExtendFace(theF: TopoDS_Face, theExtVal: Standard_Real, theExtUMin: Standard_Boolean, theExtUMax: Standard_Boolean, theExtVMin: Standard_Boolean, theExtVMax: Standard_Boolean, theFExtended: TopoDS_Face): void;
+    delete(): void;
+    static Precision(P: Standard_Real): void;
+    static Precision(): Standard_Real;
+    static Plane(P: Handle_Geom_Plane): void;
+    static Plane(): Handle_Geom_Plane;
+    static BuildCurves3d(S: TopoDS_Shape, Tolerance: Standard_Real, Continuity: GeomAbs_Shape, MaxDegree: Graphic3d_ZLayerId, MaxSegment: Graphic3d_ZLayerId): Standard_Boolean;
+    static BuildCurves3d(S: TopoDS_Shape): Standard_Boolean;
+    static BuildPCurveForEdgeOnPlane(theE: TopoDS_Edge, theF: TopoDS_Face): void;
+    static BuildPCurveForEdgeOnPlane(theE: TopoDS_Edge, theF: TopoDS_Face, aC2D: Handle_Geom2d_Curve, bToUpdate: Standard_Boolean): void;
+    static SameParameter(theEdge: TopoDS_Edge, Tolerance: Standard_Real): void;
+    static SameParameter(theEdge: TopoDS_Edge, theTolerance: Standard_Real, theNewTol: Standard_Real, IsUseOldEdge: Standard_Boolean): TopoDS_Edge;
+    static SameParameter(S: TopoDS_Shape, Tolerance: Standard_Real, forced: Standard_Boolean): void;
+    static SameParameter(S: TopoDS_Shape, theReshaper: BRepTools_ReShape, Tolerance: Standard_Real, forced: Standard_Boolean): void;
+    static UpdateTolerances(S: TopoDS_Shape, verifyFaceTolerance: Standard_Boolean): void;
+    static UpdateTolerances(S: TopoDS_Shape, theReshaper: BRepTools_ReShape, verifyFaceTolerance: Standard_Boolean): void;
+    static EncodeRegularity(S: TopoDS_Shape, TolAng: Standard_Real): void;
+    static EncodeRegularity(S: TopoDS_Shape, LE: TopTools_ListOfShape, TolAng: Standard_Real): void;
+    static EncodeRegularity(E: TopoDS_Edge, F1: TopoDS_Face, F2: TopoDS_Face, TolAng: Standard_Real): void;
+    static FindValidRange(theCurve: Adaptor3d_Curve, theTolE: Standard_Real, theParV1: Standard_Real, thePntV1: gp_Pnt, theTolV1: Standard_Real, theParV2: Standard_Real, thePntV2: gp_Pnt, theTolV2: Standard_Real, theFirst: Standard_Real, theLast: Standard_Real): Standard_Boolean;
+    static FindValidRange(theEdge: TopoDS_Edge, theFirst: Standard_Real, theLast: Standard_Real): Standard_Boolean;
 }
 export declare class BRepLib_Command {
     constructor();
@@ -4050,6 +4087,20 @@ export declare class Law_Function extends Standard_Transient {
     static get_type_descriptor(): Handle_Standard_Type;
     DynamicType(): Handle_Standard_Type;
     delete(): void;
+}
+export declare class Poly_Polygon2D extends Standard_Transient {
+    constructor(theNbNodes: Graphic3d_ZLayerId);
+    constructor(Nodes: TColgp_Array1OfPnt2d);
+    NbNodes(): Graphic3d_ZLayerId;
+    Nodes(): TColgp_Array1OfPnt2d;
+    ChangeNodes(): TColgp_Array1OfPnt2d;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Deflection(): Standard_Real;
+    Deflection(theDefl: Standard_Real): void;
 }
 export declare class Poly_Triangulation extends Standard_Transient {
     constructor();
@@ -7359,6 +7410,7 @@ export declare class OpenCascadeInstance {
     BRepFilletAPI_MakeChamfer: typeof BRepFilletAPI_MakeChamfer;
     BRepFilletAPI_MakeFillet: typeof BRepFilletAPI_MakeFillet;
     BRepGProp: typeof BRepGProp;
+    BRepLib: typeof BRepLib;
     BRepLib_Command: typeof BRepLib_Command;
     BRepLib_MakeFace: typeof BRepLib_MakeFace;
     BRepLib_MakeShape: typeof BRepLib_MakeShape;
@@ -7447,6 +7499,7 @@ export declare class OpenCascadeInstance {
     GeomAPI: typeof GeomAPI;
     GeomAbs_CurveType: GeomAbs_CurveType;
     GeomAbs_JoinType: GeomAbs_JoinType;
+    GeomAbs_Shape: GeomAbs_Shape;
     GeomAbs_SurfaceType: GeomAbs_SurfaceType;
     GeomAdaptor_Curve: typeof GeomAdaptor_Curve;
     GeomAdaptor_Surface: typeof GeomAdaptor_Surface;
@@ -7485,6 +7538,7 @@ export declare class OpenCascadeInstance {
     Poly_Connect: typeof Poly_Connect;
     Handle_Poly_HArray1OfTriangle: typeof Handle_Poly_HArray1OfTriangle;
     Handle_Poly_Polygon2D: typeof Handle_Poly_Polygon2D;
+    Poly_Polygon2D: typeof Poly_Polygon2D;
     Handle_Poly_Polygon3D: typeof Handle_Poly_Polygon3D;
     Handle_Poly_PolygonOnTriangulation: typeof Handle_Poly_PolygonOnTriangulation;
     Poly_Triangle: typeof Poly_Triangle;
