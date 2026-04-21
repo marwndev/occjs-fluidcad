@@ -1,6 +1,6 @@
 {
     "name": "occjs-fluidcad",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "author": "Marwan Aouida <contact@marwan.dev>",
     "type": "module",
     "main": "./dist/index.js",

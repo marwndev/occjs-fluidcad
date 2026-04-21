@@ -1790,6 +1790,28 @@ export declare class IntTools_EdgeEdge {
     SetRange2(theRange: IntTools_Range): void;
     SetRange2(aT1: Standard_Real, aT2: Standard_Real): void;
 }
+export declare class IntTools_EdgeFace {
+    constructor();
+    SetEdge(theEdge: TopoDS_Edge): void;
+    Edge(): TopoDS_Edge;
+    SetFace(theFace: TopoDS_Face): void;
+    Face(): TopoDS_Face;
+    Range(): IntTools_Range;
+    SetContext(theContext: Handle_IntTools_Context): void;
+    Context(): Handle_IntTools_Context;
+    SetFuzzyValue(theFuzz: Standard_Real): void;
+    FuzzyValue(): Standard_Real;
+    UseQuickCoincidenceCheck(theFlag: Standard_Boolean): void;
+    IsCoincidenceCheckedQuickly(): Standard_Boolean;
+    Perform(): void;
+    IsDone(): Standard_Boolean;
+    ErrorStatus(): Graphic3d_ZLayerId;
+    CommonParts(): IntTools_SequenceOfCommonPrts;
+    MinimalDistance(): Standard_Real;
+    delete(): void;
+    SetRange(theRange: IntTools_Range): void;
+    SetRange(theFirst: Standard_Real, theLast: Standard_Real): void;
+}
 export declare class IntTools_FaceFace {
     constructor();
     SetParameters(ApproxCurves: Standard_Boolean, ComputeCurveOnS1: Standard_Boolean, ComputeCurveOnS2: Standard_Boolean, ApproximationTolerance: Standard_Real): void;
@@ -7511,6 +7533,7 @@ export declare class OpenCascadeInstance {
     Handle_IntTools_Context: typeof Handle_IntTools_Context;
     IntTools_Context: typeof IntTools_Context;
     IntTools_EdgeEdge: typeof IntTools_EdgeEdge;
+    IntTools_EdgeFace: typeof IntTools_EdgeFace;
     IntTools_FaceFace: typeof IntTools_FaceFace;
     IntTools_Range: typeof IntTools_Range;
     IntTools_SequenceOfCommonPrts: typeof IntTools_SequenceOfCommonPrts;
