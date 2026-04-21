@@ -1348,6 +1348,27 @@ export declare class GC_MakeArcOfCircle extends GC_Root {
     Value(): Handle_Geom_TrimmedCurve;
     delete(): void;
 }
+export declare class GC_MakeArcOfEllipse extends GC_Root {
+    constructor(Elips: gp_Elips, Alpha1: Standard_Real, Alpha2: Standard_Real, Sense: Standard_Boolean);
+    constructor(Elips: gp_Elips, P: gp_Pnt, Alpha: Standard_Real, Sense: Standard_Boolean);
+    constructor(Elips: gp_Elips, P1: gp_Pnt, P2: gp_Pnt, Sense: Standard_Boolean);
+    Value(): Handle_Geom_TrimmedCurve;
+    delete(): void;
+}
+export declare class GC_MakeArcOfHyperbola extends GC_Root {
+    constructor(Hypr: gp_Hypr, Alpha1: Standard_Real, Alpha2: Standard_Real, Sense: Standard_Boolean);
+    constructor(Hypr: gp_Hypr, P: gp_Pnt, Alpha: Standard_Real, Sense: Standard_Boolean);
+    constructor(Hypr: gp_Hypr, P1: gp_Pnt, P2: gp_Pnt, Sense: Standard_Boolean);
+    Value(): Handle_Geom_TrimmedCurve;
+    delete(): void;
+}
+export declare class GC_MakeArcOfParabola extends GC_Root {
+    constructor(Parab: gp_Parab, Alpha1: Standard_Real, Alpha2: Standard_Real, Sense: Standard_Boolean);
+    constructor(Parab: gp_Parab, P: gp_Pnt, Alpha: Standard_Real, Sense: Standard_Boolean);
+    constructor(Parab: gp_Parab, P1: gp_Pnt, P2: gp_Pnt, Sense: Standard_Boolean);
+    Value(): Handle_Geom_TrimmedCurve;
+    delete(): void;
+}
 export declare class GC_MakeCircle extends GC_Root {
     constructor(C: gp_Circ);
     constructor(A2: gp_Ax2, Radius: Standard_Real);
@@ -1358,6 +1379,20 @@ export declare class GC_MakeCircle extends GC_Root {
     constructor(Center: gp_Pnt, PtAxis: gp_Pnt, Radius: Standard_Real);
     constructor(Axis: gp_Ax1, Radius: Standard_Real);
     Value(): Handle_Geom_Circle;
+    delete(): void;
+}
+export declare class GC_MakeEllipse extends GC_Root {
+    constructor(E: gp_Elips);
+    constructor(A2: gp_Ax2, MajorRadius: Standard_Real, MinorRadius: Standard_Real);
+    constructor(S1: gp_Pnt, S2: gp_Pnt, Center: gp_Pnt);
+    Value(): Handle_Geom_Ellipse;
+    delete(): void;
+}
+export declare class GC_MakeHyperbola extends GC_Root {
+    constructor(H: gp_Hypr);
+    constructor(A2: gp_Ax2, MajorRadius: Standard_Real, MinorRadius: Standard_Real);
+    constructor(S1: gp_Pnt, S2: gp_Pnt, Center: gp_Pnt);
+    Value(): Handle_Geom_Hyperbola;
     delete(): void;
 }
 export declare class GC_MakeSegment extends GC_Root {
@@ -7474,7 +7509,12 @@ export declare class OpenCascadeInstance {
     Extrema_ExtAlgo: Extrema_ExtAlgo;
     Extrema_ExtFlag: Extrema_ExtFlag;
     GC_MakeArcOfCircle: typeof GC_MakeArcOfCircle;
+    GC_MakeArcOfEllipse: typeof GC_MakeArcOfEllipse;
+    GC_MakeArcOfHyperbola: typeof GC_MakeArcOfHyperbola;
+    GC_MakeArcOfParabola: typeof GC_MakeArcOfParabola;
     GC_MakeCircle: typeof GC_MakeCircle;
+    GC_MakeEllipse: typeof GC_MakeEllipse;
+    GC_MakeHyperbola: typeof GC_MakeHyperbola;
     GC_MakeSegment: typeof GC_MakeSegment;
     GC_Root: typeof GC_Root;
     GProp_GProps: typeof GProp_GProps;
