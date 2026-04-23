@@ -4159,6 +4159,49 @@ export declare class Poly_Polygon2D extends Standard_Transient {
     Deflection(): Standard_Real;
     Deflection(theDefl: Standard_Real): void;
 }
+export declare class Poly_Polygon3D extends Standard_Transient {
+    constructor(theNbNodes: Graphic3d_ZLayerId, theHasParams: Standard_Boolean);
+    constructor(Nodes: TColgp_Array1OfPnt);
+    constructor(Nodes: TColgp_Array1OfPnt, Parameters: IntTools_CArray1OfReal);
+    Copy(): Handle_Poly_Polygon3D;
+    NbNodes(): Graphic3d_ZLayerId;
+    Nodes(): TColgp_Array1OfPnt;
+    ChangeNodes(): TColgp_Array1OfPnt;
+    HasParameters(): Standard_Boolean;
+    Parameters(): IntTools_CArray1OfReal;
+    ChangeParameters(): IntTools_CArray1OfReal;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    delete(): void;
+    Deflection(): Standard_Real;
+    Deflection(theDefl: Standard_Real): void;
+}
+export declare class Poly_PolygonOnTriangulation extends Standard_Transient {
+    constructor(theNbNodes: Graphic3d_ZLayerId, theHasParams: Standard_Boolean);
+    constructor(Nodes: TColStd_Array1OfInteger);
+    constructor(Nodes: TColStd_Array1OfInteger, Parameters: IntTools_CArray1OfReal);
+    static get_type_name(): Standard_Character;
+    static get_type_descriptor(): Handle_Standard_Type;
+    DynamicType(): Handle_Standard_Type;
+    Copy(): Handle_Poly_PolygonOnTriangulation;
+    NbNodes(): Graphic3d_ZLayerId;
+    Node(theIndex: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+    SetNode(theIndex: Graphic3d_ZLayerId, theNode: Graphic3d_ZLayerId): void;
+    HasParameters(): Standard_Boolean;
+    Parameter(theIndex: Graphic3d_ZLayerId): Standard_Real;
+    SetParameter(theIndex: Graphic3d_ZLayerId, theValue: Standard_Real): void;
+    SetParameters(theParameters: Handle_TColStd_HArray1OfReal): void;
+    DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+    Nodes(): TColStd_Array1OfInteger;
+    Parameters(): Handle_TColStd_HArray1OfReal;
+    ChangeNodes(): TColStd_Array1OfInteger;
+    ChangeParameters(): IntTools_CArray1OfReal;
+    delete(): void;
+    Deflection(): Standard_Real;
+    Deflection(theDefl: Standard_Real): void;
+}
 export declare class Poly_Triangulation extends Standard_Transient {
     constructor();
     constructor(theNbNodes: Graphic3d_ZLayerId, theNbTriangles: Graphic3d_ZLayerId, theHasUVNodes: Standard_Boolean, theHasNormals: Standard_Boolean);
@@ -7603,7 +7646,9 @@ export declare class OpenCascadeInstance {
     Handle_Poly_Polygon2D: typeof Handle_Poly_Polygon2D;
     Poly_Polygon2D: typeof Poly_Polygon2D;
     Handle_Poly_Polygon3D: typeof Handle_Poly_Polygon3D;
+    Poly_Polygon3D: typeof Poly_Polygon3D;
     Handle_Poly_PolygonOnTriangulation: typeof Handle_Poly_PolygonOnTriangulation;
+    Poly_PolygonOnTriangulation: typeof Poly_PolygonOnTriangulation;
     Poly_Triangle: typeof Poly_Triangle;
     Handle_Poly_Triangulation: typeof Handle_Poly_Triangulation;
     Poly_Triangulation: typeof Poly_Triangulation;

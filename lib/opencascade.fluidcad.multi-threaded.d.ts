@@ -5057,6 +5057,35 @@ export declare class Handle_Poly_Polygon3D {
     constructor(theHandle: Handle_Poly_Polygon3D);
   }
 
+export declare class Poly_Polygon3D extends Standard_Transient {
+  Copy(): Handle_Poly_Polygon3D;
+  Deflection_1(): Standard_Real;
+  Deflection_2(theDefl: Standard_Real): void;
+  NbNodes(): Graphic3d_ZLayerId;
+  Nodes(): TColgp_Array1OfPnt;
+  ChangeNodes(): TColgp_Array1OfPnt;
+  HasParameters(): Standard_Boolean;
+  Parameters(): IntTools_CArray1OfReal;
+  ChangeParameters(): IntTools_CArray1OfReal;
+  DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+  static get_type_name(): Standard_Character;
+  static get_type_descriptor(): Handle_Standard_Type;
+  DynamicType(): Handle_Standard_Type;
+  delete(): void;
+}
+
+  export declare class Poly_Polygon3D_1 extends Poly_Polygon3D {
+    constructor(theNbNodes: Graphic3d_ZLayerId, theHasParams: Standard_Boolean);
+  }
+
+  export declare class Poly_Polygon3D_2 extends Poly_Polygon3D {
+    constructor(Nodes: TColgp_Array1OfPnt);
+  }
+
+  export declare class Poly_Polygon3D_3 extends Poly_Polygon3D {
+    constructor(Nodes: TColgp_Array1OfPnt, Parameters: IntTools_CArray1OfReal);
+  }
+
 export declare class Handle_Poly_PolygonOnTriangulation {
   Nullify(): void;
   IsNull(): boolean;
@@ -5079,6 +5108,40 @@ export declare class Handle_Poly_PolygonOnTriangulation {
 
   export declare class Handle_Poly_PolygonOnTriangulation_4 extends Handle_Poly_PolygonOnTriangulation {
     constructor(theHandle: Handle_Poly_PolygonOnTriangulation);
+  }
+
+export declare class Poly_PolygonOnTriangulation extends Standard_Transient {
+  static get_type_name(): Standard_Character;
+  static get_type_descriptor(): Handle_Standard_Type;
+  DynamicType(): Handle_Standard_Type;
+  Copy(): Handle_Poly_PolygonOnTriangulation;
+  Deflection_1(): Standard_Real;
+  Deflection_2(theDefl: Standard_Real): void;
+  NbNodes(): Graphic3d_ZLayerId;
+  Node(theIndex: Graphic3d_ZLayerId): Graphic3d_ZLayerId;
+  SetNode(theIndex: Graphic3d_ZLayerId, theNode: Graphic3d_ZLayerId): void;
+  HasParameters(): Standard_Boolean;
+  Parameter(theIndex: Graphic3d_ZLayerId): Standard_Real;
+  SetParameter(theIndex: Graphic3d_ZLayerId, theValue: Standard_Real): void;
+  SetParameters(theParameters: Handle_TColStd_HArray1OfReal): void;
+  DumpJson(theOStream: Standard_OStream, theDepth: Graphic3d_ZLayerId): void;
+  Nodes(): TColStd_Array1OfInteger;
+  Parameters(): Handle_TColStd_HArray1OfReal;
+  ChangeNodes(): TColStd_Array1OfInteger;
+  ChangeParameters(): IntTools_CArray1OfReal;
+  delete(): void;
+}
+
+  export declare class Poly_PolygonOnTriangulation_1 extends Poly_PolygonOnTriangulation {
+    constructor(theNbNodes: Graphic3d_ZLayerId, theHasParams: Standard_Boolean);
+  }
+
+  export declare class Poly_PolygonOnTriangulation_2 extends Poly_PolygonOnTriangulation {
+    constructor(Nodes: TColStd_Array1OfInteger);
+  }
+
+  export declare class Poly_PolygonOnTriangulation_3 extends Poly_PolygonOnTriangulation {
+    constructor(Nodes: TColStd_Array1OfInteger, Parameters: IntTools_CArray1OfReal);
   }
 
 export declare class Poly_Triangle {
@@ -11370,11 +11433,19 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   Handle_Poly_Polygon3D_2: typeof Handle_Poly_Polygon3D_2;
   Handle_Poly_Polygon3D_3: typeof Handle_Poly_Polygon3D_3;
   Handle_Poly_Polygon3D_4: typeof Handle_Poly_Polygon3D_4;
+  Poly_Polygon3D: typeof Poly_Polygon3D;
+  Poly_Polygon3D_1: typeof Poly_Polygon3D_1;
+  Poly_Polygon3D_2: typeof Poly_Polygon3D_2;
+  Poly_Polygon3D_3: typeof Poly_Polygon3D_3;
   Handle_Poly_PolygonOnTriangulation: typeof Handle_Poly_PolygonOnTriangulation;
   Handle_Poly_PolygonOnTriangulation_1: typeof Handle_Poly_PolygonOnTriangulation_1;
   Handle_Poly_PolygonOnTriangulation_2: typeof Handle_Poly_PolygonOnTriangulation_2;
   Handle_Poly_PolygonOnTriangulation_3: typeof Handle_Poly_PolygonOnTriangulation_3;
   Handle_Poly_PolygonOnTriangulation_4: typeof Handle_Poly_PolygonOnTriangulation_4;
+  Poly_PolygonOnTriangulation: typeof Poly_PolygonOnTriangulation;
+  Poly_PolygonOnTriangulation_1: typeof Poly_PolygonOnTriangulation_1;
+  Poly_PolygonOnTriangulation_2: typeof Poly_PolygonOnTriangulation_2;
+  Poly_PolygonOnTriangulation_3: typeof Poly_PolygonOnTriangulation_3;
   Poly_Triangle: typeof Poly_Triangle;
   Poly_Triangle_1: typeof Poly_Triangle_1;
   Poly_Triangle_2: typeof Poly_Triangle_2;
