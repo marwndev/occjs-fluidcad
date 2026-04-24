@@ -1,4 +1,4 @@
-export type { BRepBuilderAPI_TransitionMode, BRepFill_TypeOfContact, BRepOffset_Mode, ChFi3d_FilletShape, Extrema_ExtAlgo, Extrema_ExtFlag, GccEnt_Position, GeomAbs_CurveType, GeomAbs_JoinType, GeomAbs_Shape, GeomAbs_SurfaceType, IFSelect_ReturnStatus, Quantity_TypeOfColor, STEPControl_StepModelType, TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State, XCAFDoc_ColorType } from "opencascade.js/dist/opencascade.full.js";
+export type { BOPAlgo_GlueEnum, BRepBuilderAPI_TransitionMode, BRepFill_TypeOfContact, BRepOffset_Mode, ChFi3d_FilletShape, Extrema_ExtAlgo, Extrema_ExtFlag, GccEnt_Position, GeomAbs_CurveType, GeomAbs_JoinType, GeomAbs_Shape, GeomAbs_SurfaceType, IFSelect_ReturnStatus, Quantity_TypeOfColor, STEPControl_StepModelType, TopAbs_Orientation, TopAbs_ShapeEnum, TopAbs_State, XCAFDoc_ColorType } from "opencascade.js/dist/opencascade.full.js";
 export declare class Handle_Adaptor2d_Curve2d {
     constructor();
     constructor(thePtr: Adaptor2d_Curve2d);
@@ -7467,6 +7467,7 @@ export declare class OpenCascadeInstance {
     BOPAlgo_Builder: typeof BOPAlgo_Builder;
     BOPAlgo_BuilderShape: typeof BOPAlgo_BuilderShape;
     BOPAlgo_CellsBuilder: typeof BOPAlgo_CellsBuilder;
+    BOPAlgo_GlueEnum: BOPAlgo_GlueEnum;
     BOPAlgo_Options: typeof BOPAlgo_Options;
     BOPAlgo_Splitter: typeof BOPAlgo_Splitter;
     BOPAlgo_ToolsProvider: typeof BOPAlgo_ToolsProvider;

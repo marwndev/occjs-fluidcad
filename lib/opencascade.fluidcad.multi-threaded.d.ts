@@ -328,6 +328,12 @@ export declare class BOPAlgo_CellsBuilder extends BOPAlgo_Builder {
     constructor(theAllocator: Handle_NCollection_BaseAllocator);
   }
 
+export declare type BOPAlgo_GlueEnum = {
+  BOPAlgo_GlueOff: {};
+  BOPAlgo_GlueShift: {};
+  BOPAlgo_GlueFull: {};
+}
+
 export declare class BOPAlgo_Options {
   Allocator(): Handle_NCollection_BaseAllocator;
   Clear(): void;
@@ -10786,6 +10792,7 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   BOPAlgo_CellsBuilder: typeof BOPAlgo_CellsBuilder;
   BOPAlgo_CellsBuilder_1: typeof BOPAlgo_CellsBuilder_1;
   BOPAlgo_CellsBuilder_2: typeof BOPAlgo_CellsBuilder_2;
+  BOPAlgo_GlueEnum: BOPAlgo_GlueEnum;
   BOPAlgo_Options: typeof BOPAlgo_Options;
   BOPAlgo_Options_1: typeof BOPAlgo_Options_1;
   BOPAlgo_Options_2: typeof BOPAlgo_Options_2;
