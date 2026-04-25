@@ -2275,6 +2275,30 @@ export declare class BRepTools {
   delete(): void;
 }
 
+export declare class BRepTools_History extends Standard_Transient {
+  constructor()
+  static IsSupportedType(theShape: TopoDS_Shape): Standard_Boolean;
+  AddGenerated(theInitial: TopoDS_Shape, theGenerated: TopoDS_Shape): void;
+  AddModified(theInitial: TopoDS_Shape, theModified: TopoDS_Shape): void;
+  Remove(theRemoved: TopoDS_Shape): void;
+  ReplaceGenerated(theInitial: TopoDS_Shape, theGenerated: TopoDS_Shape): void;
+  ReplaceModified(theInitial: TopoDS_Shape, theModified: TopoDS_Shape): void;
+  Clear(): void;
+  Generated(theInitial: TopoDS_Shape): TopTools_ListOfShape;
+  Modified(theInitial: TopoDS_Shape): TopTools_ListOfShape;
+  IsRemoved(theInitial: TopoDS_Shape): Standard_Boolean;
+  HasGenerated(): Standard_Boolean;
+  HasModified(): Standard_Boolean;
+  HasRemoved(): Standard_Boolean;
+  Merge_1(theHistory23: Handle_BRepTools_History): void;
+  Merge_2(theHistory23: BRepTools_History): void;
+  Dump(theS: Standard_OStream): void;
+  static get_type_name(): Standard_Character;
+  static get_type_descriptor(): Handle_Standard_Type;
+  DynamicType(): Handle_Standard_Type;
+  delete(): void;
+}
+
 export declare class Handle_BRepTools_History {
   Nullify(): void;
   IsNull(): boolean;
@@ -11058,6 +11082,7 @@ export type OpenCascadeInstance = {FS: typeof FS} & {
   BRepSweep_Revol_1: typeof BRepSweep_Revol_1;
   BRepSweep_Revol_2: typeof BRepSweep_Revol_2;
   BRepTools: typeof BRepTools;
+  BRepTools_History: typeof BRepTools_History;
   Handle_BRepTools_History: typeof Handle_BRepTools_History;
   Handle_BRepTools_History_1: typeof Handle_BRepTools_History_1;
   Handle_BRepTools_History_2: typeof Handle_BRepTools_History_2;
